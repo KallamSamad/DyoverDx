@@ -1,10 +1,12 @@
-// JavaScript for toggling the banner visibility
-document.getElementById('banner-toggle').addEventListener('click', function() {
-    var banner = document.getElementById('black-banner');
-    // Toggle the visibility of the banner
-    if (banner.style.display === 'none' || banner.style.display === '') {
-        banner.style.display = 'flex'; // Show the banner
+// Toggle the visibility of the black banner when the hamburger menu is clicked
+const bannerToggle = document.getElementById('banner-toggle');
+const blackBanner = document.getElementById('black-banner');
+
+bannerToggle.addEventListener('click', () => {
+    // Toggle the display of the banner
+    if (blackBanner.style.display === 'none' || blackBanner.style.display === '') {
+        blackBanner.style.display = 'flex'; // Show the banner
     } else {
-        banner.style.display = 'none'; // Hide the banner
+        blackBanner.style.display = 'none'; // Hide the banner
     }
 });
