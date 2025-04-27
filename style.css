@@ -1,27 +1,29 @@
 /* Default styles for larger screens */
 body {
     font-size: 18px; /* Default font size for larger screens */
+    font-family: 'Roboto', sans-serif;
     color: yellow;
-    background-color: black; /* Set background to black */
     align-text:center
 }
 
 header h1 {
     font-size: 32px; /* Default font size for h1 in header */
-    color: yellow;
+    font-family: 'Roboto', sans-serif;
+    color: blue;
 }
 
 /* Media query for screens 768px or smaller (tablets and mobile devices) */
 @media (max-width: 768px) {
     body {
         font-size: 16px;
-        color: yellow; /* Smaller font size for mobile */
-        background-color: black; /* Background remains black for mobile */
+        font-family: 'Roboto', sans-serif;
+        color: black; /* Smaller font size for mobile */
     }
 
     header h1 {
         font-size: 24px; 
-        color: yellow; /* Smaller font size for header h1 on mobile */
+        font-family: 'Roboto', sans-serif;
+        color: blue; /* Smaller font size for header h1 on mobile */
     }
 }
 
