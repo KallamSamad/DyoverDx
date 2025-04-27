@@ -4,12 +4,16 @@ body {
     font-family: 'Roboto', sans-serif;
     color: black;
     text-align: center; /* Added missing semicolon */
+    border: 2px solid black; /* Add a solid black border around the body */
+    padding: 20px; /* Optional: Add some padding inside the border */
 }
 
 header h1 {
     font-size: clamp(24px, 4vw, 32px); /* Fluid font size for h1 */
     font-family: 'Roboto', sans-serif;
     color: blue;
+    border: 2px solid blue; /* Add a border around the header */
+    padding: 10px; /* Optional: Add some padding inside the header border */
 }
 
 /* Media query for screens 768px or smaller (tablets and mobile devices) */
@@ -18,11 +22,15 @@ header h1 {
         font-size: clamp(14px, 3vw, 16px); /* Fluid font size for mobile with a smaller min size */
         font-family: 'Roboto', sans-serif;
         color: black; /* Smaller font size for mobile */
+        border: 1px solid black; /* Smaller border on mobile */
+        padding: 10px; /* Adjust padding on mobile */
     }
 
     header h1 {
         font-size: clamp(20px, 5vw, 24px); /* Fluid font size for header h1 on mobile */
         font-family: 'Roboto', sans-serif;
         color: blue;
+        border: 1px solid blue; /* Smaller border on mobile */
+        padding: 8px; /* Adjust padding on mobile */
     }
 }
