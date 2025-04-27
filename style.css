@@ -1,11 +1,11 @@
 body {
-    font-size: clamp(16px, 2vw, 18px); /* Fluid font size with min, preferred, and max values */
+    font-size: clamp(16px, 2vw, 18px);
     font-family: 'Roboto', sans-serif;
     color: black;
-    text-align: center; /* Center align text */
-    border: 2px solid black; /* Add a solid black border around the body */
-    padding: 20px; /* Optional: Add some padding inside the border */
-    position: relative; /* To position the pseudo-element */
+    text-align: center;
+    border: 2px solid black;
+    padding: 20px;
+    position: relative;
 }
 
 body::after {
@@ -14,18 +14,19 @@ body::after {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, black 0%, black 5%, transparent 5%); /* Black rectangle from the top */
-    pointer-events: none; /* Ensures the pseudo-element doesn't interfere with other interactions */
+    height: 10px; /* Adjust height as needed */
+    background-color: black;
+    pointer-events: none; 
+    z-index: -1; /* Ensure the pseudo-element stays in the background */
 }
 
 header h1 {
-    font-size: clamp(24px, 4vw, 32px); /* Fluid font size for h1 */
+    font-size: clamp(24px, 4vw, 32px);
     font-family: 'Roboto', sans-serif;
     color: blue;
-    border: 2px solid blue; /* Add a border around the header */
-    padding: 10px; /* Optional: Add some padding inside the header border */
-    position: relative; /* To position the pseudo-element */
+    border: 2px solid blue;
+    padding: 10px;
+    position: relative;
 }
 
 header h1::after {
@@ -34,32 +35,28 @@ header h1::after {
     top: 100%;
     left: 0;
     width: 100%;
-    height: 10px; /* Height of the rectangle */
-    background-color: black; /* Black color for the rectangle */
+    height: 15px; /* Adjust height as needed */
+    background-color: black;
+    z-index: -1; /* Ensure the pseudo-element stays in the background */
 }
 
 @media (max-width: 768px) {
     body {
-        font-size: clamp(18px, 4vw, 22px); /* Larger font size for mobile */
-        font-family: 'Roboto', sans-serif;
-        color: black; /* Smaller font size for mobile */
-        border: 1px solid black; /* Smaller border on mobile */
-        padding: 10px; /* Adjust padding on mobile */
+        font-size: clamp(18px, 4vw, 22px);
+        padding: 10px;
     }
 
     body::after {
-        background: linear-gradient(to bottom, black 0%, black 10%, transparent 10%); /* Larger black rectangle on mobile */
+        height: 20px; /* Bigger rectangle on mobile */
+        background: linear-gradient(to bottom, black 0%, black 10%, transparent 10%);
     }
 
     header h1 {
-        font-size: clamp(28px, 6vw, 36px); /* Larger fluid font size for header h1 on mobile */
-        font-family: 'Roboto', sans-serif;
-        color: blue;
-        border: 1px solid blue; /* Smaller border on mobile */
-        padding: 8px; /* Adjust padding on mobile */
+        font-size: clamp(28px, 6vw, 36px);
+        padding: 8px;
     }
 
     header h1::after {
-        height: 15px; /* Larger rectangle for mobile header */
+        height: 25px; /* Larger rectangle for mobile */
     }
 }
