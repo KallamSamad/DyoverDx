@@ -3,6 +3,7 @@ body {
     font-size: 18px; /* Default font size for larger screens */
     color: yellow;
     background-color: black; /* Set background to black */
+    align-text:center
 }
 
 header h1 {
