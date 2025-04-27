@@ -1,13 +1,13 @@
 /* Default styles for larger screens */
 body {
-    font-size: 18px; /* Default font size for larger screens */
+    font-size: clamp(16px, 2vw, 18px); /* Fluid font size with min, preferred, and max values */
     font-family: 'Roboto', sans-serif;
     color: black;
     text-align: center; /* Added missing semicolon */
 }
 
 header h1 {
-    font-size: 32px; /* Default font size for h1 in header */
+    font-size: clamp(24px, 4vw, 32px); /* Fluid font size for h1 */
     font-family: 'Roboto', sans-serif;
     color: blue;
 }
@@ -15,15 +15,14 @@ header h1 {
 /* Media query for screens 768px or smaller (tablets and mobile devices) */
 @media (max-width: 768px) {
     body {
-        font-size: 16px;
+        font-size: clamp(14px, 3vw, 16px); /* Fluid font size for mobile with a smaller min size */
         font-family: 'Roboto', sans-serif;
         color: black; /* Smaller font size for mobile */
     }
 
     header h1 {
-        font-size: 24px; 
+        font-size: clamp(20px, 5vw, 24px); /* Fluid font size for header h1 on mobile */
         font-family: 'Roboto', sans-serif;
-        color: blue; /* Smaller font size for header h1 on mobile */
+        color: blue;
     }
 }
-
