@@ -57,7 +57,7 @@ header h1 {
     }
 
     header h1 {
-        font-size: clamp(24px, 5vw, 28px); /* Slightly smaller header on mobile */
+        font-size: clamp(20px, 5vw, 24px); /* Slightly smaller header on mobile */
         padding: 10px;
     }
 
