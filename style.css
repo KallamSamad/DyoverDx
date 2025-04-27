@@ -13,9 +13,7 @@ body {
 header h1 {
     font-size: clamp(28px, 6vw, 36px); /* Slightly smaller header */
     font-family: 'Roboto', sans-serif;
-    color: blue;
-    border: 2px solid blue;
-    padding: 15px;
+    color: black;
     position: relative;
 }
 
@@ -39,8 +37,8 @@ header h1 {
     }
 
     #logo {
-        width: 40vw; /* Increase logo size on mobile */
-        max-width: 150px; /* Limit the size on mobile */
+        width: 70vw; /* Increase logo size on mobile */
+        max-width: 180px; /* Limit the size on mobile */
     }
 }
 
