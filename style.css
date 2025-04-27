@@ -3,7 +3,7 @@ body {
     font-size: 18px; /* Default font size for larger screens */
     font-family: 'Roboto', sans-serif;
     color: black;
-    align-text:center
+    text-align:center
 }
 
 header h1 {
