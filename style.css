@@ -60,8 +60,8 @@ header h1 {
     color: black;
     cursor: pointer;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 10px;
     z-index: 1000;
 }
 
