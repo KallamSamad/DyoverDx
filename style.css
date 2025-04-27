@@ -1,0 +1,19 @@
+/* Default styles for larger screens */
+body {
+    font-size: 18px; /* Default font size for larger screens */
+}
+
+header h1 {
+    font-size: 32px; /* Default font size for h1 in header */
+}
+
+/* Media query for screens 768px or smaller (tablets and mobile devices) */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px; /* Smaller font size for mobile */
+    }
+
+    header h1 {
+        font-size: 24px; /* Smaller font size for header h1 on mobile */
+    }
+}
