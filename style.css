@@ -19,8 +19,8 @@ header h1 {
 
 /* Logo scaling */
 #logo {
-    width: 30vw; /* Make logo scale relative to the viewport width */
-    max-width: 200px; /* Max width for logo */
+    width: 50vw; /* Increased the size of the logo */
+    max-width: 400px; /* Max width for logo */
     height: auto;
     transition: width 0.3s ease; /* Smooth transition on resize */
 }
@@ -62,8 +62,8 @@ header h1 {
     }
 
     #logo {
-        width: 30vw; /* Increase logo size on mobile */
-        max-width: 150px; /* Limit the size on mobile */
+        width: 70vw; /* Larger logo on mobile */
+        max-width: 250px; /* Max size for logo on mobile */
     }
 
     .black-banner {
@@ -72,7 +72,7 @@ header h1 {
     }
 
     .black-banner a {
-        font-size: 1.5rem; /* Larger text for better readability on mobile */
-        padding: 12px 20px;
+        font-size: 1rem; /* Smaller text for the links on mobile */
+        padding: 8px 15px;
     }
 }
