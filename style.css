@@ -19,8 +19,8 @@ header h1 {
 
 /* Logo scaling */
 #logo {
-    width: 50vw; /* Make logo scale relative to the viewport width */
-    max-width: 200px; /* Max width for logo */
+    width: 50vw; /* Make the logo bigger on mobile */
+    max-width: 300px; /* Max width for logo */
     height: auto;
     transition: width 0.3s ease; /* Smooth transition on resize */
 }
@@ -29,7 +29,7 @@ header h1 {
 .black-banner {
     background-color: black;
     padding: 10px 0;
-    display: flex;
+    display: none;  /* Initially hide the banner */
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -89,6 +89,12 @@ header h1 {
 
     header h1 {
         margin-top: 30px;
+    }
+
+    /* Increase logo size on mobile */
+    #logo {
+        width: 70vw; /* Make the logo larger on mobile */
+        max-width: 300px; /* Limit the size of the logo */
     }
 }
 
