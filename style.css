@@ -34,6 +34,7 @@ header h1 {
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
+    margin-top: 20px; /* Space between logo and banner */
 }
 
 .black-banner a {
