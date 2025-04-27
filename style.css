@@ -81,20 +81,23 @@ header h1 {
         font-size: 1.5rem; /* Larger text for better readability on mobile */
         padding: 12px 20px;
     }
-}
 
-/* For desktop/web view - hamburger is visible and larger */
-@media (min-width: 769px) {
-    .banner-toggle {
-        display: block; /* Always display the button on larger screens */
-        font-size: 50px;  /* Larger button for web */
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        z-index: 1000; /* Ensure it's on top */
+    /* Position the hamburger button above the logo */
+    header {
+        position: relative;
     }
 
-    /* Adjust links in banner for desktop */
+    header h1 {
+        margin-top: 30px;
+    }
+}
+
+/* For desktop/web view - hamburger is hidden */
+@media (min-width: 769px) {
+    .banner-toggle {
+        display: none;  /* Hide the hamburger button on larger screens */
+    }
+
     .black-banner {
         flex-direction: row; /* Keep links in a horizontal row on larger screens */
         padding: 15px;
