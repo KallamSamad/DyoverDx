@@ -60,8 +60,8 @@ header h1 {
     color: black;
     cursor: pointer;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 20px; /* Adjust top position for spacing from the top of the screen */
+    left: 20px; /* Adjust left position to ensure it's near the border */
     z-index: 1000; /* Ensure it's on top */
 }
 
@@ -70,6 +70,8 @@ header h1 {
     .banner-toggle {
         display: block; /* Display on mobile */
         font-size: 50px; /* Adjust font size for mobile */
+        top: 15px; /* Position the hamburger slightly below the top border */
+        left: 15px; /* Position the hamburger away from the left border */
     }
 
     .black-banner {
