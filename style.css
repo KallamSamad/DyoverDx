@@ -19,8 +19,8 @@ header h1 {
 
 /* Logo scaling */
 #logo {
-    width: 50vw; /* Increased the size of the logo */
-    max-width: 400px; /* Max width for logo */
+    width: 30vw; /* Make logo scale relative to the viewport width */
+    max-width: 200px; /* Max width for logo */
     height: auto;
     transition: width 0.3s ease; /* Smooth transition on resize */
 }
@@ -29,7 +29,7 @@ header h1 {
 .black-banner {
     background-color: black;
     padding: 10px 0;
-    display: none; /* Initially hidden */
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -50,32 +50,25 @@ header h1 {
     color: black;
 }
 
-/* Hamburger Button for Mobile */
+/* Hamburger Menu Button */
 .banner-toggle {
-    background-color: black;
-    color: white;
-    font-size: 2rem;
+    display: none;  /* Hidden by default, shown only on mobile */
+    font-size: 40px; /* Size for mobile (adjust as needed) */
+    background: none;
     border: none;
+    color: black;
     cursor: pointer;
-    padding: 10px;
-    margin-top: 20px;
-    display: none; /* Hidden by default */
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000; /* Ensure it's on top */
 }
 
-/* Media query for mobile screens */
+/* Show hamburger button only on mobile */
 @media (max-width: 768px) {
-    body {
-        font-size: clamp(20px, 5vw, 24px); /* Bigger body text */
-    }
-
-    header h1 {
-        font-size: clamp(20px, 5vw, 24px); /* Slightly smaller header on mobile */
-        padding: 10px;
-    }
-
-    #logo {
-        width: 70vw; /* Larger logo on mobile */
-        max-width: 250px; /* Max size for logo on mobile */
+    .banner-toggle {
+        display: block; /* Display on mobile */
+        font-size: 50px; /* Adjust font size for mobile */
     }
 
     .black-banner {
@@ -84,11 +77,29 @@ header h1 {
     }
 
     .black-banner a {
-        font-size: 1rem; /* Smaller text for the links on mobile */
-        padding: 8px 15px;
+        font-size: 1.5rem; /* Larger text for better readability on mobile */
+        padding: 12px 20px;
+    }
+}
+
+/* For desktop/web view - hamburger is visible and larger */
+@media (min-width: 769px) {
+    .banner-toggle {
+        display: block; /* Always display the button on larger screens */
+        font-size: 50px;  /* Larger button for web */
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1000; /* Ensure it's on top */
     }
 
-    .banner-toggle {
-        display: block; /* Show the toggle button on mobile */
+    /* Adjust links in banner for desktop */
+    .black-banner {
+        flex-direction: row; /* Keep links in a horizontal row on larger screens */
+        padding: 15px;
+    }
+
+    .black-banner a {
+        font-size: 1.2rem; /* Default font size for links */
     }
 }
