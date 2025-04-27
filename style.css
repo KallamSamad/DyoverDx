@@ -3,7 +3,7 @@ body {
     font-size: 18px; /* Default font size for larger screens */
     font-family: 'Roboto', sans-serif;
     color: black;
-    text-align:center
+    text-align: center; /* Added missing semicolon */
 }
 
 header h1 {
