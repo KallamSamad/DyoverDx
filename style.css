@@ -14,10 +14,9 @@ header h1 {
     font-size: clamp(28px, 6vw, 36px);
     font-family: 'Roboto', sans-serif;
     color: black;
-    position: relative;
 }
 
-/* Logo scaling */
+/* Logo Scaling */
 #logo {
     width: 50vw;
     max-width: 300px;
@@ -29,12 +28,12 @@ header h1 {
 .black-banner {
     background-color: black;
     padding: 10px 0;
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     gap: 15px;
     margin-top: 20px;
-    display: flex; /* Show the banner by default for web */
+    flex-wrap: wrap;
 }
 
 .black-banner a {
@@ -54,14 +53,14 @@ header h1 {
 /* Hamburger Menu Button */
 .banner-toggle {
     display: none;  /* Hidden by default on web */
-    font-size: 40px;
+    font-size: 60px;
     background: none;
     border: none;
     color: black;
     cursor: pointer;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 10px;  /* Move hamburger closer to the left edge */
     z-index: 1000;
 }
 
@@ -71,7 +70,7 @@ header h1 {
         display: block;  /* Show on mobile */
         font-size: 60px;  /* Bigger hamburger button on mobile */
         top: 15px;
-        left: 15px;
+        left: 10px;  /* Ensure it is closer to the left edge */
     }
 
     .black-banner {
@@ -95,7 +94,7 @@ header h1 {
     }
 
     #logo {
-        width: 50vw;
+        width: 70vw;
         max-width: 300px;
     }
 }
