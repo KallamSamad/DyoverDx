@@ -1,75 +1,45 @@
-/* General body styling */
+/* Basic Body Styling */
 body {
-    font-size: clamp(16px, 2vw, 18px);
+    font-size: clamp(20px, 5vw, 24px); /* Bigger text on phones */
+    padding: 20px;
     font-family: 'Roboto', sans-serif;
     color: black;
     text-align: center;
     border: 2px solid black;
-    padding: 20px;
     position: relative;
 }
 
-/* Header styling */
+/* Header Styling */
 header h1 {
-    font-size: clamp(24px, 4vw, 32px);
+    font-size: clamp(28px, 6vw, 36px); /* Slightly smaller header */
     font-family: 'Roboto', sans-serif;
     color: blue;
     border: 2px solid blue;
-    padding: 10px;
+    padding: 15px;
     position: relative;
 }
 
-/* Styling for the links */
-a {
-    font-size: clamp(16px, 2vw, 18px);
-    font-family: 'Roboto', sans-serif;
-    color: blue;
-    text-decoration: none;
-    position: relative;
-    padding: 10px;
+/* Logo scaling */
+#logo {
+    width: 20vw; /* Make logo scale relative to the viewport width */
+    max-width: 200px; /* Max width for logo */
+    height: auto;
+    transition: width 0.3s ease; /* Smooth transition on resize */
 }
 
-/* Black rectangles on the sides of links */
-a::before,
-a::after {
-    content: '';
-    position: absolute;
-    width: 10px; /* Width of the rectangles */
-    background-color: black;
-    top: 0;
-    bottom: 0;
-    pointer-events: none;
-}
-
-/* Left rectangle */
-a::before {
-    left: -15px; /* Position rectangle on the left */
-}
-
-/* Right rectangle */
-a::after {
-    right: -15px; /* Position rectangle on the right */
-}
-
-/* Media query for mobile devices */
+/* Media query for mobile screens */
 @media (max-width: 768px) {
     body {
-        font-size: clamp(20px, 5vw, 24px); /* Bigger text on phones */
-        padding: 20px;
+        font-size: clamp(20px, 5vw, 24px); /* Bigger body text */
     }
 
     header h1 {
-        font-size: clamp(32px, 7vw, 40px); /* Bigger heading on phones */
-        padding: 15px;
+        font-size: clamp(24px, 5vw, 28px); /* Slightly smaller header on mobile */
+        padding: 10px;
     }
 
-    a {
-        font-size: clamp(22px, 6vw, 26px); /* Bigger links */
-        padding: 15px;
-    }
-
-    a::before,
-    a::after {
-        width: 15px; /* Side rectangles bigger */
+    #logo {
+        width: 30vw; /* Increase logo size on mobile */
+        max-width: 150px; /* Limit the size on mobile */
     }
 }
