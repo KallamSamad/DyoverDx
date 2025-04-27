@@ -13,9 +13,7 @@ body {
 header h1 {
     font-size: clamp(28px, 6vw, 36px); 
     font-family: 'Roboto', sans-serif;
-    color: blue;
-    border: 2px solid blue;
-    padding: 15px;
+    color: black;
     position: relative;
 }
 
