@@ -34,7 +34,7 @@ header h1 {
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
-    display: none; /* Hide by default */
+    display: none; /* Initially hidden */
 }
 
 .black-banner a {
@@ -60,7 +60,7 @@ header h1 {
     cursor: pointer;
     padding: 10px;
     margin-top: 20px;
-    display: none; /* Hide initially */
+    display: none; /* Hidden by default */
 }
 
 /* Media query for mobile screens */
@@ -90,6 +90,6 @@ header h1 {
     }
 
     .banner-toggle {
-        display: block; /* Show the toggle button */
+        display: block; /* Show the toggle button on mobile */
     }
 }
