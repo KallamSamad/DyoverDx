@@ -1,6 +1,6 @@
 /* Basic Body Styling */
 body {
-    font-size: clamp(20px, 5vw, 24px); /* Bigger text on phones */
+    font-size: clamp(20px, 5vw, 24px);
     padding: 20px;
     font-family: 'Roboto', sans-serif;
     color: black;
@@ -11,7 +11,7 @@ body {
 
 /* Header Styling */
 header h1 {
-    font-size: clamp(28px, 6vw, 36px); /* Slightly smaller header */
+    font-size: clamp(28px, 6vw, 36px);
     font-family: 'Roboto', sans-serif;
     color: black;
     position: relative;
@@ -19,22 +19,22 @@ header h1 {
 
 /* Logo scaling */
 #logo {
-    width: 50vw; /* Make the logo bigger on mobile */
-    max-width: 300px; /* Max width for logo */
+    width: 50vw;
+    max-width: 300px;
     height: auto;
-    transition: width 0.3s ease; /* Smooth transition on resize */
+    transition: width 0.3s ease;
 }
 
 /* Black Banner with Links */
 .black-banner {
     background-color: black;
     padding: 10px 0;
-    display: none;  /* Initially hide the banner on mobile */
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
-    margin-top: 20px; /* Space between logo and banner */
+    margin-top: 20px;
+    display: flex; /* Show the banner by default for web */
 }
 
 .black-banner a {
@@ -53,38 +53,39 @@ header h1 {
 
 /* Hamburger Menu Button */
 .banner-toggle {
-    display: none;  /* Hidden by default, shown only on mobile */
-    font-size: 40px; /* Size for mobile (adjust as needed) */
+    display: none;  /* Hidden by default on web */
+    font-size: 40px;
     background: none;
     border: none;
     color: black;
     cursor: pointer;
     position: absolute;
-    top: 20px; /* Adjust top position for spacing from the top of the screen */
-    left: 20px; /* Adjust left position to ensure it's near the border */
-    z-index: 1000; /* Ensure it's on top */
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
 }
 
 /* Show hamburger button only on mobile */
 @media (max-width: 768px) {
     .banner-toggle {
-        display: block; /* Display on mobile */
-        font-size: 60px; /* Bigger size for mobile */
-        top: 15px; /* Position the hamburger slightly below the top border */
-        left: 15px; /* Position the hamburger away from the left border */
+        display: block;  /* Show on mobile */
+        font-size: 60px;  /* Bigger hamburger button on mobile */
+        top: 15px;
+        left: 15px;
     }
 
     .black-banner {
-        flex-direction: column; /* Stack the links vertically */
+        display: none;  /* Hide the banner by default on mobile */
+        flex-direction: column;
         padding: 15px;
     }
 
     .black-banner a {
-        font-size: 1.5rem; /* Larger text for better readability on mobile */
+        font-size: 1.5rem;
         padding: 12px 20px;
     }
 
-    /* Position the hamburger button above the logo */
+    /* Position hamburger above the logo */
     header {
         position: relative;
     }
@@ -93,28 +94,8 @@ header h1 {
         margin-top: 30px;
     }
 
-    /* Increase logo size on mobile */
     #logo {
-        width: 70vw; /* Make the logo larger on mobile */
-        max-width: 300px; /* Limit the size of the logo */
-    }
-}
-
-/* For desktop/web view - hamburger is bigger */
-@media (min-width: 769px) {
-    .banner-toggle {
-        display: block;  /* Display the hamburger button on web version */
-        font-size: 80px;  /* Larger size for web */
-        top: 20px; /* Space from the top */
-        left: 20px; /* Space from the left */
-    }
-
-    .black-banner {
-        flex-direction: row; /* Keep links in a horizontal row on larger screens */
-        padding: 15px;
-    }
-
-    .black-banner a {
-        font-size: 1.2rem; /* Default font size for links */
+        width: 70vw;
+        max-width: 300px;
     }
 }
