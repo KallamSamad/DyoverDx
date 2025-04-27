@@ -59,8 +59,8 @@ header h1 {
     color: black;
     cursor: pointer;
     position: absolute;
-    top: 15px;
-    left: 10px;  /* Move hamburger closer to the left edge */
+    top: 20px;  /* Slightly more space from top edge */
+    left: 15px;  /* Provide more space from the left edge */
     z-index: 1000;
 }
 
@@ -69,8 +69,8 @@ header h1 {
     .banner-toggle {
         display: block;  /* Show on mobile */
         font-size: 60px;  /* Bigger hamburger button on mobile */
-        top: 15px;
-        left: 10px;  /* Ensure it is closer to the left edge */
+        top: 25px;  /* Add more space between the hamburger and the top of the screen */
+        left: 15px;  /* Ensure it is spaced well from the left edge */
     }
 
     .black-banner {
@@ -87,6 +87,7 @@ header h1 {
     /* Position hamburger above the logo */
     header {
         position: relative;
+        margin-top: 40px;  /* Add space between the header and hamburger button */
     }
 
     header h1 {
