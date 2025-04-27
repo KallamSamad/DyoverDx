@@ -54,23 +54,22 @@ a::after {
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     body {
-        font-size: clamp(18px, 4vw, 22px);
-        padding: 10px;
+        font-size: clamp(20px, 5vw, 24px); /* Bigger text on phones */
+        padding: 20px;
     }
 
     header h1 {
-        font-size: clamp(28px, 6vw, 36px);
-        padding: 8px;
+        font-size: clamp(32px, 7vw, 40px); /* Bigger heading on phones */
+        padding: 15px;
     }
 
     a {
-        font-size: clamp(18px, 4vw, 22px);
-        padding: 12px;
+        font-size: clamp(22px, 6vw, 26px); /* Bigger links */
+        padding: 15px;
     }
 
-    /* Larger rectangles for mobile */
     a::before,
     a::after {
-        width: 15px; /* Larger rectangles on mobile */
+        width: 15px; /* Side rectangles bigger */
     }
 }
