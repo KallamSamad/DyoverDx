@@ -8,18 +8,6 @@ body {
     position: relative;
 }
 
-body::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 10px; /* Adjust height as needed */
-    background-color: black;
-    pointer-events: none; 
-    z-index: -1; /* Ensure the pseudo-element stays in the background */
-}
-
 header h1 {
     font-size: clamp(24px, 4vw, 32px);
     font-family: 'Roboto', sans-serif;
@@ -29,15 +17,32 @@ header h1 {
     position: relative;
 }
 
-header h1::after {
+a {
+    font-size: clamp(16px, 2vw, 18px);
+    font-family: 'Roboto', sans-serif;
+    color: blue;
+    text-decoration: none;
+    position: relative;
+    padding: 10px;
+}
+
+a::before,
+a::after {
     content: '';
     position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 15px; /* Adjust height as needed */
+    width: 10px; /* Width of the rectangles */
     background-color: black;
-    z-index: -1; /* Ensure the pseudo-element stays in the background */
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+a::before {
+    left: -15px; /* Position rectangle on the left */
+}
+
+a::after {
+    right: -15px; /* Position rectangle on the right */
 }
 
 @media (max-width: 768px) {
@@ -46,17 +51,18 @@ header h1::after {
         padding: 10px;
     }
 
-    body::after {
-        height: 20px; /* Bigger rectangle on mobile */
-        background: linear-gradient(to bottom, black 0%, black 10%, transparent 10%);
-    }
-
     header h1 {
         font-size: clamp(28px, 6vw, 36px);
         padding: 8px;
     }
 
-    header h1::after {
-        height: 25px; /* Larger rectangle for mobile */
+    a {
+        font-size: clamp(18px, 4vw, 22px);
+        padding: 12px;
+    }
+
+    a::before,
+    a::after {
+        width: 15px; /* Larger rectangles on mobile */
     }
 }
