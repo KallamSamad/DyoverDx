@@ -1,3 +1,4 @@
+/* General body styling */
 body {
     font-size: clamp(16px, 2vw, 18px);
     font-family: 'Roboto', sans-serif;
@@ -8,6 +9,7 @@ body {
     position: relative;
 }
 
+/* Header styling */
 header h1 {
     font-size: clamp(24px, 4vw, 32px);
     font-family: 'Roboto', sans-serif;
@@ -17,6 +19,7 @@ header h1 {
     position: relative;
 }
 
+/* Styling for the links */
 a {
     font-size: clamp(16px, 2vw, 18px);
     font-family: 'Roboto', sans-serif;
@@ -26,6 +29,7 @@ a {
     padding: 10px;
 }
 
+/* Black rectangles on the sides of links */
 a::before,
 a::after {
     content: '';
@@ -37,14 +41,17 @@ a::after {
     pointer-events: none;
 }
 
+/* Left rectangle */
 a::before {
     left: -15px; /* Position rectangle on the left */
 }
 
+/* Right rectangle */
 a::after {
     right: -15px; /* Position rectangle on the right */
 }
 
+/* Media query for mobile devices */
 @media (max-width: 768px) {
     body {
         font-size: clamp(18px, 4vw, 22px);
@@ -61,6 +68,7 @@ a::after {
         padding: 12px;
     }
 
+    /* Larger rectangles for mobile */
     a::before,
     a::after {
         width: 15px; /* Larger rectangles on mobile */
