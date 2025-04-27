@@ -69,7 +69,7 @@ header h1 {
 @media (max-width: 768px) {
     .banner-toggle {
         display: block; /* Display on mobile */
-        font-size: 50px; /* Adjust font size for mobile */
+        font-size: 60px; /* Bigger size for mobile */
         top: 15px; /* Position the hamburger slightly below the top border */
         left: 15px; /* Position the hamburger away from the left border */
     }
@@ -100,10 +100,13 @@ header h1 {
     }
 }
 
-/* For desktop/web view - hamburger is hidden */
+/* For desktop/web view - hamburger is bigger */
 @media (min-width: 769px) {
     .banner-toggle {
-        display: none;  /* Hide the hamburger button on larger screens */
+        display: block;  /* Display the hamburger button on web version */
+        font-size: 80px;  /* Larger size for web */
+        top: 20px; /* Space from the top */
+        left: 20px; /* Space from the left */
     }
 
     .black-banner {
