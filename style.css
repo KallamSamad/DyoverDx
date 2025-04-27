@@ -21,7 +21,7 @@ header h1 {
 
 /* Logo scaling */
 #logo {
-    width: 20vw; /* Make logo scale relative to the viewport width */
+    width: 30vw; /* Make logo scale relative to the viewport width */
     max-width: 200px; /* Max width for logo */
     height: auto;
     transition: width 0.3s ease; /* Smooth transition on resize */
@@ -30,7 +30,7 @@ header h1 {
 /* Media query for mobile screens */
 @media (max-width: 768px) {
     body {
-        font-size: clamp(20px, 5vw, 24px); /* Bigger body text */
+        font-size: clamp(18px, 5vw, 22px); /* Slightly bigger text on mobile */
     }
 
     header h1 {
@@ -39,7 +39,15 @@ header h1 {
     }
 
     #logo {
-        width: 30vw; /* Increase logo size on mobile */
+        width: 40vw; /* Increase logo size on mobile */
         max-width: 150px; /* Limit the size on mobile */
+    }
+}
+
+/* Media query for larger screens */
+@media (min-width: 1024px) {
+    #logo {
+        width: 20vw; /* Reduce logo size slightly for larger screens */
+        max-width: 250px; /* Max size on larger screens */
     }
 }
