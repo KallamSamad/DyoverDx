@@ -29,12 +29,11 @@ header h1 {
 .black-banner {
     background-color: black;
     padding: 10px 0;
-    display: flex;
+    display: none; /* Initially hidden */
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
-    display: none; /* Initially hidden */
 }
 
 .black-banner a {
