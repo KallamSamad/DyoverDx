@@ -23,7 +23,7 @@ html::after {
     top: 0;
     bottom: 0;
     width: 200px; /* Adjust width to control how far out it goes */
-    background-image: url('math-background.jpg'); /* Replace with actual image link */
+    background-image: url('math1.jpg'); /* Replace with actual image link */
     background-repeat: repeat;
     background-size: 400%;
     z-index: -1;
