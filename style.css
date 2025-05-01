@@ -23,7 +23,7 @@ body::after {
     top: 0;
     width: 150px;
     height: 100vh;
-    background-image: url('maths-background.jpg'); /* replace with your actual image path */
+    background-image: url('math-background.jpg'); /* replace with your actual image path */
     background-repeat: repeat-y;
     background-size: auto;
     background-position: left top; /* aligns to top */
