@@ -116,12 +116,16 @@ header h1 {
 
     .hamburger-container {
         display: block;
-        align-text: right;/* Show hamburger on mobile */
+        text-align: right; /* Corrected */
+        margin-bottom: 10px;
     }
 
     .banner-toggle {
         font-size: 2rem;
-        visibility: visible;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.3rem 0.6rem;
     }
 
     .black-banner {
