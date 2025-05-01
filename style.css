@@ -68,7 +68,7 @@ header h1 {
 
 /* Hamburger Menu Button Styling */
 .banner-toggle {
-    display: none; /* Hide by default on desktop */
+    display: flex; /* Hide by default on desktop */
     font-size: 60px; /* Larger size for the hamburger button */
     background: none; /* No background for the button */
     border: none; /* Remove border */
