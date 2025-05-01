@@ -20,8 +20,7 @@ body {
 /* Header Styling */
 header {
     padding: 20px;
-    background-color: #3498db;
-    color: white;
+    color: black;
     text-align: center;
 }
 
@@ -105,14 +104,14 @@ section p {
 footer {
     margin-top: 40px;
     padding: 10px;
-    background-color: #3498db;
+    background-color: black;
     color: white;
 }
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
     .black-banner {
-        display: none;
+        display: flex;
         flex-direction: column;
         padding: 15px;
     }
