@@ -13,14 +13,14 @@ body {
     margin: 0 auto;
 }
 
-/* Adding background image outside the border using ::before */
+/* Adding background image outside the left and right sides using ::before */
 body::before {
     content: '';
     position: absolute;
-    top: -20px; /* Adjust according to your border width */
-    left: -20px; /* Adjust according to your border width */
-    right: -20px;
-    bottom: -20px;
+    top: 0;
+    left: -50px; /* Extends the image beyond the left side */
+    right: -50px; /* Extends the image beyond the right side */
+    bottom: 0;
     background-image: url('maths-background.jpg'); /* Add your image path here */
     background-size: cover;
     background-position: center;
