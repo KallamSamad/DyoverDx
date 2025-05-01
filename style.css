@@ -27,6 +27,7 @@ body::after {
     background-repeat: repeat-y;
     background-size: cover;
     background-position: top;
+    opacity: 0.3;
     z-index: -1;
 }
 
