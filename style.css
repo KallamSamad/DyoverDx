@@ -42,13 +42,11 @@ header h1 {
 
 /* Top Bar that contains the hamburger */
 .top-bar {
-    width: 100vw;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 0.5rem 1rem;
-    position: relative;
-    z-index: 999;
+    padding: 0.5rem 0;
+    width: 100%;
 }
 
 /* Hamburger Menu Button Styling */
