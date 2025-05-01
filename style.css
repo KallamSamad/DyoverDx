@@ -15,29 +15,30 @@ body {
     z-index: 1;
 }
 
-
-/* Add Images to Left and Right Sides */
-html::before,
-html::after {
+/* Side Background Images */
+body::before,
+body::after {
     content: "";
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 200px; /* Adjust width to control how far out it goes */
-    background-image: url('math1.jpg'); /* Replace with actual image link */
-    background-repeat: repeat;
-    background-size: 400%;
+    width: 200px;
+    background-image: url('math1.jpg'); /* Replace with your local path */
+    background-repeat: repeat-y;
+    background-size: cover;
+    background-position: top;
     z-index: -1;
+    opacity: 0.3; /* Optional: adjust for visibility */
 }
 
 /* Left side */
-html::before {
+body::before {
     left: 0;
     background-position: top left;
 }
 
 /* Right side */
-html::after {
+body::after {
     right: 0;
     background-position: top right;
 }
@@ -80,6 +81,8 @@ header h1 {
     gap: 15px;
     margin-top: 20px;
     flex-wrap: wrap;
+    z-index: 2;
+    position: relative;
 }
 
 .black-banner a {
@@ -123,7 +126,7 @@ header h1 {
     }
 
     p {
-        margin-bottom: 1.5em; /* More paragraph spacing on mobile */
+        margin-bottom: 1.5em;
     }
 
     header {
@@ -159,4 +162,5 @@ header h1 {
         font-size: 1.1rem;
         padding: 10px 15px;
         line-height: 1.3;
-    
+    }
+}
