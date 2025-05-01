@@ -114,7 +114,8 @@ header h1 {
     }
 
     .hamburger-container {
-        display: block; /* Show hamburger on mobile */
+        display: block;
+        align-text: right;/* Show hamburger on mobile */
     }
 
     .banner-toggle {
