@@ -121,6 +121,7 @@ header h1 {
 
     .banner-toggle {
         font-size: 2rem;
+        visibility: visible;
     }
 
     .black-banner {
