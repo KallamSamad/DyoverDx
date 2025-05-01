@@ -9,10 +9,12 @@ body {
     text-align: left;
     border: 2px solid black;
     position: relative;
+    max-width: 900px;
     margin: 0 auto;
     background-color: white;
     z-index: 1;
 }
+
 
 /* Add Images to Left and Right Sides */
 html::before,
