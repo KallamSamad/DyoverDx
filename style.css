@@ -43,9 +43,7 @@ header h1 {
 
 /* Hamburger Menu Container */
 .hamburger-container {
-    width: 100%;
-    text-align: right;
-    display: none; /* Hide by default, show on mobile */
+    display: none; /* Hide by default */
 }
 
 /* Hamburger Button */
@@ -54,8 +52,11 @@ header h1 {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.5rem;
-    visibility: hidden; 
+    padding: 0.3rem 0.6rem;
+    visibility: visible; /* Make sure it's visible */
+    position: absolute; /* Position it in the top-right corner */
+    top: 10px;
+    right: 10px; /* Adjust this to get it exactly where you want */
 }
 
 /* Black Banner Styling */
@@ -115,8 +116,8 @@ header h1 {
     }
 
     .hamburger-container {
-        display: block;
-        text-align: right; /* Corrected */
+        display: block; /* Show the hamburger on mobile */
+        text-align: right;
         margin-bottom: 10px;
     }
 
@@ -126,7 +127,10 @@ header h1 {
         border: none;
         cursor: pointer;
         padding: 0.3rem 0.6rem;
-        visibility: visible; /* Ensures visibility on mobile */
+        visibility: visible; /* Make sure the button is visible */
+        position: absolute;
+        top: 10px;
+        right: 10px; /* Make sure it's positioned in the top-right */
     }
 
     .black-banner {
