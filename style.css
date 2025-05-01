@@ -1,14 +1,15 @@
 /* Basic Body Styling */
 body {
-    font-size: clamp(20px, 5vw, 24px); /* Adjusts font size responsively */
+    font-size: clamp(22px, 5vw, 24px); /* Increased minimum font size for readability */
     line-height: 1.6; /* Increased line height for better readability */
     letter-spacing: 0.5px; /* Slightly increased letter spacing */
     padding: 20px;
     font-family: 'Roboto', sans-serif;
     color: black;
-    text-align: center;
-    border: 2px solid black;
+    text-align: left; /* Makes the body text easier to read */
+    border: none; /* Removed the border */
     position: relative;
+    margin-bottom: 30px; /* Added spacing at the bottom */
 }
 
 /* Header Styling */
@@ -16,14 +17,16 @@ header h1 {
     font-size: clamp(28px, 6vw, 36px); /* Responsive font size */
     font-family: 'Roboto', sans-serif;
     color: black;
-    line-height: 1.3; /* Slightly tighter line height for headers */
+    line-height: 1.4; /* Added a bit more space for headers */
     letter-spacing: 1px; /* Small space between letters for headers */
+    margin-bottom: 30px; /* Adds spacing between header and next section */
 }
 
 /* Logo Scaling */
 #logo {
     width: 50vw;
     max-width: 300px;
+    max-height: 150px; /* Limit logo height for mobile devices */
     height: auto;
     transition: width 0.3s ease;
 }
@@ -46,7 +49,7 @@ header h1 {
     font-size: 1.2rem;
     padding: 10px;
     border: 1px solid white;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s; /* Add smooth transition for scale */
     line-height: 1.4; /* Add space between lines in links if they wrap */
     letter-spacing: 0.5px; /* Spread out letters in links */
 }
@@ -54,6 +57,7 @@ header h1 {
 .black-banner a:hover {
     background-color: white;
     color: black;
+    transform: scale(1.1); /* Slight zoom effect */
 }
 
 /* Hamburger Menu Button */
@@ -65,7 +69,7 @@ header h1 {
     color: black;
     cursor: pointer;
     position: absolute;
-    top: 20px;  /* Slightly more space from top edge */
+    top: 30px;  /* Added more space above the hamburger button */
     left: 15px;  /* Provide more space from the left edge */
     z-index: 1000;
 }
@@ -75,7 +79,7 @@ header h1 {
     .banner-toggle {
         display: block;  /* Show on mobile */
         font-size: 60px;  /* Bigger hamburger button on mobile */
-        top: 25px;  /* Add more space between the hamburger and the top of the screen */
+        top: 30px;  /* Adds more space between the hamburger and the top of the screen */
         left: 15px;  /* Ensure it is spaced well from the left edge */
     }
 
@@ -83,6 +87,7 @@ header h1 {
         display: none;  /* Hide the banner by default on mobile */
         flex-direction: column;
         padding: 15px;
+        justify-content: space-between; /* Distribute space evenly for mobile */
     }
 
     .black-banner a {
