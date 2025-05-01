@@ -23,12 +23,12 @@ body::after {
     top: 0;
     width: 150px;
     height: 100vh;
-    background-image: url('maths-background.jpg'); 
-    background-size: contain;
+    background-image: url('maths-background.jpg'); /* Use your actual path */
+    background-size: 300%; /* Zoom level */
     background-repeat: no-repeat;
     background-position: center;
     z-index: -1;
-    opacity: 0.2;
+    opacity: 0.1;
 }
 
 body::before {
