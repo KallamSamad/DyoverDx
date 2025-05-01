@@ -23,7 +23,7 @@ body::after {
     top: 0;
     width: 150px;
     height: 100vh;
-    background-image: url('maths-background.png'); 
+    background-image: url('maths-background.jpg'); 
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
