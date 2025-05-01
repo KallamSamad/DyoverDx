@@ -22,12 +22,11 @@ body::after {
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 300px;
+    width: 200px;
     background-image: url('math1.jpg'); /* Replace with your local path */
     background-repeat: repeat-y;
     background-size: cover;
-    background-position: top;
-    opacity: 0.3;
+    background-position: top;;
     z-index: -1;
 }
 
