@@ -82,6 +82,16 @@ header h1 {
 
 /* Mobile-Only Styling (Responsive Media Query) */
 @media (max-width: 768px) {
+
+    /* Adjust paragraph #p1 text size on mobile */
+    #p1 {
+        font-size: clamp(12px, 5vw, 14px); /* Adjusts text size responsively on mobile */
+        line-height: 1.6; /* Ensures readability with more space between lines */
+        padding: 10px; /* Adds padding inside the paragraph */
+        word-wrap: break-word; /* Prevents text overflow */
+        overflow-wrap: break-word; /* Ensures long words wrap correctly */
+    }
+
     /* Show hamburger button on mobile */
     .banner-toggle {
         display: block; /* Makes the hamburger button visible on mobile */
@@ -97,6 +107,7 @@ header h1 {
         padding: 15px; /* More padding on mobile */
     }
 
+    /* Adjust the style for the links in the black banner on mobile */
     .black-banner a {
         font-size: 1.5rem; /* Larger font size for links on mobile */
         padding: 12px 20px; /* More padding for easier tapping */
