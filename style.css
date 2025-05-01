@@ -13,21 +13,6 @@ body {
     margin: 0 auto;
 }
 
-/* Adding background image outside the left and right sides using ::before */
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -50px; /* Extends the image beyond the left side */
-    right: -50px; /* Extends the image beyond the right side */
-    bottom: 0;
-    background-image: url('maths-background.jpg'); /* Add your image path here */
-    background-size: cover;
-    background-position: center;
-    z-index: -1; /* Ensure it's behind the body content */
-}
-
-/* Paragraph Styling */
 p {
     margin-bottom: 1.2em; /* Space between paragraphs */
 }
@@ -145,4 +130,3 @@ header h1 {
         padding: 10px 15px;
         line-height: 1.3;
     }
-}
