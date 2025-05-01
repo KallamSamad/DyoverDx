@@ -13,6 +13,21 @@ body {
     margin: 0 auto;
 }
 
+/* Adding background image outside the border using ::before */
+body::before {
+    content: '';
+    position: absolute;
+    top: -20px; /* Adjust according to your border width */
+    left: -20px; /* Adjust according to your border width */
+    right: -20px;
+    bottom: -20px;
+    background-image: url('maths-background.jpg'); /* Add your image path here */
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Ensure it's behind the body content */
+}
+
+/* Paragraph Styling */
 p {
     margin-bottom: 1.2em; /* Space between paragraphs */
 }
