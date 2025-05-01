@@ -126,6 +126,7 @@ header h1 {
         border: none;
         cursor: pointer;
         padding: 0.3rem 0.6rem;
+        visibility: visible; /* Ensures visibility on mobile */
     }
 
     .black-banner {
