@@ -1,12 +1,24 @@
 /* Basic Body Styling */
 body {
     font-size: clamp(20px, 5vw, 24px);
-    padding: 20px;
+    padding: 40px 20px; /* More vertical spacing */
     font-family: 'Roboto', sans-serif;
     color: black;
     text-align: center;
-    border: 2px solid black;
-    position: relative;
+    margin: 0 auto;
+    max-width: 1000px; /* Prevent full width stretch on large screens */
+    box-sizing: border-box;
+}
+
+/* Optional: Remove harsh border for a cleaner look */
+/* If you want a border, soften it */
+body {
+    border: none;
+    /* or use:
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 40px 20px;
+    */
 }
 
 /* Header Styling */
@@ -14,25 +26,27 @@ header h1 {
     font-size: clamp(28px, 6vw, 36px);
     font-family: 'Roboto', sans-serif;
     color: black;
+    margin-bottom: 20px; /* Extra space below header */
 }
 
 /* Logo Scaling */
 #logo {
-    width: 50vw;
+    width: 60vw;
     max-width: 300px;
     height: auto;
     transition: width 0.3s ease;
+    margin-bottom: 20px;
 }
 
 /* Black Banner with Links */
 .black-banner {
     background-color: black;
-    padding: 10px 0;
+    padding: 15px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 20px;
+    margin: 30px 0;
     flex-wrap: wrap;
 }
 
@@ -40,7 +54,7 @@ header h1 {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
-    padding: 10px;
+    padding: 10px 15px;
     border: 1px solid white;
     transition: background-color 0.3s;
 }
@@ -52,29 +66,29 @@ header h1 {
 
 /* Hamburger Menu Button */
 .banner-toggle {
-    display: none;  /* Hidden by default on web */
+    display: none;
     font-size: 60px;
     background: none;
     border: none;
     color: black;
     cursor: pointer;
     position: absolute;
-    top: 20px;  /* Slightly more space from top edge */
-    left: 15px;  /* Provide more space from the left edge */
+    top: 20px;
+    left: 15px;
     z-index: 1000;
 }
 
-/* Show hamburger button only on mobile */
+/* Responsive (Mobile) Styling */
 @media (max-width: 768px) {
     .banner-toggle {
-        display: block;  /* Show on mobile */
-        font-size: 60px;  /* Bigger hamburger button on mobile */
-        top: 25px;  /* Add more space between the hamburger and the top of the screen */
-        left: 15px;  /* Ensure it is spaced well from the left edge */
+        display: block;
+        font-size: 60px;
+        top: 25px;
+        left: 15px;
     }
 
     .black-banner {
-        display: none;  /* Hide the banner by default on mobile */
+        display: none;
         flex-direction: column;
         padding: 15px;
     }
@@ -84,10 +98,9 @@ header h1 {
         padding: 12px 20px;
     }
 
-    /* Position hamburger above the logo */
     header {
         position: relative;
-        margin-top: 40px;  /* Add space between the header and hamburger button */
+        margin-top: 40px;
     }
 
     header h1 {
