@@ -55,6 +55,7 @@ header h1 {
     border: none;
     cursor: pointer;
     padding: 0.5rem;
+    visibility: hidden; 
 }
 
 /* Black Banner Styling */
