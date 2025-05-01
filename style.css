@@ -9,12 +9,39 @@ body {
     text-align: left;
     border: 2px solid black;
     position: relative;
-    max-width: 900px; /* Optional: limits width on large screens for better readability */
+    max-width: 900px;
     margin: 0 auto;
+    background-color: white;
+    z-index: 1;
 }
 
+/* Add Images to Left and Right Sides */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    width: 150px;
+    height: 100vh;
+    background-image: url('maths-background.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+body::before {
+    left: 0;
+}
+
+body::after {
+    right: 0;
+}
+
+/* Paragraph Styling */
 p {
-    margin-bottom: 1.2em; /* Space between paragraphs */
+    margin-bottom: 1.2em;
 }
 
 /* Header Styling */
