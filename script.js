@@ -8,3 +8,11 @@ document.querySelector('.banner-toggle').addEventListener('click', function() {
         banner.style.display = 'none';  // Hide the banner
     }
 });
+function toggleSpoiler() {
+    var spoiler = document.getElementById("spoiler");
+    if (spoiler.style.display === "none") {
+        spoiler.style.display = "block";
+    } else {
+        spoiler.style.display = "none";
+    }
+}
