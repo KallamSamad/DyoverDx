@@ -4,20 +4,19 @@ body {
     line-height: 1.6;
     letter-spacing: 0.5px;
     padding: 20px;
-    font-family: 'Roboto', sans-serif;  /* Default for body */
+    font-family: 'Roboto', sans-serif;  /* Ensure the primary font is consistent */
     color: black;
     text-align: left;
     border: 2px solid black;
     max-width: 900px;
     margin: 0 auto;
     position: relative;
+    background-color: #fff; /* Ensure a clean background */
 }
 
 /* Paragraphs */
 p {
-    margin-bottom: 1.2em;
-    font-family: 'Merriweather', serif;  /* Italic serif for paragraphs */
-    font-style: italic;
+    margin-bottom: 1.5em; /* Increased margin for better readability */
 }
 
 /* Header Styling */
@@ -27,13 +26,12 @@ header {
     margin-top: 40px;
 }
 
-h1, h2, h3, h4, h5, h6  {
+h1, h2, h3, h4, h5, h6 {
     font-size: clamp(28px, 6vw, 36px);
-    font-family: 'Merriweather', serif;  /* Italic serif for headers */
+    font-family: 'Montserrat', sans-serif;  /* Added consistency in font family */
     color: #007acc;
     line-height: 1.3;
     letter-spacing: 1px;
-    font-style: italic;  /* Italic styling for headings */
 }
 
 /* Logo Styling */
@@ -45,11 +43,41 @@ h1, h2, h3, h4, h5, h6  {
     margin: 0 auto;
 }
 
+/* Hamburger Menu Container */
+.hamburger-container {
+    display: none; /* Hide by default */
+}
+
+/* Hamburger Button */
+.banner-toggle {
+    font-size: 2rem;
+    font-family: 'Montserrat', sans-serif;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+    visibility: visible; /* Make sure it's visible */
+    position: absolute; /* Position it in the top-right corner */
+    top: 10px;
+    right: 10px;
+}
+
 /* Black Banner Styling */
+.black-banner {
+    background-color: black;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
 .black-banner a {
     color: white;
     text-decoration: none;
-    font-family: 'Merriweather', serif; /* Italic serif font */
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.2rem;
     padding: 10px;
     border: 1px solid white;
@@ -73,12 +101,53 @@ h1, h2, h3, h4, h5, h6  {
         padding: 15px;
     }
 
+    p {
+        margin-bottom: 1.5em;
+    }
+
+    header {
+        margin-top: 30px;
+    }
+
     header h1 {
         font-size: clamp(22px, 5vw, 28px);
+        margin-top: 30px;
     }
 
     #logo {
         width: 60vw;
         max-width: 250px;
+    }
+
+    .hamburger-container {
+        display: block; /* Show the hamburger on mobile */
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+    .banner-toggle {
+        font-size: 2rem;
+        font-family: 'Montserrat', sans-serif;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.3rem 0.6rem;
+        visibility: visible; /* Make sure the button is visible */
+        position: absolute;
+        top: 10px;
+        right: 10px; /* Make sure it's positioned in the top-right */
+    }
+
+    .black-banner {
+        display: visible;
+        flex-direction: column;
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .black-banner a {
+        font-size: 1.1rem;
+        padding: 10px 15px;
+        line-height: 1.3;
     }
 }
