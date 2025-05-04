@@ -134,7 +134,7 @@ header h1 {
     }
 
     .black-banner {
-        display: none;
+        display: visible;
         flex-direction: column;
         padding: 15px;
         gap: 10px;
