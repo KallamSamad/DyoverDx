@@ -25,7 +25,7 @@ header {
     margin-top: 40px;
 }
 
-header h1 {
+h1, h2, h3, h4, h5, h6  {
     font-size: clamp(28px, 6vw, 36px);
     font-family: 'Roboto', sans-serif;
     color: #007acc;
