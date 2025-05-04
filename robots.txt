@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://kallamsamad.github.io/DyoverDx/sitemap.xml
