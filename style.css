@@ -95,6 +95,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Black Banner Styling */
 .black-banner {
     background-color: black;
+    visibility: visible;
     padding: 10px 0;
     display: flex;
     justify-content: center;
@@ -106,6 +107,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .black-banner a {
     color: white;
+    visibility: visible;
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.2rem;
@@ -176,6 +178,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .black-banner a {
+        visibility: visible;
         font-size: 1.1rem;
         padding: 10px 15px;
         line-height: 1.3;
