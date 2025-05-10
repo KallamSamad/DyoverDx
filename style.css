@@ -26,13 +26,43 @@ header {
     margin-top: 40px;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-size: clamp(28px, 6vw, 36px);
-    font-family: 'Montserrat', sans-serif;  /* Added consistency in font family */
-    color: #007acc;
-    line-height: 1.3;
-    letter-spacing: 1px;
+h1 {
+  font-size: clamp(36px, 8vw, 48px); /* Larger font size */
+  font-weight: bold;
 }
+
+h2 {
+  font-size: clamp(32px, 7vw, 42px); /* Slightly smaller than <h1> */
+  font-weight: bold;
+}
+
+h3 {
+  font-size: clamp(28px, 6vw, 36px); /* Default font size */
+  font-weight: semi-bold; /* Make it a bit lighter than <h1> and <h2> */
+}
+
+h4 {
+  font-size: clamp(24px, 5vw, 30px); /* Smaller size for <h4> */
+  font-weight: normal;
+}
+
+h5 {
+  font-size: clamp(20px, 4vw, 26px); /* Smaller size for <h5> */
+  font-weight: normal;
+}
+
+h6 {
+  font-size: clamp(16px, 3vw, 22px); /* Smallest size for <h6> */
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  color: #007acc;
+  line-height: 1.3;
+  letter-spacing: 1px;
+}
+
 
 /* Logo Styling */
 #logo {
