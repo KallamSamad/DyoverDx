@@ -1,11 +1,9 @@
 // Online Javascript Editor for free
 // Write, Edit and Run your Javascript code using JS Online Compiler
 let score=0
-let truth=false
 questions=[]
 answer=[]
 symbols=["×","-","+"]
-const operation = Math.floor(Math.random() * symbols.length);
 for (let i = 1; i < 21; i++) {
   questions.push(i);
 }
@@ -21,6 +19,7 @@ function questionloop(){
     for(const [index, value] of questions.entries()){
         let number1 =Math.floor((Math.random() * 10)+1);
         let number2=Math.floor((Math.random() * 10)+1);
+       const operation = Math.floor(Math.random() * symbols.length);
         let op=symbols[operation]
         ask = `Question ${value}: ${number1}𝑥 ${op} ${number2}𝑥`
         console.log(ask)
@@ -28,6 +27,7 @@ function questionloop(){
         let useranswer=prompt("solution?")
         if (useranswer==solution+ "x"){
              console.log("correct");
+             score=score+1
         }else{
             console.log("incorrect");
         }
@@ -36,3 +36,18 @@ function questionloop(){
         
     }
     questionloop()
+percentage=(score/20)*100
+finalscore=console.log("You scored " + score+ "/20" + " which is "+ percentage+"%")
+if (percentage>=75){
+    console.log("Well done, you've aced this topic.")
+}
+else{
+        if(percentage>50){
+            console.log("You're getting there...Try more times to master this topic")
+        }
+    else {
+        if(percentage<50){
+            console.log("Try again! Practice makes perfect.")
+        }
+    }
+}
