@@ -41,7 +41,7 @@ function showQuestion() {
     let number2 = Math.floor((Math.random() * 10) + 1);
     const operation = Math.floor(Math.random() * symbols.length);
     let op = symbols[operation];
-    let questionText = `Question ${questions[currentQuestionIndex]}: ${number1} ${op} ${number2}`;
+    let questionText = `Question ${questions[currentQuestionIndex]}: ${number1}x ${op} ${number2}x`;
 
     document.getElementById("output").innerHTML = `<p>${questionText}</p>`;
     
