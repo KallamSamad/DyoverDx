@@ -14,7 +14,7 @@ function getRandomInt(min, max) {
 function formatTerm(coeff, power) {
     if (power === 0) return `${coeff}`;
     if (power === 1) return `${coeff}x`;
-    return `${coeff}x\u207${power}`;
+    return `${coeff}x\u00B${power}`; // Unicode for superscript
 }
 
 function evaluateExpression(n1, p1, n2, p2, op) {
@@ -35,7 +35,7 @@ function evaluateExpression(n1, p1, n2, p2, op) {
 function showQuestion() {
     const output = document.getElementById("output");
     const answersDiv = document.getElementById("answers");
-    answersDiv.innerHTML = "";
+    answersDiv.innerHTML = "";  // Clear previous answers
 
     if (currentQuestionIndex >= questions.length) {
         let percentage = (score / questions.length) * 100;
@@ -85,7 +85,7 @@ function showQuestion() {
         }
     }
 
-    answers.sort(() => Math.random() - 0.5);
+    answers.sort(() => Math.random() - 0.5); // Shuffle answers
 
     answers.forEach(answer => {
         const btn = document.createElement("button");
@@ -99,7 +99,7 @@ function showQuestion() {
                 output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}.</p>`;
             }
             currentQuestionIndex++;
-            setTimeout(showQuestion, 1200);
+            setTimeout(showQuestion, 1200);  // Delay next question
         };
         answersDiv.appendChild(btn);
     });
