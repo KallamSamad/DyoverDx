@@ -1,30 +1,45 @@
 let score = 0;
 let questions = [];
-let symbols = ["×", "-", "+"];
+let symbols = ["×", "+", "-"];
+let currentQuestionIndex = 0;
 
-for (let i = 1; i <= 20; i++) {
+for (let i = 1; i <= 10; i++) {
     questions.push(i);
 }
 
-let currentQuestionIndex = 0;
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-function evaluate(n1, n2, op) {
+function formatTerm(coeff, power) {
+    if (power === 0) return `${coeff}`;
+    if (power === 1) return `${coeff}x`;
+    return `${coeff}x\u207${power}`;
+}
+
+function evaluateExpression(n1, p1, n2, p2, op) {
     switch (op) {
-        case "+": return n1 + n2;
-        case "-": return n1 - n2;
-        case "×": return n1 * n2;
-        default: return 0;
+        case "+":
+            if (p1 !== p2) return null; // can't combine unlike terms
+            return { coeff: n1 + n2, power: p1 };
+        case "-":
+            if (p1 !== p2) return null;
+            return { coeff: n1 - n2, power: p1 };
+        case "×":
+            return { coeff: n1 * n2, power: p1 + p2 };
+        default:
+            return { coeff: 0, power: 0 };
     }
 }
 
 function showQuestion() {
     const output = document.getElementById("output");
     const answersDiv = document.getElementById("answers");
-    answersDiv.innerHTML = ""; // Clear old buttons
+    answersDiv.innerHTML = "";
 
     if (currentQuestionIndex >= questions.length) {
         let percentage = (score / questions.length) * 100;
-        output.innerHTML = `<p>You scored ${score}/20 (${percentage}%)</p>`;
+        output.innerHTML = `<p>You scored ${score}/10 (${percentage}%)</p>`;
 
         if (percentage >= 75) {
             output.innerHTML += "<p>Well done, you've aced this topic.</p>";
@@ -36,27 +51,42 @@ function showQuestion() {
         return;
     }
 
-    let number1 = Math.floor((Math.random() * 10) + 1);
-    let number2 = Math.floor((Math.random() * 10) + 1);
-    let operation = Math.floor(Math.random() * symbols.length);
-    let op = symbols[operation];
-    let correctAnswer = evaluate(number1, number2, op);
-    
-    output.innerHTML = `<p>Question ${questions[currentQuestionIndex]}: ${number1} ${op} ${number2}</p>`;
+    const number1 = getRandomInt(1, 9);
+    const number2 = getRandomInt(1, 9);
+    const power1 = getRandomInt(0, 2);
+    const power2 = getRandomInt(0, 2);
+    const op = symbols[Math.floor(Math.random() * symbols.length)];
 
-    // Generate 3 fake answers
+    const expr1 = formatTerm(number1, power1);
+    const expr2 = formatTerm(number2, power2);
+    const correct = evaluateExpression(number1, power1, number2, power2, op);
+
+    let questionText = `Question ${questions[currentQuestionIndex]}: ${expr1} ${op} ${expr2}`;
+
+    // If invalid operation (like adding unlike powers), regenerate
+    if (!correct) {
+        showQuestion();
+        return;
+    }
+
+    const correctAnswer = formatTerm(correct.coeff, correct.power);
+    output.innerHTML = `<p>${questionText}</p>`;
+
     let answers = [correctAnswer];
     while (answers.length < 4) {
-        let fake = correctAnswer + Math.floor(Math.random() * 11 - 5); // ±5 range
-        if (!answers.includes(fake)) {
-            answers.push(fake);
+        let fakeCoeff = correct.coeff + getRandomInt(-4, 4);
+        let fakePower = correct.power + getRandomInt(-1, 1);
+        if (fakeCoeff < 1) fakeCoeff = 1;
+        if (fakePower < 0) fakePower = 0;
+
+        let fakeAnswer = formatTerm(fakeCoeff, fakePower);
+        if (!answers.includes(fakeAnswer)) {
+            answers.push(fakeAnswer);
         }
     }
 
-    // Shuffle answers
     answers.sort(() => Math.random() - 0.5);
 
-    // Create answer buttons
     answers.forEach(answer => {
         const btn = document.createElement("button");
         btn.textContent = answer;
@@ -69,11 +99,11 @@ function showQuestion() {
                 output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}.</p>`;
             }
             currentQuestionIndex++;
-            setTimeout(showQuestion, 1000); // Show next question after 1s
+            setTimeout(showQuestion, 1200);
         };
         answersDiv.appendChild(btn);
     });
 }
 
-// Start the quiz
+// Start quiz
 showQuestion();
