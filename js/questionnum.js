@@ -10,17 +10,17 @@ let currentQuestionIndex = 0;
 
 function evaluate(n1, n2, op) {
     switch (op) {
-        case "+": return n1 + n2;
-        case "-": return n1 - n2;
-        case "×": return n1 * n2;
-        default: return 0;
+        case "+": return `${n1 + n2}x`;
+        case "-": return `${n1 - n2}x`;
+        case "×": return `${n1 * n2}x²`;
+        default: return "0x";
     }
 }
 
 function showQuestion() {
     const output = document.getElementById("output");
     const answersDiv = document.getElementById("answers");
-    answersDiv.innerHTML = "";
+    answersDiv.innerHTML = ""; // Clear old buttons
 
     if (currentQuestionIndex >= questions.length) {
         let percentage = (score / questions.length) * 100;
@@ -33,33 +33,40 @@ function showQuestion() {
         } else {
             output.innerHTML += "<p>Try again — practice makes perfect.</p>";
         }
+
+        // Add "Redo Quiz" button
+        const redoBtn = document.createElement("button");
+        redoBtn.textContent = "Redo Quiz";
+        redoBtn.className = "answer-btn";
+        redoBtn.onclick = () => {
+            score = 0;
+            currentQuestionIndex = 0;
+            showQuestion();
+        };
+        answersDiv.appendChild(redoBtn);
+
         return;
     }
 
     let number1 = Math.floor((Math.random() * 10) + 1);
     let number2 = Math.floor((Math.random() * 10) + 1);
-    let op = symbols[Math.floor(Math.random() * symbols.length)];
+    let operation = Math.floor(Math.random() * symbols.length);
+    let op = symbols[operation];
     let correctAnswer = evaluate(number1, number2, op);
 
-    let questionText;
-    if (op === "×") {
-        if (number1 === number2) {
-            questionText = `${number1}x × ${number2}x (or ${number1}x²)`;
-        } else {
-            questionText = `${number1}x × ${number2}x`;
-        }
-    } else {
-        questionText = `${number1}x ${op} ${number2}x`;
-    }
+    const n1Str = `${number1}x`;
+    const n2Str = `${number2}x`;
 
-    output.innerHTML = `<p>Question ${questions[currentQuestionIndex]}: ${questionText}</p>`;
+    output.innerHTML = `<p>Question ${questions[currentQuestionIndex]}: ${n1Str} ${op} ${n2Str}</p>`;
 
     // Generate 3 fake answers
     let answers = [correctAnswer];
     while (answers.length < 4) {
-        let fake = correctAnswer + Math.floor(Math.random() * 11 - 5);
-        if (!answers.includes(fake)) {
-            answers.push(fake);
+        let fakeNum = eval(correctAnswer.replace(/[^\d-]/g, '')) + Math.floor(Math.random() * 11 - 5);
+        let fakeAnswer = (op === "×") ? `${fakeNum}x²` : `${fakeNum}x`;
+
+        if (!answers.includes(fakeAnswer)) {
+            answers.push(fakeAnswer);
         }
     }
 
@@ -69,25 +76,18 @@ function showQuestion() {
     // Create answer buttons
     answers.forEach(answer => {
         const btn = document.createElement("button");
+        btn.textContent = answer;
         btn.className = "answer-btn";
-
-        if (op === "×") {
-            btn.textContent = `${answer}x²`;
-        } else {
-            btn.textContent = `${answer}x`;
-        }
-
         btn.onclick = () => {
             if (answer === correctAnswer) {
                 output.innerHTML += "<p>Correct!</p>";
                 score++;
             } else {
-                output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}${op === "×" ? "x²" : "x"}.</p>`;
+                output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}.</p>`;
             }
             currentQuestionIndex++;
-            setTimeout(showQuestion, 1000);
+            setTimeout(showQuestion, 1000); // Show next question after 1s
         };
-
         answersDiv.appendChild(btn);
     });
 }
