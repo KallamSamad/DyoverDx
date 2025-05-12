@@ -1,8 +1,0 @@
-score==0
-truth=false
-questions=[]
-answer=[]
-for (let i = 0; i < 21; i++) {
-  numbers.push(i);
-}
-console.log(questions)
