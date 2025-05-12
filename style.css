@@ -79,30 +79,31 @@ h6 {
 
 /* Logo Styling */
 #logo {
-    width: 50vw;
+    width: 70%;
     max-width: 300px;
     height: auto;
     transition: width 0.3s ease;
     margin: 0 auto;
 }
 
-/* Hamburger Menu Container */
-.hamburger-container {
-    display: none;
+/* Top Bar with Button */
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
 }
 
-/* Hamburger Button */
 .banner-toggle {
     font-size: 2rem;
     font-family: 'Montserrat', sans-serif;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.3rem 0.6rem;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
+}
+
+/* Mobile Menu Button */
+.hamburger-container {
+    display: none;
 }
 
 /* Black Banner Styling */
