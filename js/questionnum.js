@@ -41,10 +41,13 @@ function showQuestion() {
     let op = symbols[Math.floor(Math.random() * symbols.length)];
     let correctAnswer = evaluate(number1, number2, op);
 
-    // Build question text with "x" after each number
     let questionText;
-    if (op === "×" && number1 === number2) {
-        questionText = `${number1}x × ${number2}x (or ${number1}x²)`;
+    if (op === "×") {
+        if (number1 === number2) {
+            questionText = `${number1}x × ${number2}x (or ${number1}x²)`;
+        } else {
+            questionText = `${number1}x × ${number2}x`;
+        }
     } else {
         questionText = `${number1}x ${op} ${number2}x`;
     }
@@ -66,18 +69,25 @@ function showQuestion() {
     // Create answer buttons
     answers.forEach(answer => {
         const btn = document.createElement("button");
-        btn.textContent = answer + "x";
         btn.className = "answer-btn";
+
+        if (op === "×") {
+            btn.textContent = `${answer}x²`;
+        } else {
+            btn.textContent = `${answer}x`;
+        }
+
         btn.onclick = () => {
             if (answer === correctAnswer) {
                 output.innerHTML += "<p>Correct!</p>";
                 score++;
             } else {
-                output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}x.</p>`;
+                output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}${op === "×" ? "x²" : "x"}.</p>`;
             }
             currentQuestionIndex++;
             setTimeout(showQuestion, 1000);
         };
+
         answersDiv.appendChild(btn);
     });
 }
