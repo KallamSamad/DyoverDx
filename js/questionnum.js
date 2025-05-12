@@ -2,6 +2,7 @@ let score = 0;
 let questions = [];
 let symbols = ["×", "-", "+"];
 
+// Create 20 questions
 for (let i = 1; i <= 20; i++) {
     questions.push(i);
 }
@@ -38,11 +39,18 @@ function showQuestion() {
 
     let number1 = Math.floor((Math.random() * 10) + 1);
     let number2 = Math.floor((Math.random() * 10) + 1);
-    let operation = Math.floor(Math.random() * symbols.length);
-    let op = symbols[operation];
+    let op = symbols[Math.floor(Math.random() * symbols.length)];
     let correctAnswer = evaluate(number1, number2, op);
-    
-    output.innerHTML = `<p>Question ${questions[currentQuestionIndex]}: ${number1} ${op} ${number2}</p>`;
+
+    // Format question text with x² hint if needed
+    let questionText;
+    if (op === "×" && number1 === number2) {
+        questionText = `${number1} × ${number2} (or ${number1}<sup>2</sup>)`;
+    } else {
+        questionText = `${number1} ${op} ${number2}`;
+    }
+
+    output.innerHTML = `<p>Question ${questions[currentQuestionIndex]}: ${questionText}</p>`;
 
     // Generate 3 fake answers
     let answers = [correctAnswer];
