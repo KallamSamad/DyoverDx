@@ -2,7 +2,6 @@ let score = 0;
 let questions = [];
 let symbols = ["×", "-", "+"];
 
-// Create 20 questions
 for (let i = 1; i <= 20; i++) {
     questions.push(i);
 }
@@ -21,7 +20,7 @@ function evaluate(n1, n2, op) {
 function showQuestion() {
     const output = document.getElementById("output");
     const answersDiv = document.getElementById("answers");
-    answersDiv.innerHTML = ""; // Clear old buttons
+    answersDiv.innerHTML = "";
 
     if (currentQuestionIndex >= questions.length) {
         let percentage = (score / questions.length) * 100;
@@ -42,12 +41,12 @@ function showQuestion() {
     let op = symbols[Math.floor(Math.random() * symbols.length)];
     let correctAnswer = evaluate(number1, number2, op);
 
-    // Format question text with x² hint if needed
+    // Build question text with "x" after each number
     let questionText;
     if (op === "×" && number1 === number2) {
-        questionText = `${number1} × ${number2} (or ${number1}<sup>2</sup>)`;
+        questionText = `${number1}x × ${number2}x (or ${number1}x²)`;
     } else {
-        questionText = `${number1} ${op} ${number2}`;
+        questionText = `${number1}x ${op} ${number2}x`;
     }
 
     output.innerHTML = `<p>Question ${questions[currentQuestionIndex]}: ${questionText}</p>`;
@@ -55,7 +54,7 @@ function showQuestion() {
     // Generate 3 fake answers
     let answers = [correctAnswer];
     while (answers.length < 4) {
-        let fake = correctAnswer + Math.floor(Math.random() * 11 - 5); // ±5 range
+        let fake = correctAnswer + Math.floor(Math.random() * 11 - 5);
         if (!answers.includes(fake)) {
             answers.push(fake);
         }
@@ -67,17 +66,17 @@ function showQuestion() {
     // Create answer buttons
     answers.forEach(answer => {
         const btn = document.createElement("button");
-        btn.textContent = answer;
+        btn.textContent = answer + "x";
         btn.className = "answer-btn";
         btn.onclick = () => {
             if (answer === correctAnswer) {
                 output.innerHTML += "<p>Correct!</p>";
                 score++;
             } else {
-                output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}.</p>`;
+                output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}x.</p>`;
             }
             currentQuestionIndex++;
-            setTimeout(showQuestion, 1000); // Show next question after 1s
+            setTimeout(showQuestion, 1000);
         };
         answersDiv.appendChild(btn);
     });
