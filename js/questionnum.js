@@ -2,9 +2,11 @@ let score = 0;
 let questions = [];
 let symbols = ["×", "-", "+"];
 
-for (let i = 1; i < 21; i++) {
+for (let i = 1; i <= 20; i++) {
     questions.push(i);
 }
+
+let currentQuestionIndex = 0;
 
 function evaluate(n1, n2, op) {
     switch (op) {
@@ -15,56 +17,63 @@ function evaluate(n1, n2, op) {
     }
 }
 
-let currentQuestionIndex = 0; // Track the current question
-
-// Function to show a question and check the answer
 function showQuestion() {
+    const output = document.getElementById("output");
+    const answersDiv = document.getElementById("answers");
+    answersDiv.innerHTML = ""; // Clear old buttons
+
     if (currentQuestionIndex >= questions.length) {
-        // All questions answered, show final score
-        let percentage = (score / 20) * 100;
-        document.getElementById("output").innerHTML += `<p>You scored ${score}/20 which is ${percentage}%</p>`;
+        let percentage = (score / questions.length) * 100;
+        output.innerHTML = `<p>You scored ${score}/20 (${percentage}%)</p>`;
 
         if (percentage >= 75) {
-            document.getElementById("output").innerHTML += "<p>Well done, you've aced this topic.</p>";
+            output.innerHTML += "<p>Well done, you've aced this topic.</p>";
+        } else if (percentage > 50) {
+            output.innerHTML += "<p>You're getting there. Keep practicing!</p>";
         } else {
-            if (percentage > 50) {
-                document.getElementById("output").innerHTML += "<p>You're getting there... Try more times to master this topic.</p>";
-            } else {
-                document.getElementById("output").innerHTML += "<p>Try again! Practice makes perfect.</p>";
-            }
+            output.innerHTML += "<p>Try again — practice makes perfect.</p>";
         }
-        return; // End the function if all questions are answered
+        return;
     }
 
-    // Display the next question
     let number1 = Math.floor((Math.random() * 10) + 1);
     let number2 = Math.floor((Math.random() * 10) + 1);
-    const operation = Math.floor(Math.random() * symbols.length);
+    let operation = Math.floor(Math.random() * symbols.length);
     let op = symbols[operation];
-    let questionText = `Question ${questions[currentQuestionIndex]}: ${number1}x ${op} ${number2}x`;
-
-    document.getElementById("output").innerHTML = `<p>${questionText}</p>`;
+    let correctAnswer = evaluate(number1, number2, op);
     
-    // Enable the submit button for the current question
-    document.getElementById("submit-answer").onclick = function() {
-        let userAnswer = document.getElementById("user-answer").value;
-        let correctAnswer = evaluate(number1, number2, op) + "x";
+    output.innerHTML = `<p>Question ${questions[currentQuestionIndex]}: ${number1} ${op} ${number2}</p>`;
 
-        if (userAnswer === correctAnswer) {
-            document.getElementById("output").innerHTML += "<p>Correct</p>";
-            score++;
-        } else {
-            document.getElementById("output").innerHTML += "<p>Incorrect</p>";
+    // Generate 3 fake answers
+    let answers = [correctAnswer];
+    while (answers.length < 4) {
+        let fake = correctAnswer + Math.floor(Math.random() * 11 - 5); // ±5 range
+        if (!answers.includes(fake)) {
+            answers.push(fake);
         }
+    }
 
-        // Clear the input field and move to the next question
-        document.getElementById("user-answer").value = "";
-        currentQuestionIndex++;
+    // Shuffle answers
+    answers.sort(() => Math.random() - 0.5);
 
-        // Call showQuestion again to show the next question
-        showQuestion();
-    };
+    // Create answer buttons
+    answers.forEach(answer => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.className = "answer-btn";
+        btn.onclick = () => {
+            if (answer === correctAnswer) {
+                output.innerHTML += "<p>Correct!</p>";
+                score++;
+            } else {
+                output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}.</p>`;
+            }
+            currentQuestionIndex++;
+            setTimeout(showQuestion, 1000); // Show next question after 1s
+        };
+        answersDiv.appendChild(btn);
+    });
 }
 
-// Start the first question
+// Start the quiz
 showQuestion();
