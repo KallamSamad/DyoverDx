@@ -1,10 +1,9 @@
 let score = 0;
 let questions = [];
-let answer = [];
 let symbols = ["×", "-", "+"];
 
 for (let i = 1; i < 21; i++) {
-  questions.push(i);
+    questions.push(i);
 }
 
 function evaluate(n1, n2, op) {
@@ -16,39 +15,56 @@ function evaluate(n1, n2, op) {
     }
 }
 
-function questionloop() {
-    for (const [index, value] of questions.entries()) {
-        let number1 = Math.floor((Math.random() * 10) + 1);
-        let number2 = Math.floor((Math.random() * 10) + 1);
-        const operation = Math.floor(Math.random() * symbols.length);
-        let op = symbols[operation];
-        let ask = `Question ${value}: ${number1} × ${op} ${number2}`;
-        
-        let solution = evaluate(number1, number2, op);
-        let useranswer = prompt("Solution?");
-        
-        document.getElementById("output").innerHTML += `<p>${ask} Your answer: ${useranswer}</p>`;
-        
-        if (useranswer == solution + "x") {
+let currentQuestionIndex = 0; // Track the current question
+
+// Function to show a question and check the answer
+function showQuestion() {
+    if (currentQuestionIndex >= questions.length) {
+        // All questions answered, show final score
+        let percentage = (score / 20) * 100;
+        document.getElementById("output").innerHTML += `<p>You scored ${score}/20 which is ${percentage}%</p>`;
+
+        if (percentage >= 75) {
+            document.getElementById("output").innerHTML += "<p>Well done, you've aced this topic.</p>";
+        } else {
+            if (percentage > 50) {
+                document.getElementById("output").innerHTML += "<p>You're getting there... Try more times to master this topic.</p>";
+            } else {
+                document.getElementById("output").innerHTML += "<p>Try again! Practice makes perfect.</p>";
+            }
+        }
+        return; // End the function if all questions are answered
+    }
+
+    // Display the next question
+    let number1 = Math.floor((Math.random() * 10) + 1);
+    let number2 = Math.floor((Math.random() * 10) + 1);
+    const operation = Math.floor(Math.random() * symbols.length);
+    let op = symbols[operation];
+    let questionText = `Question ${questions[currentQuestionIndex]}: ${number1} ${op} ${number2}`;
+
+    document.getElementById("output").innerHTML = `<p>${questionText}</p>`;
+    
+    // Enable the submit button for the current question
+    document.getElementById("submit-answer").onclick = function() {
+        let userAnswer = document.getElementById("user-answer").value;
+        let correctAnswer = evaluate(number1, number2, op) + "x";
+
+        if (userAnswer === correctAnswer) {
             document.getElementById("output").innerHTML += "<p>Correct</p>";
-            score = score + 1;
+            score++;
         } else {
             document.getElementById("output").innerHTML += "<p>Incorrect</p>";
         }
-    }
+
+        // Clear the input field and move to the next question
+        document.getElementById("user-answer").value = "";
+        currentQuestionIndex++;
+
+        // Call showQuestion again to show the next question
+        showQuestion();
+    };
 }
 
-questionloop();
-
-let percentage = (score / 20) * 100;
-document.getElementById("output").innerHTML += `<p>You scored ${score}/20 which is ${percentage}%</p>`;
-
-if (percentage >= 75) {
-    document.getElementById("output").innerHTML += "<p>Well done, you've aced this topic.</p>";
-} else {
-    if (percentage > 50) {
-        document.getElementById("output").innerHTML += "<p>You're getting there... Try more times to master this topic.</p>";
-    } else {
-        document.getElementById("output").innerHTML += "<p>Try again! Practice makes perfect.</p>";
-    }
-}
+// Start the first question
+showQuestion();
