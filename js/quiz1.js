@@ -3,6 +3,12 @@
     let score = 0;
     let currentQuestionIndex = 0;
     let symbols = ["×", "-", "+"];
+    let questions = [];
+
+    for (let i = 1; i <= 20; i++) {
+     questions.push(i);
+    }
+
 
     function evaluate(n1, n2, op) {
         switch (op) {
