@@ -17,7 +17,7 @@
             term = { coeff, variable: variables[varIdx] };
         } else if (termType === 1) {
             let varIdx = Math.floor(Math.random() * variables.length);
-            term = { coeff, variable: `${variables[varIdx]}^2` }; // Corrected: We now add the coefficient for x^2
+            term = { coeff, variable: `${variables[varIdx]}^2` };  // Corrected: We now add the coefficient for x^2
         } else if (termType === 2) {
             let var1 = variables[Math.floor(Math.random() * variables.length)];
             let var2 = variables[Math.floor(Math.random() * variables.length)];
@@ -56,7 +56,9 @@
     function formatExpression(terms) {
         return terms.map(term => {
             if (term.variable.includes("^2")) {
-                return term.coeff === 1 ? `${term.variable}` : `${term.coeff}${term.variable}`;
+                // Use the <sup> tag to render the exponent in index form
+                let variableWithoutCaret = term.variable.replace("^2", "");
+                return term.coeff === 1 ? `${variableWithoutCaret}<sup>2</sup>` : `${term.coeff}${variableWithoutCaret}<sup>2</sup>`;
             } else {
                 return `${term.coeff}${term.variable}`;
             }
@@ -127,14 +129,12 @@
             btn.textContent = answer;
             btn.className = "answer-btn";
             btn.onclick = () => {
-                if (answer === correctAnswer) {
-                    output.innerHTML += "<p>✅ Correct!</p>";
-                    score++;  // ✅ Increment score when the answer is correct
-                } else {
-                    output.innerHTML += `<p>❌ Incorrect. The correct answer was: ${correctAnswer}</p>`;
-                }
-                currentQuestion++;
-                setTimeout(generateQuestion, 1000);
+                output.innerHTML += answer === correctAnswer
+                    ? "<p>✅ Correct!</p>"
+                    : `<p>❌ Incorrect. The correct answer was: ${correctAnswer}</p>`;
+                score += (answer === correctAnswer) ? 1 : 0;  // Update score
+                currentQuestion++; // Move to the next question
+                generateQuestion(); // Generate next question immediately after answer
             };
             answersDiv.appendChild(btn);
         });
