@@ -2,10 +2,6 @@ let score = 0;
 let questions = [];
 let symbols = ["×", "-", "+"];
 
-for (let i = 1; i <= 20; i++) {
-    questions.push(i);
-}
-
 let currentQuestionIndex = 0;
 
 function evaluate(n1, n2, op) {
