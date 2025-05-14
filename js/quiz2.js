@@ -1,158 +1,104 @@
 (() => {
-    let score = 0;
-    let totalQuestions = 20;
-    let currentQuestion = 0;
+  let score = 0;
+  const totalQuestions = 20;
+  let currentQuestion = 0;
+  const symbols = ["×", "-", "+"];
 
-    let variables = ['x', 'y', 'z', 'a', 'b', 'c'];
+  // Generate a single term (including x^2)
+  function genTerm() {
+    let c = Math.floor(Math.random()*11)-5;
+    while(!c) c = Math.floor(Math.random()*11)-5;
+    const vars = ['x','y','z','a','b','c'];
+    const type = Math.floor(Math.random()*3);
+    if(type===0) return {c, v: vars[Math.floor(Math.random()*vars.length)]};
+    if(type===1) return {c, v: vars[Math.floor(Math.random()*vars.length)] + "^2"};
+    // mixed
+    let a = vars[Math.floor(Math.random()*vars.length)],
+        b = vars[Math.floor(Math.random()*vars.length)];
+    while(a===b) b = vars[Math.floor(Math.random()*vars.length)];
+    return {c, v: a+b};
+  }
 
-    function generateExpressionTerm() {
-        let coeff = Math.floor(Math.random() * 11) - 5;
-        while (coeff === 0) coeff = Math.floor(Math.random() * 11) - 5;
+  // Simplify like terms
+  function simplify(terms) {
+    const M = {};
+    terms.forEach(({c,v}) => M[v]=(M[v]||0)+c);
+    return Object.entries(M)
+      .filter(([v,c])=>c!==0)
+      .map(([v,c])=> (c===1?"" : c===-1?"-":c) + v )
+      .join(" + ")
+      .replace(/\+\s-\s/g,"- ")
+      || "0";
+  }
 
-        let termType = Math.floor(Math.random() * 3);
-        let term;
-
-        if (termType === 0) {
-            let varIdx = Math.floor(Math.random() * variables.length);
-            term = { coeff, variable: variables[varIdx] };
-        } else if (termType === 1) {
-            let varIdx = Math.floor(Math.random() * variables.length);
-            term = { coeff, variable: `${variables[varIdx]}^2` };  // Add x^2 term
-        } else if (termType === 2) {
-            let var1 = variables[Math.floor(Math.random() * variables.length)];
-            let var2 = variables[Math.floor(Math.random() * variables.length)];
-            while (var1 === var2) var2 = variables[Math.floor(Math.random() * variables.length)];
-            term = { coeff, variable: `${var1}${var2}` };
-        }
-
-        return term;
-    }
-
-    function simplifyExpression(terms) {
-        let simplified = {};
-
-        terms.forEach(term => {
-            if (!simplified[term.variable]) simplified[term.variable] = 0;
-            simplified[term.variable] += term.coeff;
+  // Convert "x^2" to HTML "x<sup>2</sup>"
+  function toHTML(expr) {
+    return expr
+      .split(" + ")
+      .map(part => {
+        return part.replace(/([+-]?\d*)([a-zA-Z]+)\^2/, (_, num, v) => {
+          // num may be "" or "-"; default to 1
+          if(num===""||num==="+") num=""; 
+          else if(num==="-") num="-";
+          return `${num}${v}<sup>2</sup>`;
         });
+      })
+      .join(" + ")
+      .replace(/\+\s-\s/g, " - ");
+  }
 
-        let simplifiedExpression = [];
-        for (let variable in simplified) {
-            let coeff = simplified[variable];
-            if (coeff !== 0) {
-                simplifiedExpression.push(
-                    coeff === 1 ? variable :
-                    coeff === -1 ? `-${variable}` :
-                    `${coeff}${variable}`
-                );
-            }
-        }
+  function next() {
+    const out = document.getElementById("output2");
+    const ansDiv = document.getElementById("answers2");
+    out.innerHTML = "";
+    ansDiv.innerHTML = "";
 
-        return simplifiedExpression.length
-            ? simplifiedExpression.join(" + ").replace(/\+\s-\s/g, "- ")
-            : "0";
+    if(currentQuestion>=totalQuestions) {
+      const pct = Math.round(score/totalQuestions*100);
+      out.innerHTML = `<h2>Done!</h2>
+        <p>You scored ${score}/${totalQuestions} (${pct}%)</p>
+        ${pct>=75? "<p>🎉 Aced it!</p>" : pct>=50? "<p>Keep Going!</p>" : "<p>Try Again!</p>"}`;
+      const btn = document.createElement("button");
+      btn.textContent="Redo Quiz";
+      btn.onclick=()=>{ score=0; currentQuestion=0; next(); };
+      ansDiv.appendChild(btn);
+      return;
     }
 
-    function formatExpression(terms) {
-        return terms.map(term => {
-            if (term.variable.includes("^2")) {
-                // Use the <sup> tag to render the exponent in index form
-                let variableWithoutCaret = term.variable.replace("^2", "");
-                return term.coeff === 1 ? `${variableWithoutCaret}<sup>2</sup>` : `${term.coeff}${variableWithoutCaret}<sup>2</sup>`;
-            } else {
-                return `${term.coeff}${term.variable}`;
-            }
-        }).join(" + ").replace(/\+\s-\s/g, "- ");
+    // build question
+    const terms = Array.from({length: Math.floor(Math.random()*2)+5}, genTerm);
+    const expr = terms.map(t=>`${t.c}${t.v}`).join(" + ").replace(/\+\s-\s/g,"- ");
+    const correct = simplify(terms);
+
+    out.innerHTML = `<p>Q${currentQuestion+1}: Simplify:<br>
+      <strong>${ toHTML(expr) }</strong></p>`;
+
+    // build answers
+    const opts = new Set([correct]);
+    while(opts.size<4) {
+      // tweak one coefficient
+      let fake = correct.replace(/([+-]?\d*)([a-zA-Z]+)/g, (_,n,v)=>{
+        let k=parseInt(n||"1") + (Math.floor(Math.random()*3)-1);
+        if(k===0) k=1;
+        return k+v;
+      });
+      opts.add(fake);
     }
 
-    function generateFakeAnswer(correctAnswer) {
-        let answerParts = correctAnswer.split(" + ");
-        return answerParts.map(part => {
-            let match = part.match(/^([+-]?\d*)([a-zA-Z^]+)$/);
-            if (!match) return part;
-            let [, coeffStr, variable] = match;
-            let coeff = parseInt(coeffStr || "1");
-            coeff += Math.floor(Math.random() * 3) - 1;
-            if (coeff === 0) coeff = 1;
-            return `${coeff}${variable}`;
-        }).join(" + ").replace(/\+\s-\s/g, "- ");
-    }
+    Array.from(opts).sort(()=>Math.random()-0.5)
+      .forEach(opt=>{
+        const b = document.createElement("button");
+        b.innerHTML = toHTML(opt);
+        b.onclick = () => {
+          if(opt===correct){ out.innerHTML += "<p>✅ Correct!</p>"; score++; }
+          else          { out.innerHTML += `<p>❌ Wrong, it was ${toHTML(correct)}</p>`; }
+          currentQuestion++;
+          setTimeout(next, 1000);
+        };
+        ansDiv.appendChild(b);
+      });
+  }
 
-    function formatAnswer(answer) {
-        return answer.split(" + ").map(part => {
-            if (part.includes("^2")) {
-                let variableWithoutCaret = part.replace("^2", "");
-                return part.includes("-")
-                    ? `${part.replace("-", "")}<sup>2</sup>`
-                    : `${variableWithoutCaret}<sup>2</sup>`;
-            } else {
-                return part;
-            }
-        }).join(" + ").replace(/\+\s-\s/g, "- ");
-    }
-
-    function generateQuestion() {
-        const output = document.getElementById("output2");
-        const answersDiv = document.getElementById("answers2");
-        output.innerHTML = "";
-        answersDiv.innerHTML = "";
-
-        if (currentQuestion >= totalQuestions) {
-            let percent = Math.round((score / totalQuestions) * 100);
-            output.innerHTML = `<h2>Quiz Finished!</h2><p>Your score: ${score}/${totalQuestions} (${percent}%)</p>`;
-            output.innerHTML += percent >= 75
-                ? "<p>🎉 Great job – you’ve mastered this!</p>"
-                : percent >= 50
-                ? "<p>Good effort, keep practicing!</p>"
-                : "<p>Don’t give up! Try again.</p>";
-
-            const redoBtn = document.createElement("button");
-            redoBtn.textContent = "Redo Quiz";
-            redoBtn.className = "answer-btn";
-            redoBtn.onclick = () => {
-                score = 0;
-                currentQuestion = 0;
-                generateQuestion();
-            };
-            answersDiv.appendChild(redoBtn);
-            return;
-        }
-
-        let terms = [];
-        let numTerms = Math.floor(Math.random() * 2) + 5;
-        for (let i = 0; i < numTerms; i++) {
-            terms.push(generateExpressionTerm());
-        }
-
-        let expression = formatExpression(terms);
-        let correctAnswer = simplifyExpression(terms);
-
-        output.innerHTML = `<p>Question ${currentQuestion + 1}: Simplify the expression:<br><strong>${expression}</strong></p>`;
-
-        let answers = [correctAnswer];
-        while (answers.length < 4) {
-            let fake = generateFakeAnswer(correctAnswer);
-            if (!answers.includes(fake)) answers.push(fake);
-        }
-
-        answers.sort(() => Math.random() - 0.5);
-
-        answers.forEach(answer => {
-            const btn = document.createElement("button");
-            btn.textContent = formatAnswer(answer); // Apply superscript formatting to answer
-            btn.className = "answer-btn";
-            btn.onclick = () => {
-                output.innerHTML += answer === correctAnswer
-                    ? "<p>✅ Correct!</p>"
-                    : `<p>❌ Incorrect. The correct answer was: ${correctAnswer}</p>`;
-                score += (answer === correctAnswer) ? 1 : 0;  // Update score
-                currentQuestion++; // Move to the next question
-                setTimeout(generateQuestion, 1000); // Generate next question after delay
-            };
-            answersDiv.appendChild(btn);
-        });
-    }
-
-    // Start Quiz
-    generateQuestion();
+  // kick things off
+  next();
 })();
