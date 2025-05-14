@@ -1,4 +1,3 @@
- 
 (() => {
     let score = 0;
     let currentQuestionIndex = 0;
@@ -6,9 +5,8 @@
     let questions = [];
 
     for (let i = 1; i <= 20; i++) {
-     questions.push(i);
+        questions.push(i);
     }
-
 
     function evaluate(n1, n2, op) {
         switch (op) {
@@ -68,9 +66,12 @@
             btn.textContent = answer;
             btn.className = "answer-btn";
             btn.onclick = () => {
-                output.innerHTML += answer === correctAnswer
-                    ? "<p>Correct!</p>"
-                    : `<p>Incorrect. Correct answer was ${correctAnswer}.</p>`;
+                if (answer === correctAnswer) {
+                    output.innerHTML += "<p>Correct!</p>";
+                    score++;
+                } else {
+                    output.innerHTML += `<p>Incorrect. Correct answer was ${correctAnswer}.</p>`;
+                }
                 currentQuestionIndex++;
                 setTimeout(showQuestion, 1000);
             };
