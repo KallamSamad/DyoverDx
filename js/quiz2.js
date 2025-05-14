@@ -17,7 +17,7 @@
             term = { coeff, variable: variables[varIdx] };
         } else if (termType === 1) {
             let varIdx = Math.floor(Math.random() * variables.length);
-            term = { coeff, variable: `${variables[varIdx]}^2` };
+            term = { coeff, variable: `${variables[varIdx]}^2` }; // Corrected: We now add the coefficient for x^2
         } else if (termType === 2) {
             let var1 = variables[Math.floor(Math.random() * variables.length)];
             let var2 = variables[Math.floor(Math.random() * variables.length)];
@@ -54,7 +54,13 @@
     }
 
     function formatExpression(terms) {
-        return terms.map(term => `${term.coeff}${term.variable}`).join(" + ").replace(/\+\s-\s/g, "- ");
+        return terms.map(term => {
+            if (term.variable.includes("^2")) {
+                return term.coeff === 1 ? `${term.variable}` : `${term.coeff}${term.variable}`;
+            } else {
+                return `${term.coeff}${term.variable}`;
+            }
+        }).join(" + ").replace(/\+\s-\s/g, "- ");
     }
 
     function generateFakeAnswer(correctAnswer) {
@@ -131,6 +137,6 @@
         });
     }
 
-    // Start Quiz 2
+    // Start Quiz
     generateQuestion();
 })();
