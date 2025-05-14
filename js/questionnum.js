@@ -18,8 +18,8 @@ function evaluate(n1, n2, op) {
 }
 
 function showQuestion() {
-    const output = document.getElementById("output");
-    const answersDiv = document.getElementById("answers");
+    const output = document.getElementById("output1");
+    const answersDiv = document.getElementById("answers1");
     answersDiv.innerHTML = ""; // Clear old buttons
 
     if (currentQuestionIndex >= questions.length) {
