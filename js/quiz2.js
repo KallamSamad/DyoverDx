@@ -127,9 +127,12 @@
             btn.textContent = answer;
             btn.className = "answer-btn";
             btn.onclick = () => {
-                output.innerHTML += answer === correctAnswer
-                    ? "<p>✅ Correct!</p>"
-                    : `<p>❌ Incorrect. The correct answer was: ${correctAnswer}</p>`;
+                if (answer === correctAnswer) {
+                    output.innerHTML += "<p>✅ Correct!</p>";
+                    score++;  // ✅ Increment score when the answer is correct
+                } else {
+                    output.innerHTML += `<p>❌ Incorrect. The correct answer was: ${correctAnswer}</p>`;
+                }
                 currentQuestion++;
                 setTimeout(generateQuestion, 1000);
             };
