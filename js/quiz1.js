@@ -1,96 +1,136 @@
-let score = 0;
-let questions = [];
-let symbols = ["×", "-", "+"];
+(() => {
+    let score = 0;
+    let totalQuestions = 20;
+    let currentQuestion = 0;
 
-for (let i = 1; i <= 20; i++) {
-    questions.push(i);
-}
+    let variables = ['x', 'y', 'z', 'a', 'b', 'c'];
 
-let currentQuestionIndex = 0;
+    function generateExpressionTerm() {
+        let coeff = Math.floor(Math.random() * 11) - 5;
+        while (coeff === 0) coeff = Math.floor(Math.random() * 11) - 5;
 
-function evaluate(n1, n2, op) {
-    switch (op) {
-        case "+": return ${n1 + n2}x;
-        case "-": return ${n1 - n2}x;
-        case "×": return ${n1 * n2}x²;
-        default: return "0x";
-    }
-}
+        let termType = Math.floor(Math.random() * 3);
+        let term;
 
-function showQuestion() {
-    const output = document.getElementById("output1");
-    const answersDiv = document.getElementById("answers1");
-    answersDiv.innerHTML = ""; // Clear old buttons
-
-    if (currentQuestionIndex >= questions.length) {
-        let percentage = (score / questions.length) * 100;
-        output.innerHTML = <p>You scored ${score}/20 (${percentage}%)</p>;
-
-        if (percentage >= 75) {
-            output.innerHTML += "<p>Well done, you've aced this topic.</p>";
-        } else if (percentage > 50) {
-            output.innerHTML += "<p>You're getting there. Keep practicing!</p>";
-        } else {
-            output.innerHTML += "<p>Try again — practice makes perfect.</p>";
+        if (termType === 0) {
+            let varIdx = Math.floor(Math.random() * variables.length);
+            term = { coeff, variable: variables[varIdx] };
+        } else if (termType === 1) {
+            let varIdx = Math.floor(Math.random() * variables.length);
+            term = { coeff, variable: `${variables[varIdx]}^2` };
+        } else if (termType === 2) {
+            let var1 = variables[Math.floor(Math.random() * variables.length)];
+            let var2 = variables[Math.floor(Math.random() * variables.length)];
+            while (var1 === var2) var2 = variables[Math.floor(Math.random() * variables.length)];
+            term = { coeff, variable: `${var1}${var2}` };
         }
 
-        // Add "Redo Quiz" button
-        const redoBtn = document.createElement("button");
-        redoBtn.textContent = "Redo Quiz";
-        redoBtn.className = "answer-btn";
-        redoBtn.onclick = () => {
-            score = 0;
-            currentQuestionIndex = 0;
-            showQuestion();
-        };
-        answersDiv.appendChild(redoBtn);
-
-        return;
+        return term;
     }
 
-    let number1 = Math.floor((Math.random() * 10) + 1);
-    let number2 = Math.floor((Math.random() * 10) + 1);
-    let operation = Math.floor(Math.random() * symbols.length);
-    let op = symbols[operation];
-    let correctAnswer = evaluate(number1, number2, op);
+    function simplifyExpression(terms) {
+        let simplified = {};
 
-    const n1Str = ${number1}x;
-    const n2Str = ${number2}x;
+        terms.forEach(term => {
+            if (!simplified[term.variable]) simplified[term.variable] = 0;
+            simplified[term.variable] += term.coeff;
+        });
 
-    output.innerHTML = <p>Question ${questions[currentQuestionIndex]}: ${n1Str} ${op} ${n2Str}</p>;
-
-    // Generate 3 fake answers
-    let answers = [correctAnswer];
-    while (answers.length < 4) {
-        let fakeNum = eval(correctAnswer.replace(/[^\d-]/g, '')) + Math.floor(Math.random() * 11 - 5);
-        let fakeAnswer = (op === "×") ? ${fakeNum}x² : ${fakeNum}x;
-
-        if (!answers.includes(fakeAnswer)) {
-            answers.push(fakeAnswer);
-        }
-    }
-
-    // Shuffle answers
-    answers.sort(() => Math.random() - 0.5);
-
-    // Create answer buttons
-    answers.forEach(answer => {
-        const btn = document.createElement("button");
-        btn.textContent = answer;
-        btn.className = "answer-btn";
-        btn.onclick = () => {
-            if (answer === correctAnswer) {
-                output.innerHTML += "<p>Correct!</p>";
-                score++;
-            } else {
-                output.innerHTML += <p>Incorrect. Correct answer was ${correctAnswer}.</p>;
+        let simplifiedExpression = [];
+        for (let variable in simplified) {
+            let coeff = simplified[variable];
+            if (coeff !== 0) {
+                simplifiedExpression.push(
+                    coeff === 1 ? variable :
+                    coeff === -1 ? `-${variable}` :
+                    `${coeff}${variable}`
+                );
             }
-            currentQuestionIndex++;
-            setTimeout(showQuestion, 1000); // Show next question after 1s
-        };
-        answersDiv.appendChild(btn);
-    });
-}
+        }
 
-// Start the quiz
-showQuestion();c
+        return simplifiedExpression.length
+            ? simplifiedExpression.join(" + ").replace(/\+\s-\s/g, "- ")
+            : "0";
+    }
+
+    function formatExpression(terms) {
+        return terms.map(term => `${term.coeff}${term.variable}`).join(" + ").replace(/\+\s-\s/g, "- ");
+    }
+
+    function generateFakeAnswer(correctAnswer) {
+        let answerParts = correctAnswer.split(" + ");
+        return answerParts.map(part => {
+            let match = part.match(/^([+-]?\d*)([a-zA-Z^]+)$/);
+            if (!match) return part;
+            let [, coeffStr, variable] = match;
+            let coeff = parseInt(coeffStr || "1");
+            coeff += Math.floor(Math.random() * 3) - 1;
+            if (coeff === 0) coeff = 1;
+            return `${coeff}${variable}`;
+        }).join(" + ").replace(/\+\s-\s/g, "- ");
+    }
+
+    function generateQuestion() {
+        const output = document.getElementById("output2");
+        const answersDiv = document.getElementById("answers2");
+        output.innerHTML = "";
+        answersDiv.innerHTML = "";
+
+        if (currentQuestion >= totalQuestions) {
+            let percent = Math.round((score / totalQuestions) * 100);
+            output.innerHTML = `<h2>Quiz Finished!</h2><p>Your score: ${score}/${totalQuestions} (${percent}%)</p>`;
+            output.innerHTML += percent >= 75
+                ? "<p>🎉 Great job – you’ve mastered this!</p>"
+                : percent >= 50
+                ? "<p>Good effort, keep practicing!</p>"
+                : "<p>Don’t give up! Try again.</p>";
+
+            const redoBtn = document.createElement("button");
+            redoBtn.textContent = "Redo Quiz";
+            redoBtn.className = "answer-btn";
+            redoBtn.onclick = () => {
+                score = 0;
+                currentQuestion = 0;
+                generateQuestion();
+            };
+            answersDiv.appendChild(redoBtn);
+            return;
+        }
+
+        let terms = [];
+        let numTerms = Math.floor(Math.random() * 2) + 5;
+        for (let i = 0; i < numTerms; i++) {
+            terms.push(generateExpressionTerm());
+        }
+
+        let expression = formatExpression(terms);
+        let correctAnswer = simplifyExpression(terms);
+
+        output.innerHTML = `<p>Question ${currentQuestion + 1}: Simplify the expression:<br><strong>${expression}</strong></p>`;
+
+        let answers = [correctAnswer];
+        while (answers.length < 4) {
+            let fake = generateFakeAnswer(correctAnswer);
+            if (!answers.includes(fake)) answers.push(fake);
+        }
+
+        answers.sort(() => Math.random() - 0.5);
+
+        answers.forEach(answer => {
+            const btn = document.createElement("button");
+            btn.textContent = answer;
+            btn.className = "answer-btn";
+            btn.onclick = () => {
+                output.innerHTML += answer === correctAnswer
+                    ? "<p>✅ Correct!</p>"
+                    : `<p>❌ Incorrect. The correct answer was: ${correctAnswer}</p>`;
+                currentQuestion++;
+                setTimeout(generateQuestion, 1000);
+            };
+            answersDiv.appendChild(btn);
+        });
+    }
+
+    // Start Quiz 2
+    generateQuestion();
+})();
