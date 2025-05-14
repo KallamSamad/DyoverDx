@@ -17,7 +17,7 @@
             term = { coeff, variable: variables[varIdx] };
         } else if (termType === 1) {
             let varIdx = Math.floor(Math.random() * variables.length);
-            term = { coeff, variable: `${variables[varIdx]}^2` };  // Corrected: We now add the coefficient for x^2
+            term = { coeff, variable: `${variables[varIdx]}^2` };  // Add x^2 term
         } else if (termType === 2) {
             let var1 = variables[Math.floor(Math.random() * variables.length)];
             let var2 = variables[Math.floor(Math.random() * variables.length)];
@@ -78,6 +78,19 @@
         }).join(" + ").replace(/\+\s-\s/g, "- ");
     }
 
+    function formatAnswer(answer) {
+        return answer.split(" + ").map(part => {
+            if (part.includes("^2")) {
+                let variableWithoutCaret = part.replace("^2", "");
+                return part.includes("-")
+                    ? `${part.replace("-", "")}<sup>2</sup>`
+                    : `${variableWithoutCaret}<sup>2</sup>`;
+            } else {
+                return part;
+            }
+        }).join(" + ").replace(/\+\s-\s/g, "- ");
+    }
+
     function generateQuestion() {
         const output = document.getElementById("output2");
         const answersDiv = document.getElementById("answers2");
@@ -126,7 +139,7 @@
 
         answers.forEach(answer => {
             const btn = document.createElement("button");
-            btn.textContent = answer;
+            btn.textContent = formatAnswer(answer); // Apply superscript formatting to answer
             btn.className = "answer-btn";
             btn.onclick = () => {
                 output.innerHTML += answer === correctAnswer
@@ -134,7 +147,7 @@
                     : `<p>❌ Incorrect. The correct answer was: ${correctAnswer}</p>`;
                 score += (answer === correctAnswer) ? 1 : 0;  // Update score
                 currentQuestion++; // Move to the next question
-                generateQuestion(); // Generate next question immediately after answer
+                setTimeout(generateQuestion, 1000); // Generate next question after delay
             };
             answersDiv.appendChild(btn);
         });
