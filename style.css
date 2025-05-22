@@ -110,7 +110,7 @@ h6 {
 .black-banner {
     background-color: black;
     padding: 10px 0;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
@@ -183,7 +183,7 @@ button:hover {
     }
 
     .hamburger-container {
-        display: block;
+        display: flex;
         text-align: right;
         margin-bottom: 10px;
     }
