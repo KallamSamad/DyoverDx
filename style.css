@@ -168,6 +168,16 @@ button:hover {
 
 /* Mobile Styles */
 @media (max-width: 768px) {
+  .black-banner a {
+    font-size: 1.1rem;
+    padding: 12px 20px; /* a bit more padding */
+    border-radius: 12px; /* more rounded corners */
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3); /* stronger shadow */
+    background-color: #222; /* slightly lighter black background behind the white text box */
+    display: inline-block; /* prevent full-width stretching */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+  }
+
     body {
         font-size: clamp(16px, 4vw, 20px);
         padding: 15px;
