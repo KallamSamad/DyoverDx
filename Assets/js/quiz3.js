@@ -20,7 +20,7 @@ for (let i=0; i<20;i++) {
     let letter2 = letter[Math.floor(Math.random() * letter.length)];
     let sym1 = symbol[Math.floor(Math.random() * symbol.length)];
 
-    let ans=sum(p,q)
+    let ans=sum(p,q,r,sym1)
      console.log("Compute: " + p+"("+q+letter1+sym1+r+")")
     } 
     
