@@ -129,9 +129,14 @@ h6 {
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.2rem;
-    padding: 10px;
+    padding: 12px 18px;              /* a bit more padding for a nicer button */
     border: 1px solid white;
-    transition: background-color 0.3s;
+    border-radius: 8px;              /* smooth rounded corners */
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2);  /* subtle white glow shadow */
+    transition: 
+        background-color 0.3s ease, 
+        color 0.3s ease, 
+        box-shadow 0.3s ease;
     line-height: 1.4;
     letter-spacing: 0.5px;
     white-space: normal;
@@ -142,8 +147,8 @@ h6 {
 .black-banner a:hover {
     background-color: white;
     color: black;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);  /* deeper shadow on hover */
 }
-
 /* Larger Buttons */
 button {
     font-size: 1.5rem;
