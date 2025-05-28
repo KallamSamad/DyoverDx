@@ -60,7 +60,7 @@
       out.innerHTML = `
         <h2>Quiz Finished!</h2>
         <p>Your score: ${score}/${totalQuestions} (${pct}%)</p>
-        <p>${pct>=75? '🎉 Aced it!' : pct>=50? '🙂 Keep going!' : '😓 Try again!'}</p>
+        <p>${pct>=75? ' Aced it!' : pct>=50? ' Keep going!' :  Try again!'}</p>
       `;
       const btn = document.createElement('button');
       btn.textContent = 'Redo Quiz';
