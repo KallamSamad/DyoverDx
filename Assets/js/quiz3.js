@@ -2,10 +2,10 @@ let score =0;
 let question=[];
 let letter =["x","y","z"];
 symbol=["+","-"]
- function sum(a,b,c,op){
+ function sum(a,b,c,op,letter){
      switch (op) {
-         case "+": return ((a*b)+(a*c));
-         case "-": return ((a*b)-(a*c));
+         case "+": return ((a*b),letter)+((a*c),letter);
+         case "-": return ((a*b),letter)-((a*c),letter);
      }
  }
 for (let i=0; i<20;i++) {
@@ -20,7 +20,13 @@ for (let i=0; i<20;i++) {
     let letter2 = letter[Math.floor(Math.random() * letter.length)];
     let sym1 = symbol[Math.floor(Math.random() * symbol.length)];
 
-    let ans=sum(p,q,r,sym1)
-     console.log("Compute: " + p+"("+q+letter1+sym1+r+")")
+    let ans=sum(p,q,r,sym1,letter)
+    let ask=console.log(prompt("Compute: " + p+"("+q+letter1+sym1+r+")")) 
+    if (ask ==ans){
+     console.log("correct")
+    }
+    else {
+     console.log("incorrect, the asnwer was " + ans)
+    }
     } 
     
