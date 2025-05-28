@@ -37,40 +37,23 @@ function showQuestion() {
   document.getElementById("result").innerText = "";
 }
 
-function checkAnswer() {
-  let ask = document.getElementById("userAnswer").value.trim();
+if (currentQuestionIndex < question.length) {
+  showQuestion();
+} else {
+  let percentage = (score / question.length) * 100;
+  document.getElementById("score").innerText = `Final Score: ${score} / ${question.length} (${percentage.toFixed(1)}%)`;
 
-  // Check if user answer matches expected answer (exact string match)
-  if (ask === currentQuestionData.ans) {
-    document.getElementById("result").innerText = "Correct!";
-    score++;
+  if (percentage >= 70) {
+    document.getElementById("question").innerText = "Aced it!";
+  } else if (percentage > 50) {
+    document.getElementById("question").innerText = "You're getting there!";
   } else {
-    document.getElementById("result").innerText =
-      `Incorrect, the answer was ${currentQuestionData.ans}`;
+    document.getElementById("question").innerText = "Try again";
   }
 
- 
-  document.getElementById("score").innerText = `Score: ${score}`;
-
- 
-  currentQuestionIndex++;
-
-  if (currentQuestionIndex < question.length) {
-    showQuestion();
-  } else {
-  
-    let percentage = (score / question.length) * 100;
-
-    if (percentage >= 70) {
-      document.getElementById("question").innerText = "Aced it!";
-      document.getElementById("submitBtn").disabled = true;
-    } else if (percentage > 50) {
-      document.getElementById("question").innerText = "You're getting there!";
-    } else {
-      document.getElementById("question").innerText = "Try again";
-    }
-  }
+  document.getElementById("submitBtn").disabled = true;
 }
+
 
 
 
