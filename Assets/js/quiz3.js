@@ -1,3 +1,4 @@
+
 let score =0;
 let question=[];
 let letter =["x","y","z"];
@@ -21,12 +22,11 @@ for (let i=0; i<20;i++) {
 
     let ans=sum(p,q,r,sym1,letter1)
     console.log("Compute: " + p+"("+q+letter1+sym1+r+")") 
-    ask=prompt("Type your answer")
+    ask=document.getElementById("myText").value;
     if (ask ==ans){
      console.log("correct")
     }
     else {
      console.log("incorrect, the answer was " + ans)
     }
-    } 
-    
+     
