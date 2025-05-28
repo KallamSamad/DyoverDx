@@ -2,10 +2,10 @@ let score =0;
 let question=[];
 let letter =["x","y","z"];
 symbol=["+","-"]
- function sum(a,b,c,op,letter1,letter2){
+ function sum(a,b,c,op,letter1){
      switch (op) {
-         case "+": return ((a*b)+letter1)+op+((a*c)+letter2);
-         case "-": return ((a*b)+letter1)+op+((a*c)+letter2);
+         case "+": return ((a*b)+letter1)+op+((a*c));
+         case "-": return ((a*b)+letter1)+op+((a*c));
      }
  }
 for (let i=0; i<20;i++) {
@@ -17,16 +17,16 @@ for (let i=0; i<20;i++) {
     let q = Math.floor(Math.random() * 10 + 1);
     let r = Math.floor(Math.random() * 10 + 1);
     let letter1 = letter[Math.floor(Math.random() * letter.length)];
-    let letter2 = letter[Math.floor(Math.random() * letter.length)];
     let sym1 = symbol[Math.floor(Math.random() * symbol.length)];
 
-    let ans=sum(p,q,r,sym1,letter1,letter2)
-    let ask=console.log(prompt("Compute: " + p+"("+q+letter1+sym1+r+")")) 
+    let ans=sum(p,q,r,sym1,letter1)
+    console.log("Compute: " + p+"("+q+letter1+sym1+r+")") 
+    ask=prompt("Type your answer")
     if (ask ==ans){
      console.log("correct")
     }
     else {
-     console.log("incorrect, the asnwer was " + ans)
+     console.log("incorrect, the answer was " + ans)
     }
     } 
     
