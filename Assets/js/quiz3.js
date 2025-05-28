@@ -7,12 +7,10 @@ function sum(a, b, c, op, letter1) {
   switch (op) {
     case "+":
     case "-":
-      // This returns a string like "10x+20"
       return (a * b) + letter1 + op + (a * c);
   }
 }
 
-// Prepare 20 questions (just indexes)
 for (let i = 0; i < 20; i++) {
   question.push(i + 1);
 }
@@ -38,7 +36,7 @@ function showQuestion() {
   document.getElementById("result").innerText = "";
 }
 
-document.getElementById("submitBtn").onclick = function () {
+function checkAnswer() {
   let ask = document.getElementById("userAnswer").value.trim();
 
   if (ask === currentQuestionData.ans) {
@@ -58,6 +56,29 @@ document.getElementById("submitBtn").onclick = function () {
     document.getElementById("question").innerText = "Quiz finished!";
     document.getElementById("submitBtn").disabled = true;
   }
-};
+}
 
+function restartQuiz() {
+  score = 0;
+  currentQuestionIndex = 0;
+  document.getElementById("submitBtn").disabled = false;
+  document.getElementById("score").innerText = `Score: ${score}`;
+  showQuestion();
+  document.getElementById("result").innerText = "";
+  document.getElementById("userAnswer").value = "";
+}
+
+// Event listeners
+document.getElementById("submitBtn").onclick = checkAnswer;
+document.getElementById("restartBtn").onclick = restartQuiz;
+
+// Allow Enter key to submit answer
+document.getElementById("userAnswer").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();  // Prevent form submission if inside a form
+    checkAnswer();
+  }
+});
+
+// Start first question
 showQuestion();
