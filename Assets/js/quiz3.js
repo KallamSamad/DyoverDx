@@ -37,23 +37,51 @@ function showQuestion() {
   document.getElementById("result").innerText = "";
 }
 
-if (currentQuestionIndex < question.length) {
-  showQuestion();
-} else {
-  let percentage = (score / question.length) * 100;
-  document.getElementById("score").innerText = `Final Score: ${score} / ${question.length} (${percentage.toFixed(1)}%)`;
+function checkAnswer() {
+  let ask = document.getElementById("userAnswer").value.trim();
 
-  if (percentage >= 70) {
-    document.getElementById("question").innerText = "Aced it!";
-  } else if (percentage > 50) {
-    document.getElementById("question").innerText = "You're getting there!";
+  // Check if user answer matches expected answer (exact string match)
+  if (ask === currentQuestionData.ans) {
+    document.getElementById("result").innerText = "Correct!";
+    score++;
   } else {
-    document.getElementById("question").innerText = "Try again";
+    document.getElementById("result").innerText =
+      `Incorrect, the answer was ${currentQuestionData.ans}`;
   }
 
-  document.getElementById("submitBtn").disabled = true;
-}
+  // Update current score display
+  document.getElementById("score").innerText = `Score: ${score}`;
 
+  currentQuestionIndex++;
+
+  if (currentQuestionIndex < question.length) {
+    showQuestion();
+  } else {
+    // Quiz ended - calculate percentage
+    let percentage = (score / question.length) * 100;
+
+    // Show final score and percentage
+    document.getElementById("score").innerText = `Final Score: ${score} / ${question.length} (${percentage.toFixed(1)}%)`;
+
+    // Show motivational message
+    if (percentage >= 70) {
+      document.getElementById("question").innerText = "Aced it!";
+    } else if (percentage > 50) {
+      document.getElementById("question").innerText = "You're getting there!";
+    } else {
+      document.getElementById("question").innerText = "Try again";
+    }
+
+    // Indicate quiz completion
+    document.getElementById("result").innerText = "Quiz complete! Well done.";
+
+    // Disable submit button to prevent more answers
+    document.getElementById("submitBtn").disabled = true;
+
+    // Clear user input
+    document.getElementById("userAnswer").value = "";
+  }
+}
 
 
 
