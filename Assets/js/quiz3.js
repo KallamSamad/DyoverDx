@@ -5,8 +5,10 @@ let symbol = ["+", "-"];
 
 function sum(a, b, c, op, letter1) {
   switch (op) {
-    case "+": return (a * b) + letter1 + op + (a * c);
-    case "-": return (a * b) + letter1 + op + (a * c);
+    case "+":
+    case "-":
+      // This returns a string like "10x+20"
+      return (a * b) + letter1 + op + (a * c);
   }
 }
 
@@ -30,20 +32,21 @@ function showQuestion() {
     ans: sum(p, q, r, sym1, letter1)
   };
 
-  document.getElementById("question").innerText = 
+  document.getElementById("question").innerText =
     `Compute: ${p}(${q}${letter1}${sym1}${r})`;
   document.getElementById("userAnswer").value = "";
   document.getElementById("result").innerText = "";
 }
 
-document.getElementById("submitBtn").onclick = function() {
+document.getElementById("submitBtn").onclick = function () {
   let ask = document.getElementById("userAnswer").value.trim();
 
   if (ask === currentQuestionData.ans) {
     document.getElementById("result").innerText = "Correct!";
     score++;
   } else {
-    document.getElementById("result").innerText = `Incorrect, the answer was ${currentQuestionData.ans}`;
+    document.getElementById("result").innerText =
+      `Incorrect, the answer was ${currentQuestionData.ans}`;
   }
 
   document.getElementById("score").innerText = `Score: ${score}`;
@@ -55,7 +58,6 @@ document.getElementById("submitBtn").onclick = function() {
     document.getElementById("question").innerText = "Quiz finished!";
     document.getElementById("submitBtn").disabled = true;
   }
-}
+};
 
 showQuestion();
-</script>
