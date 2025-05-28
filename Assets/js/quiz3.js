@@ -11,6 +11,7 @@ function sum(a, b, c, op, letter1) {
   }
 }
 
+
 for (let i = 0; i < 20; i++) {
   question.push(i + 1);
 }
@@ -39,6 +40,7 @@ function showQuestion() {
 function checkAnswer() {
   let ask = document.getElementById("userAnswer").value.trim();
 
+  // Check if user answer matches expected answer (exact string match)
   if (ask === currentQuestionData.ans) {
     document.getElementById("result").innerText = "Correct!";
     score++;
@@ -47,16 +49,30 @@ function checkAnswer() {
       `Incorrect, the answer was ${currentQuestionData.ans}`;
   }
 
+ 
   document.getElementById("score").innerText = `Score: ${score}`;
 
+ 
   currentQuestionIndex++;
+
   if (currentQuestionIndex < question.length) {
     showQuestion();
   } else {
-    document.getElementById("question").innerText = "Quiz finished!";
-    document.getElementById("submitBtn").disabled = true;
+  
+    let percentage = (score / question.length) * 100;
+
+    if (percentage >= 70) {
+      document.getElementById("question").innerText = "Aced it!";
+      document.getElementById("submitBtn").disabled = true;
+    } else if (percentage > 50) {
+      document.getElementById("question").innerText = "You're getting there!";
+    } else {
+      document.getElementById("question").innerText = "Try again";
+    }
   }
 }
+
+
 
 function restartQuiz() {
   score = 0;
