@@ -166,7 +166,12 @@ button {
 button:hover {
     background-color: #005f8d;
 }
-
+#userAnswer {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}
 /* Mobile Styles */
 @media (max-width: 768px) {
     body {
@@ -216,4 +221,10 @@ button:hover {
         font-size: 1.2rem;
         padding: 12px 24px;
     }
+    #userAnswer {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}
 }
