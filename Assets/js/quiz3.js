@@ -2,10 +2,10 @@ let score =0;
 let question=[];
 let letter =["x","y","z"];
 symbol=["+","-"]
- function sum(a,b,c,op,letter){
+ function sum(a,b,c,op,letter1,letter2){
      switch (op) {
-         case "+": return ((a*b),letter)+((a*c),letter);
-         case "-": return ((a*b),letter)-((a*c),letter);
+         case "+": return ((a*b)+letter1)+((a*c)+letter2);
+         case "-": return ((a*b)+letter1)-((a*c)+letter2);
      }
  }
 for (let i=0; i<20;i++) {
