@@ -166,7 +166,7 @@ button {
 button:hover {
     background-color: #005f8d;
 }
-#userAnswer {
+#userAnswer1,userAnswer2 {
   width: 300px;
   height: 40px;
   font-size: 16px;
