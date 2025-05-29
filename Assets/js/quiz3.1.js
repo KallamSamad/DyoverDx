@@ -11,9 +11,9 @@
   }
 
   function showQuestion1() {
-    let p = Math.floor(Math.random() * 10) + 10;
-    let q = Math.floor(Math.random() * 10) + 10;
-    let r = Math.floor(Math.random() * 10) + 10;
+    let p = Math.floor(Math.random() * 10) + 1;
+    let q = Math.floor(Math.random() * 10) + 1;
+    let r = Math.floor(Math.random() * 10) + 1;
     let letter1 = letter[Math.floor(Math.random() * letter.length)];
     let sym1 = symbol[Math.floor(Math.random() * symbol.length)];
 
