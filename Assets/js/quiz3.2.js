@@ -28,6 +28,7 @@
       `Expand: ${p}(${q}${letter1}${sym1}${r})`;
     document.getElementById("userAnswer2").value = "";
     document.getElementById("result2").innerText = "";
+    MathJax.typeset();
   }
 
   function checkAnswer2() {
