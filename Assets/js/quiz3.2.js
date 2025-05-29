@@ -4,11 +4,11 @@ let letter = ["x", "y", "z"];
 let symbol = ["+", "-"];
 
 function sum(a, b, c, op, letter1) {
-  switch (op) {
-    case "+":
-    case "-":
-      return (a * b) + letter1 + op + (a * c);
-  }
+  let firstTerm = a * b;
+  let secondTerm = a * c;
+  return `${firstTerm}${letter1}${op}${Math.abs(secondTerm)}${letter1}`;
+}
+
 }
 
 
