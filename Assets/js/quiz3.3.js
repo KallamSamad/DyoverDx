@@ -24,6 +24,7 @@
     document.getElementById("question3").innerText = `Expand: ${display}`;
     document.getElementById("userAnswer3").value = "";
     document.getElementById("result3").innerText = "";
+    MathJax.typeset();
   }
 
   function checkAnswer3() {
