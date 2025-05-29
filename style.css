@@ -178,6 +178,17 @@ button:hover {
   font-size: 16px;
   padding: 5px;
 }
+#userAnswer3 {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}#userAnswer4 {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}
 /* Mobile Styles */
 @media (max-width: 768px) {
     body {
@@ -234,6 +245,17 @@ button:hover {
   padding: 5px;
 }
 #userAnswer2 {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}
+#userAnswer3 {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}#userAnswer4 {
   width: 300px;
   height: 40px;
   font-size: 16px;
