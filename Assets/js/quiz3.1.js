@@ -10,16 +10,16 @@ function showQuestion1() {
     ans: sum1(p, q, r, sym1, letter1)
   };
 
-  // Proper MathJax rendering
-    let questionLatex = `Expand: \\(${p}(${q}${letter1}${sym1}${r})\\)`;
+  let questionLatex = `Expand: \\(${p}(${q}${letter1}${sym1}${r})\\)`;
   document.getElementById("question1").innerHTML = questionLatex;
 
   document.getElementById("userAnswer1").value = "";
   document.getElementById("result1").innerText = "";
 
-  // Tell MathJax to typeset the new expression
-  MathJax.typeset();
+  MathJax.typesetPromise()
+    .catch((err) => console.error('MathJax typeset failed:', err));
 }
+
 
   function checkAnswer1() {
     let ask = document.getElementById("userAnswer1").value.trim();
