@@ -32,7 +32,7 @@ function showQuestion() {
   };
 
   document.getElementById("question").innerText =
-    `Compute: ${p}(${q}${letter1}${sym1}${r})`;
+    `Expand: ${p}(${q}${letter1}${sym1}${r})`;
   document.getElementById("userAnswer").value = "";
   document.getElementById("result").innerText = "";
 }
