@@ -3,7 +3,7 @@
 <head>
   <link rel="stylesheet" href="/DyoverDx/style.css">
   <title>GCSE Topics</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-    <div class="top-bar">
+  <div class="top-bar">
     <button class="banner-toggle" id="banner-toggle">☰</button>
   </div>
 
@@ -20,102 +20,123 @@
     <img src="/DyoverDx/Assets/Images/be-limitless.webp" alt="logo" id="logo" width="70%">
   </header>
 
-    <nav class="black-banner" id="black-banner">
+  <nav class="black-banner" id="black-banner">
     <a href="/DyoverDx/About-me.html">About me</a>
     <a href="/DyoverDx/Before-You-Start.html">Before You Start</a>
     <a href="/DyoverDx/GCSE.html">GCSE</a>
     <a href="/DyoverDx/coming-soon.html">Tutoring</a>
   </nav>
-  <h1>Expanding brackets</h1>
-<h2>Definitions</h2>
-    <p>A <b>term</b> is a part of an expression, which can be a variable or a constant.</p>
+
+  <h1>Expanding Brackets</h1>
+
+  <h2>Definitions</h2>
+  <p>A <b>term</b> is a part of an expression, which can be a variable or a constant.</p>
   <p><b><i>Constant</i></b> – A constant is a value in maths that will never change. 
     <span style="color:red;">e.g., 1, 2, 3, π</span>
   </p>
   <p><b><i>Variable</i></b> – A variable is a value in maths that can change. Its value <i>varies</i>. 
     <span style="color:red;">x, y, z</span>
   </p>
-<p><b>Like terms</b> are terms that contain the same variables raised to the same powers. Constants are also considered like terms with each other and can be added or subtracted as long as they belong to the same set of numbers (e.g., all real numbers).</p>
+  <p><b>Like terms</b> are terms that contain the same variables raised to the same powers. Constants are also considered like terms with each other and can be added or subtracted as long as they belong to the same set of numbers (e.g., all real numbers).</p>
+  <p>When a number is written next to a bracket, it means you multiply the number by everything inside the bracket.</p>
 
-<p>When a number is written next to a bracket, it means you multiply the number by everything inside the bracket.</p>
+  <h2>Expanding</h2>
+  <p>Expanding brackets means multiplying out the expression inside. A helpful way to remember this is <b>FL</b>: First and Last terms.</p>
 
-<h2>Expanding</h2>
-<p>Expanding brackets means multiplying out the expression inside. A helpful way to remember this is <b>FL</b>: First and Last terms.</p>
+  <h2>Formulae</h2>
+  <p>\( a(b + c) \equiv ab + ac \)</p>
+  <p>\( a(b - c) \equiv ab - ac \)</p>
 
-<h2>Formulae</h2>
-<p>\( a(b + c) \equiv ab + ac \)</p>
-<p>\( a(b - c) \equiv ab - ac \)</p>
+  <h2>What does this mean?</h2>
+  <p>The letters represent <strong>variables</strong> — placeholders for numbers. Refer to the definition on the top. The formula says:</p>
+  <ul>
+    <li>Multiply <code>a</code> by <code>b</code></li>
+    <li>Multiply <code>a</code> by <code>c</code></li>
+    <li>Add or subtract depending on the sign inside the bracket</li>
+  </ul>
+  <p>This works for any numbers. You can <em>substitute</em> numbers in to test it — it will always be true.</p>
+  <p>The symbol ≡ means "<strong>identically equal to</strong>": it's always correct, not just sometimes.</p>
+  <p>Also, remember: when two variables are “stuck” together like <code>ab</code>, it means <code>a × b</code>.</p>
 
-<h2>What does this mean?</h2>
-<p>
-  The letters represent <strong>variables</strong> — placeholders for numbers. Refer to the definition on the top. The formula says:
-</p>
-<ul>
-  <li>Multiply <code>a</code> by <code>b</code></li>
-  <li>Multiply <code>a</code> by <code>c</code></li>
-  <li>Add or subtract depending on the sign inside the bracket</li>
-</ul>
-<p>
-  This works for any numbers. You can <em>substitute</em> numbers in to test it — it will always be true.
-</p>
-<p>
-  The symbol ≡ means "<strong>identically equal to</strong>": it's always correct, not just sometimes.
-</p>
-<p>
-  Also, remember: when two variables are “stuck” together like <code>ab</code>, it means <code>a × b</code>.
-</p>
+  <h2>Expanding brackets</h2>
+  <div id="quiz1-container">
+    <p id="question1"></p>
+    <input type="text" id="userAnswer1" autocomplete="off" placeholder="Type your answer here" />
+    <button id="submitBtn1">Submit</button>
+    <button id="restartBtn1">Restart</button>
+    <p id="result1"></p>
+    <p id="score1">Score: 0</p>
+  </div>
 
+  <h2>Harder Single Brackets</h2>
+  <p>Now that you know how to expand brackets, remember that you will also have to deal with negatives. This is an important skill to develop.</p>
 
- 
+  <p>Just keep in mind:</p>
+  <ul>
+    <li>There is an invisible <strong>+</strong> sign in front of every positive number. So <code>2</code> is the same as <code>+2</code>.</li>
+    <li><code>+a × +b = +ab</code> — multiplying two positive numbers results in a positive number. For example, <code>+2 × +2 = +4</code>.</li>
+    <li><code>-a × -b = +ab</code> — multiplying two negative numbers results in a positive number (the negatives cancel out). For example, <code>-2 × -2 = +4</code>.</li>
+    <li><code>-a × +b = -ab</code> — multiplying a negative number by a positive number results in a negative number. For example, <code>-2 × +2 = -4</code>.</li>
+  </ul>
 
+  <h2>Extension</h2>
+  <p>You can extend this further by changing the operator (multiplication) to other operations like addition or division. The rules for the signs still apply, but it gets trickier.</p>
 
+  <p>For example, putting a minus in front can “flip” the results. So <code>-a - -b</code> becomes <code>-a + b</code> or <code>b - a</code>. Just remember: if there is an <strong>odd</strong> number of minus signs, the result will be negative; otherwise, it will be positive.</p>
+  <p>Link this to BIDMAS.</p>
 
+  <h2>Summary</h2>
+  <p><strong>Odd number of minus signs</strong> → negative result</p>
+  <p><strong>Even number of minus signs</strong> → positive result</p>
 
+  <h2>Harder expansions</h2>
+  <div id="quiz2-container">
+    <p id="question2"></p>
+    <input type="text" id="userAnswer2" autocomplete="off" placeholder="Type your answer here" />
+    <button id="submitBtn2">Submit</button>
+    <button id="restartBtn2">Restart</button>
+    <p id="result2"></p>
+    <p id="score2">Score: 0</p>
+  </div>
 
- 
-<!-- Quiz 1 -->
-<div id="quiz1-container">
-  <p id="question1"></p>
-  <input type="text" id="userAnswer1" autocomplete="off" placeholder="Type your answer here" />
-  <button id="submitBtn1">Submit</button>
-  <button id="restartBtn1">Restart</button>
-  <p id="result1"></p>
-  <p id="score1">Score: 0</p>
-</div>
+  <h2>The Power of 2</h2>
+  <p>Here is another rule: \(a \times a = a^2\)</p>
+  <p>This can also be written as <code>a<sup>2</sup></code>.</p>
 
-<!-- Quiz 2 -->
-<div id="quiz2-container">
-  <p id="question2"></p>
-  <input type="text" id="userAnswer2" autocomplete="off" placeholder="Type your answer here" />
-  <button id="submitBtn2">Submit</button>
-  <button id="restartBtn2">Restart</button>
-  <p id="result2"></p>
-  <p id="score2">Score: 0</p>
-</div>
+  <h2>Expanding Brackets with \(x^2\)</h2>
+  <p><b>Note</b> - To answer these questions, if you get an \(x^2\) just write it as <code>x^2</code> or you <b>won't</b> get a point to your score.</p>
 
-<!-- Quiz 3 -->
-<div id="quiz3-container">
-  <p id="question3"></p>
-  <input type="text" id="userAnswer3" autocomplete="off" placeholder="Type your answer here" />
-  <button id="submitBtn3">Submit</button>
-  <button id="restartBtn3">Restart</button>
-  <p id="result3"></p>
-  <p id="score3">Score: 0</p>
-</div>
+  <div id="quiz3-container">
+    <p id="question3"></p>
+    <input type="text" id="userAnswer3" autocomplete="off" placeholder="Type your answer here" />
+    <button id="submitBtn3">Submit</button>
+    <button id="restartBtn3">Restart</button>
+    <p id="result3"></p>
+    <p id="score3">Score: 0</p>
+  </div>
 
-<div id="quiz4-container">
-  <p id="question4"></p>
-  <input type="text" id="userAnswer4" autocomplete="off" placeholder="Type your answer here" />
-  <button id="submitBtn4">Submit</button>
-  <button id="restartBtn4">Restart</button>
-  <p id="result4"></p>
-  <p id="score4">Score: 0</p>
-</div>
+  <h2>Harder expanding brackets with \(x^2\)</h2>
+  <div id="quiz4-container">
+    <p id="question4"></p>
+    <input type="text" id="userAnswer4" autocomplete="off" placeholder="Type your answer here" />
+    <button id="submitBtn4">Submit</button>
+    <button id="restartBtn4">Restart</button>
+    <p id="result4"></p>
+    <p id="score4">Score: 0</p>
+  </div>
 
+  <h2>Final Summary</h2>
+  <p>Expanding brackets involves multiplying each term inside the bracket by the term outside.</p>
+  <ul>
+    <li> \(a(b + c) = ab + ac\) and \(a(b - c) = ab - ac\) </li>
+    <li>Pay close attention to signs: multiplying negatives can change the sign of the terms.</li>
+    <li>An odd number of minus signs leads to a negative result; an even number leads to a positive result.</li>
+    <li>When variables multiply themselves, use powers: \(a \times a = a^2\).</li>
+  </ul>
 
-<script src="/DyoverDx/Assets/js/quiz3.1.js"></script>
-<script src="/DyoverDx/Assets/js/quiz3.2.js"></script>
-<script src="/DyoverDx/Assets/js/quiz3.3.js"></script>
-<script src="/DyoverDx/Assets/js/quiz3.4.js"></script>
+  <script src="/DyoverDx/Assets/js/quiz3.1.js"></script>
+  <script src="/DyoverDx/Assets/js/quiz3.2.js"></script>
+  <script src="/DyoverDx/Assets/js/quiz3.3.js"></script>
+  <script src="/DyoverDx/Assets/js/quiz3.4.js"></script>
 </body>
 </html>
