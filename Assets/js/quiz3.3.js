@@ -26,13 +26,6 @@
 
     let display, answer;
 
-    if (questionType === "type1") {
-      let a = Math.floor(Math.random() * 9) + 1;
-      let b = Math.floor(Math.random() * 9) + 1;
-      let c = Math.floor(Math.random() * 9) + 1;
-      display = `${a}(${b}${letter}${op}${c})`;
-      answer = expandType1(a, b, c, op, letter);
-    } else {
       let c = Math.floor(Math.random() * 9) + 1;
       display = `${letter}(${letter}${op}${c})`;
       answer = expandType2(letter, c, op);
