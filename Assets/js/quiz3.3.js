@@ -23,12 +23,10 @@
     let questionType = Math.random() < 0.5 ? "type1" : "type2"; // 50/50 chance
     let letter = letters[Math.floor(Math.random() * letters.length)];
     let op = symbols[Math.floor(Math.random() * symbols.length)];
-
     let display, answer;
-
-      let c = Math.floor(Math.random() * 9) + 1;
-      display = `${letter}(${letter}${op}${c})`;
-      answer = expandType2(letter, c, op);
+    let c = Math.floor(Math.random() * 9) + 1;
+    display = `${letter}(${letter}${op}${c})`;
+    answer = expandType2(letter, c, op);
     }
 
     currentData3 = { ans: answer.replace(/\s+/g, '') };
