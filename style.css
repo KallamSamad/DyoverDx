@@ -166,7 +166,13 @@ button {
 button:hover {
     background-color: #005f8d;
 }
-#userAnswer1,userAnswer2 {
+#userAnswer1{
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}
+#userAnswer2 {
   width: 300px;
   height: 40px;
   font-size: 16px;
@@ -221,10 +227,17 @@ button:hover {
         font-size: 1.2rem;
         padding: 12px 24px;
     }
-    #userAnswer {
+#userAnswer1{
   width: 300px;
   height: 40px;
   font-size: 16px;
   padding: 5px;
+}
+#userAnswer2 {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}
 }
 }
