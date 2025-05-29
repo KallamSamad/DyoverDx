@@ -11,7 +11,7 @@ function showQuestion1() {
   };
 
   // Proper MathJax rendering
-  let questionLatex = `Expand: \\(${p}(${q}${letter1}${sym1}${r})\\)`;
+    let questionLatex = `Expand: \\(${p}(${q}${letter1}${sym1}${r})\\)`;
   document.getElementById("question1").innerHTML = questionLatex;
 
   document.getElementById("userAnswer1").value = "";
