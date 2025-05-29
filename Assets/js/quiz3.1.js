@@ -1,28 +1,41 @@
-function showQuestion1() {
-  let p = Math.floor(Math.random() * 10) + 1;
-  let q = Math.floor(Math.random() * 10) + 1;
-  let r = Math.floor(Math.random() * 10) + 1;
-  let letter1 = letter[Math.floor(Math.random() * letter.length)];
-  let sym1 = symbol[Math.floor(Math.random() * symbol.length)];
+(() => {
+  let letter = ["x", "y", "z"];
+  let symbol = ["+", "-"];
+  let currentData1 = {};
+  let score1 = 0;
+  let currentIndex1 = 0;
+  let question1 = Array.from({ length: 10 }, (_, i) => i + 1);
 
-  currentData1 = {
-    p, q, r, letter1, sym1,
-    ans: sum1(p, q, r, sym1, letter1)
-  };
+  function sum1(p, q, r, sym, letter) {
+    return `${p*q}${letter}${sym}${p*r}`.replace(/\s+/g, '');
+  }
 
-  let questionLatex = `Expand: \\(${p}(${q}${letter1}${sym1}${r})\\)`;
-  document.getElementById("question1").innerHTML = questionLatex;
+  function showQuestion1() {
+    let p = Math.floor(Math.random() * 10) + 1;
+    let q = Math.floor(Math.random() * 10) + 1;
+    let r = Math.floor(Math.random() * 10) + 1;
+    let letter1 = letter[Math.floor(Math.random() * letter.length)];
+    let sym1 = symbol[Math.floor(Math.random() * symbol.length)];
 
-  document.getElementById("userAnswer1").value = "";
-  document.getElementById("result1").innerText = "";
+    currentData1 = {
+      p, q, r, letter1, sym1,
+      ans: sum1(p, q, r, sym1, letter1)
+    };
 
-  MathJax.typesetPromise()
-    .catch((err) => console.error('MathJax typeset failed:', err));
-}
+    let questionLatex = `Expand: \\(${p}(${q}${letter1}${sym1}${r})\\)`;
+    document.getElementById("question1").innerHTML = questionLatex;
 
+    document.getElementById("userAnswer1").value = "";
+    document.getElementById("result1").innerText = "";
+
+    if (typeof MathJax !== "undefined") {
+      MathJax.typesetPromise()
+        .catch((err) => console.error('MathJax typeset failed:', err));
+    }
+  }
 
   function checkAnswer1() {
-    let ask = document.getElementById("userAnswer1").value.trim();
+    let ask = document.getElementById("userAnswer1").value.trim().replace(/\s+/g, '');
     if (ask === currentData1.ans) {
       document.getElementById("result1").innerText = "Correct!";
       score1++;
