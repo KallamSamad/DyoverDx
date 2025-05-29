@@ -21,7 +21,7 @@
 
     currentData3 = { ans: answer.replace(/\s+/g, '') };
 
-    document.getElementById("question3").innerText = `Expand: ${display}`;
+    document.getElementById("question3").innerText = `Expand: \\(${display}`;\\) 
     document.getElementById("userAnswer3").value = "";
     document.getElementById("result3").innerText = "";
     MathJax.typeset();
