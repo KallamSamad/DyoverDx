@@ -1,33 +1,25 @@
-(function () {
-  let score1 = 0;
-  let question1 = Array.from({ length: 20 }, (_, i) => i + 1);
-  let letter = ["x", "y", "z"];
-  let symbol = ["+", "-"];
-  let currentIndex1 = 0;
-  let currentData1 = {};
+function showQuestion1() {
+  let p = Math.floor(Math.random() * 10) + 1;
+  let q = Math.floor(Math.random() * 10) + 1;
+  let r = Math.floor(Math.random() * 10) + 1;
+  let letter1 = letter[Math.floor(Math.random() * letter.length)];
+  let sym1 = symbol[Math.floor(Math.random() * symbol.length)];
 
-  function sum1(a, b, c, op, letter1) {
-    return (a * b) + letter1 + op + (a * c);
-  }
+  currentData1 = {
+    p, q, r, letter1, sym1,
+    ans: sum1(p, q, r, sym1, letter1)
+  };
 
-  function showQuestion1() {
-    let p = Math.floor(Math.random() * 10) + 1;
-    let q = Math.floor(Math.random() * 10) + 1;
-    let r = Math.floor(Math.random() * 10) + 1;
-    let letter1 = letter[Math.floor(Math.random() * letter.length)];
-    let sym1 = symbol[Math.floor(Math.random() * symbol.length)];
+  // Proper MathJax rendering
+  let questionLatex = `Expand: \\(${p}(${q}${letter1}${sym1}${r})\\)`;
+  document.getElementById("question1").innerHTML = questionLatex;
 
-    currentData1 = {
-      p, q, r, letter1, sym1,
-      ans: sum1(p, q, r, sym1, letter1)
-    };
+  document.getElementById("userAnswer1").value = "";
+  document.getElementById("result1").innerText = "";
 
-    document.getElementById("question1").innerText =
-      `Expand: ${p}(${q}${letter1}${sym1}${r})`;
-    document.getElementById("userAnswer1").value = "";
-    document.getElementById("result1").innerText = "";
-    MathJax.typeset();
-  }
+  // Tell MathJax to typeset the new expression
+  MathJax.typeset();
+}
 
   function checkAnswer1() {
     let ask = document.getElementById("userAnswer1").value.trim();
