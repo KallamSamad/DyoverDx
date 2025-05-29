@@ -92,7 +92,7 @@ function restartQuiz() {
   document.getElementById("score2").innerText = `Score: ${score}`;
   showQuestion();
   document.getElementById("result2").innerText = "";
-  document.getElementById("userAnswe2").value = "";
+  document.getElementById("userAnswer2").value = "";
 }
 
 // Event listeners
