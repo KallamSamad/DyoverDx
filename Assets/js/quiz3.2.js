@@ -88,19 +88,19 @@ function checkAnswer() {
 function restartQuiz() {
   score = 0;
   currentQuestionIndex = 0;
-  document.getElementById("submitBtn").disabled = false;
-  document.getElementById("score").innerText = `Score: ${score}`;
+  document.getElementById("submitBtn2").disabled = false;
+  document.getElementById("score2").innerText = `Score: ${score}`;
   showQuestion();
-  document.getElementById("result").innerText = "";
-  document.getElementById("userAnswer").value = "";
+  document.getElementById("result2").innerText = "";
+  document.getElementById("userAnswe2").value = "";
 }
 
 // Event listeners
-document.getElementById("submitBtn").onclick = checkAnswer;
-document.getElementById("restartBtn").onclick = restartQuiz;
+document.getElementById("submitBtn2").onclick = checkAnswer;
+document.getElementById("restartBtn2").onclick = restartQuiz;
 
 // Allow Enter key to submit answer
-document.getElementById("userAnswer").addEventListener("keydown", function(event) {
+document.getElementById("userAnswer2").addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();  // Prevent form submission if inside a form
     checkAnswer();
