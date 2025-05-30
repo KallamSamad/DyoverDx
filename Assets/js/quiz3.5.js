@@ -6,24 +6,33 @@
   let currentIndex5 = 0;
   let currentData5 = {};
 
-  // Function to simplify expressions like x(x+a) + x(x+a)
-  function expandAndSimplify(letter, c, op) {
+  function expandWithCoefficients(letter, a, innerCoeff, c, op) {
     let sign = op === "+" ? 1 : -1;
-    let linearCoeff = 2 * c * sign;
-    let linearPart = `${Math.abs(linearCoeff)}${letter}`;
-    let linearSign = linearCoeff >= 0 ? "+" : "-";
+    let effectiveC = sign * c;
 
-    return `2${letter}^2${linearSign}${linearPart}`;
+    let quadCoeff = 2 * a * innerCoeff;
+    let linearCoeff = 2 * a * effectiveC;
+
+    let quadTerm = `${quadCoeff}${letter}^2`;
+    let linearSign = linearCoeff >= 0 ? "+" : "-";
+    let linearTerm = `${Math.abs(linearCoeff)}${letter}`;
+
+    return `${quadTerm}${linearSign}${linearTerm}`;
   }
 
-  // Show question
   function showQuestion5() {
     let letter = letters[Math.floor(Math.random() * letters.length)];
     let op = symbols[Math.floor(Math.random() * symbols.length)];
-    let c = Math.floor(Math.random() * 4) + 2; // Random integer from 2 to 5
 
-    let expression = `${letter}(${letter}${op}${c}) + ${letter}(${letter}${op}${c})`;
-    let answer = expandAndSimplify(letter, c, op);
+    let a = Math.floor(Math.random() * 3) + 1;          // 1 to 3
+    let innerCoeff = Math.floor(Math.random() * 3) + 1; // 1 to 3
+    let c = Math.floor(Math.random() * 4) + 1;          // 1 to 4
+
+    let bracket = `${innerCoeff === 1 ? '' : innerCoeff}${letter}${op}${c}`;
+    let front = `${a === 1 ? '' : a}${letter}`;
+
+    let expression = `${front}(${bracket}) + ${front}(${bracket})`;
+    let answer = expandWithCoefficients(letter, a, innerCoeff, c, op);
 
     currentData5 = { ans: answer.replace(/\s+/g, '') };
 
@@ -34,7 +43,6 @@
     MathJax.typesetPromise().catch((err) => console.error('MathJax typeset failed:', err));
   }
 
-  // Check answer
   function checkAnswer5() {
     let userAnswer = document.getElementById("userAnswer5").value.trim().replace(/\s+/g, '');
 
@@ -64,7 +72,6 @@
     }
   }
 
-  // Restart
   function restartQuiz5() {
     score5 = 0;
     currentIndex5 = 0;
@@ -75,7 +82,6 @@
     document.getElementById("userAnswer5").value = "";
   }
 
-  // Event listeners
   document.getElementById("submitBtn5").onclick = checkAnswer5;
   document.getElementById("restartBtn5").onclick = restartQuiz5;
   document.getElementById("userAnswer5").addEventListener("keydown", function (e) {
@@ -85,6 +91,5 @@
     }
   });
 
-  // Start
   showQuestion5();
 })();
