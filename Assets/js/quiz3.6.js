@@ -1,112 +1,177 @@
 (function () {
   let score6 = 0;
-  let question6 = Array.from({ length: 20 }, (_, i) => i + 1);
-  let letters = ["x", "y", "z"];
-  let symbols = ["+", "-"];
+  const totalQuestions = 5; // Changed to 5 questions
+  const letters = ["x", "y", "z"];
+  const symbols = ["+", "-"];
   let currentIndex6 = 0;
-  let currentData6 = {};
+  let currentAnswerSimplified = "";
+  let currentAnswerExpanded = "";
 
-  // Helper: generate random integer from min to max inclusive
   function randInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  // Generate a bracket expression like "2x - 3 + x"
   function generateBracket(letter) {
-    let terms = [];
-    let totalTerms = randInt(2, 3); // 2 or 3 terms
+    const terms = [];
+    const totalTerms = randInt(2, 3); // 2 or 3 terms
 
     for (let i = 0; i < totalTerms; i++) {
-      let type = Math.random() < 0.5 ? "var" : "num";
-      let sign = symbols[Math.floor(Math.random() * symbols.length)];
-      let coeff = randInt(1, 9);
+      const isVarTerm = Math.random() < 0.5;
+      const sign = symbols[randInt(0, 1)];
+      const coeff = randInt(1, 9);
 
-      if (type === "var") {
-        // e.g. +3x or -1x (omit 1)
-        let coeffStr = (coeff === 1) ? "" : coeff;
+      if (isVarTerm) {
+        const coeffStr = coeff === 1 ? "" : coeff;
         terms.push(`${sign}${coeffStr}${letter}`);
       } else {
-        // e.g. +5 or -2
         terms.push(`${sign}${coeff}`);
       }
     }
 
-    // Remove leading + from first term
-    let cleanTerms = terms.map((t, i) => i === 0 ? t.replace(/^\+/, '') : t);
-    return cleanTerms.join(' ');
+    // Remove leading plus from first term
+    terms[0] = terms[0].replace(/^\+/, '');
+    return terms.join(' ');
   }
 
-  function simplifyAndExpand(letter, bracket, frontCoeff) {
-    // Parse terms in bracket
-    let terms = bracket.split(/(?=[+-])/).map(t => t.trim());
-
-    let varCoeff = 0;
-    let numTotal = 0;
+  // Parses bracket into separate terms (coefficients and constants)
+  function parseTerms(expression, letter) {
+    const terms = expression.split(/(?=[+-])/).map(t => t.trim());
+    let varTerms = [];
+    let constTerms = [];
 
     terms.forEach(term => {
       if (term.includes(letter)) {
-        // Extract coefficient before letter
-        let coeffStr = term.replace(letter, '').replace(/\s+/g, '');
+        // Extract coefficient for var term
+        let coeffStr = term.replace(letter, '');
         if (coeffStr === '+' || coeffStr === '') coeffStr = '1';
         else if (coeffStr === '-') coeffStr = '-1';
-        varCoeff += parseInt(coeffStr);
+        varTerms.push(parseInt(coeffStr));
       } else {
-        numTotal += parseInt(term);
+        constTerms.push(parseInt(term));
       }
     });
 
-    // Expression:  a*letter * ( ... ) + a*letter * ( ... )
-    // = 2 * a * varCoeff * letter^2 + 2 * a * numTotal * letter
+    return { varTerms, constTerms };
+  }
 
-    let linearCoeff = 2 * frontCoeff * varCoeff;
-    let constantCoeff = 2 * frontCoeff * numTotal;
+  // Simplify and expand (combine like terms)
+  function simplifyAndExpand(letter, bracket, frontCoeff) {
+    const { varTerms, constTerms } = parseTerms(bracket, letter);
+
+    // Calculate sum of variable terms and constants
+    const varSum = varTerms.reduce((a,b) => a+b, 0);
+    const constSum = constTerms.reduce((a,b) => a+b, 0);
+
+    // Formula based on problem: 2 * frontCoeff * varSum * letter^2 + 2 * frontCoeff * constSum * letter
+    const linearCoeff = 2 * frontCoeff * varSum;
+    const constantCoeff = 2 * frontCoeff * constSum;
 
     let result = `${linearCoeff}${letter}^2`;
     if (constantCoeff !== 0) {
       result += (constantCoeff > 0 ? `+${constantCoeff}${letter}` : `${constantCoeff}${letter}`);
+    }
+    return result;
+  }
+
+  // Fully expand without combining like terms
+  function fullyExpand(letter, bracket, frontCoeff) {
+    const { varTerms, constTerms } = parseTerms(bracket, letter);
+
+    // Each term in bracket multiplied by 2 * frontCoeff * letter
+    // So:
+    // var terms: coeff * letter * 2 * frontCoeff * letter = coeff * 2 * frontCoeff * letter^2
+    // const terms: const * 2 * frontCoeff * letter = const * 2 * frontCoeff * letter
+
+    const factor = 2 * frontCoeff;
+
+    const expandedVarTerms = varTerms.map(c => `${c * factor}${letter}^2`);
+    const expandedConstTerms = constTerms.map(c => {
+      const val = c * factor;
+      return (val >= 0 ? `+${val}${letter}` : `${val}${letter}`);
+    });
+
+    // Join terms, remove leading + if any
+    const combined = [...expandedVarTerms, ...expandedConstTerms].join('');
+    return combined.replace(/^\+/, '');
+  }
+
+  // Normalize expression for comparison: remove spaces, lowercase, order terms by power desc, combine like terms
+  function normalizeExpression(expr, letter) {
+    expr = expr.toLowerCase().replace(/\s+/g, '');
+
+    // Split into terms
+    const terms = expr.match(/[+-]?[^+-]+/g);
+
+    if (!terms) return '';
+
+    let var2 = 0;
+    let var1 = 0;
+
+    terms.forEach(term => {
+      if (term.includes(`${letter}^2`)) {
+        let coeff = term.replace(`${letter}^2`, '');
+        if (coeff === '+' || coeff === '') coeff = '1';
+        else if (coeff === '-') coeff = '-1';
+        var2 += parseInt(coeff);
+      } else if (term.includes(letter)) {
+        let coeff = term.replace(letter, '');
+        if (coeff === '+' || coeff === '') coeff = '1';
+        else if (coeff === '-') coeff = '-1';
+        var1 += parseInt(coeff);
+      }
+    });
+
+    let result = '';
+    if (var2 !== 0) result += `${var2}${letter}^2`;
+    if (var1 !== 0) {
+      if (var1 > 0 && result.length > 0) {
+        result += `+${var1}${letter}`;
+      } else {
+        result += `${var1}${letter}`;
+      }
     }
 
     return result;
   }
 
   function showQuestion6() {
-    let letter = letters[Math.floor(Math.random() * letters.length)];
+    const letter = letters[randInt(0, letters.length - 1)];
+    const frontCoeff = randInt(1, 9);
+    const frontStr = frontCoeff === 1 ? `${letter}` : `${frontCoeff}${letter}`;
 
-    // Random coefficient in front: a
-    let frontCoeff = randInt(1, 9);
-    let frontStr = (frontCoeff === 1) ? `${letter}` : `${frontCoeff}${letter}`;
+    const bracket = generateBracket(letter);
+    const expression = `${frontStr}(${bracket}) + ${frontStr}(${bracket})`;
 
-    let bracket = generateBracket(letter);
-    let expression = `${frontStr}(${bracket}) + ${frontStr}(${bracket})`;
-    let answer = simplifyAndExpand(letter, bracket, frontCoeff);
+    currentAnswerSimplified = normalizeExpression(simplifyAndExpand(letter, bracket, frontCoeff), letter);
+    currentAnswerExpanded = normalizeExpression(fullyExpand(letter, bracket, frontCoeff), letter);
 
-    currentData6 = { ans: answer.replace(/\s+/g, '') };
-
-    document.getElementById("question6").innerHTML = `Expand and simplify: \\(${expression}\\)`;
+    document.getElementById("question6").innerText = `Expand and simplify: ${expression}`;
     document.getElementById("userAnswer6").value = "";
     document.getElementById("result6").innerText = "";
-
-    MathJax.typesetPromise().catch((err) => console.error('MathJax typeset failed:', err));
   }
 
   function checkAnswer6() {
-    let userAnswer = document.getElementById("userAnswer6").value.trim().replace(/\s+/g, '');
+    const letter = currentAnswerSimplified.match(/[xyz]/)[0]; // get variable letter from answer
+    const userAnswerRaw = document.getElementById("userAnswer6").value.trim();
+    const userAnswer = normalizeExpression(userAnswerRaw, letter);
 
-    if (userAnswer === currentData6.ans) {
+    if (userAnswer === currentAnswerSimplified || userAnswer === currentAnswerExpanded) {
       document.getElementById("result6").innerText = "Correct!";
       score6++;
     } else {
-      document.getElementById("result6").innerText = `Incorrect, the answer was ${currentData6.ans}`;
+      document.getElementById("result6").innerText = `Incorrect, the answer was ${currentAnswerSimplified}`;
     }
 
     document.getElementById("score6").innerText = `Score: ${score6}`;
     currentIndex6++;
 
-    if (currentIndex6 < question6.length) {
+    if (currentIndex6 < totalQuestions) {
       showQuestion6();
     } else {
-      let percent = (score6 / question6.length) * 100;
+      const percent = (score6 / totalQuestions) * 100;
       document.getElementById("score6").innerText =
-        `Final Score: ${score6} / ${question6.length} (${percent.toFixed(1)}%)`;
+        `Final Score: ${score6} / ${totalQuestions} (${percent.toFixed(1)}%)`;
 
       document.getElementById("question6").innerText =
         percent >= 70 ? "Aced it!" : percent > 50 ? "You're getting there!" : "Try again";
@@ -137,4 +202,3 @@
   });
 
   showQuestion6();
-})();
