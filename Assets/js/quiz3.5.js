@@ -6,36 +6,35 @@
   let currentIndex5 = 0;
   let currentData5 = {};
 
-  // Function to generate the expanded form of letter * (letter op c) + letter * (letter op c)
-  function expandType2(letter, c, op) {
-    let value = op === "+" ? c : -c;
-    let term1 = `2${letter}^2`;
-    let term2 = Math.abs(value * 2);
-    let sign = value >= 0 ? "+" : "-";
+  // Function to simplify expressions like x(x+a) + x(x+a)
+  function expandAndSimplify(letter, c, op) {
+    let sign = op === "+" ? 1 : -1;
+    let linearCoeff = 2 * c * sign;
+    let linearPart = `${Math.abs(linearCoeff)}${letter}`;
+    let linearSign = linearCoeff >= 0 ? "+" : "-";
 
-    return `${term1}${sign}${term2}${letter}`;
+    return `2${letter}^2${linearSign}${linearPart}`;
   }
 
-  // Show one question with MathJax rendering
+  // Show question
   function showQuestion5() {
     let letter = letters[Math.floor(Math.random() * letters.length)];
     let op = symbols[Math.floor(Math.random() * symbols.length)];
-    let c = 4; // Replace 3 with 4 for the constant
+    let c = Math.floor(Math.random() * 4) + 2; // Random integer from 2 to 5
 
     let expression = `${letter}(${letter}${op}${c}) + ${letter}(${letter}${op}${c})`;
-    let answer = expandType2(letter, c, op).replace(/\s+/g, '');
+    let answer = expandAndSimplify(letter, c, op);
 
-    currentData5 = { ans: answer };
+    currentData5 = { ans: answer.replace(/\s+/g, '') };
 
     document.getElementById("question5").innerHTML = `Expand and simplify: \\(${expression}\\)`;
     document.getElementById("userAnswer5").value = "";
     document.getElementById("result5").innerText = "";
 
-    MathJax.typesetPromise()
-      .catch((err) => console.error('MathJax typeset failed:', err));
+    MathJax.typesetPromise().catch((err) => console.error('MathJax typeset failed:', err));
   }
 
-  // Check user's answer
+  // Check answer
   function checkAnswer5() {
     let userAnswer = document.getElementById("userAnswer5").value.trim().replace(/\s+/g, '');
 
@@ -47,7 +46,6 @@
     }
 
     document.getElementById("score5").innerText = `Score: ${score5}`;
-
     currentIndex5++;
 
     if (currentIndex5 < question5.length) {
@@ -66,7 +64,7 @@
     }
   }
 
-  // Restart quiz
+  // Restart
   function restartQuiz5() {
     score5 = 0;
     currentIndex5 = 0;
@@ -77,7 +75,7 @@
     document.getElementById("userAnswer5").value = "";
   }
 
-  // Hook up buttons and Enter key
+  // Event listeners
   document.getElementById("submitBtn5").onclick = checkAnswer5;
   document.getElementById("restartBtn5").onclick = restartQuiz5;
   document.getElementById("userAnswer5").addEventListener("keydown", function (e) {
@@ -87,6 +85,6 @@
     }
   });
 
-  // Start quiz
+  // Start
   showQuestion5();
 })();
