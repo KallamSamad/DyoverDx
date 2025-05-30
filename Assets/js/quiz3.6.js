@@ -124,7 +124,7 @@
     currentAnswerSimplified = normalizeExpression(simplifyAndExpand(letter, bracket, frontCoeff), letter);
     currentAnswerExpanded = normalizeExpression(fullyExpand(letter, bracket, frontCoeff), letter);
 
-    document.getElementById("question6").innerText = `\\(Expand and simplify: ${expression}\\)`; 
+    document.getElementById("question6").innerText = `Expand and simplify: \\(${expression}\\)`; 
     document.getElementById("userAnswer6").value = "";
     document.getElementById("result6").innerText = "";
     MathJax.typesetPromise()
