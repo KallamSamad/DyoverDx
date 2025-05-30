@@ -189,6 +189,12 @@ button:hover {
   font-size: 16px;
   padding: 5px;
 }
+}#userAnswer5 {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}
 /* Mobile Styles */
 @media (max-width: 768px) {
     body {
@@ -256,6 +262,12 @@ button:hover {
   font-size: 16px;
   padding: 5px;
 }#userAnswer4 {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 5px;
+}
+#userAnswer5 {
   width: 300px;
   height: 40px;
   font-size: 16px;
