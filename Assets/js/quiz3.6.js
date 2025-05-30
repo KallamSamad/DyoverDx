@@ -1,6 +1,6 @@
 (function () {
   let score6 = 0;
-  const totalQuestions = 5; // Changed to 5 questions
+  const totalQuestions = 5;
   const letters = ["x", "y", "z"];
   const symbols = ["+", "-"];
   let currentIndex6 = 0;
@@ -11,10 +11,9 @@
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  // Generate a bracket expression like "2x - 3 + x"
   function generateBracket(letter) {
     const terms = [];
-    const totalTerms = randInt(2, 3); // 2 or 3 terms
+    const totalTerms = randInt(2, 3);
 
     for (let i = 0; i < totalTerms; i++) {
       const isVarTerm = Math.random() < 0.5;
@@ -28,13 +27,10 @@
         terms.push(`${sign}${coeff}`);
       }
     }
-
-    // Remove leading plus from first term
     terms[0] = terms[0].replace(/^\+/, '');
     return terms.join(' ');
   }
 
-  // Parses bracket into separate terms (coefficients and constants)
   function parseTerms(expression, letter) {
     const terms = expression.split(/(?=[+-])/).map(t => t.trim());
     let varTerms = [];
@@ -42,7 +38,6 @@
 
     terms.forEach(term => {
       if (term.includes(letter)) {
-        // Extract coefficient for var term
         let coeffStr = term.replace(letter, '');
         if (coeffStr === '+' || coeffStr === '') coeffStr = '1';
         else if (coeffStr === '-') coeffStr = '-1';
@@ -55,15 +50,11 @@
     return { varTerms, constTerms };
   }
 
-  // Simplify and expand (combine like terms)
   function simplifyAndExpand(letter, bracket, frontCoeff) {
     const { varTerms, constTerms } = parseTerms(bracket, letter);
-
-    // Calculate sum of variable terms and constants
     const varSum = varTerms.reduce((a, b) => a + b, 0);
     const constSum = constTerms.reduce((a, b) => a + b, 0);
 
-    // Formula based on problem: 2 * frontCoeff * varSum * letter^2 + 2 * frontCoeff * constSum * letter
     const linearCoeff = 2 * frontCoeff * varSum;
     const constantCoeff = 2 * frontCoeff * constSum;
 
@@ -74,15 +65,8 @@
     return result;
   }
 
-  // Fully expand without combining like terms
   function fullyExpand(letter, bracket, frontCoeff) {
     const { varTerms, constTerms } = parseTerms(bracket, letter);
-
-    // Each term in bracket multiplied by 2 * frontCoeff * letter
-    // So:
-    // var terms: coeff * letter * 2 * frontCoeff * letter = coeff * 2 * frontCoeff * letter^2
-    // const terms: const * 2 * frontCoeff * letter = const * 2 * frontCoeff * letter
-
     const factor = 2 * frontCoeff;
 
     const expandedVarTerms = varTerms.map(c => `${c * factor}${letter}^2`);
@@ -91,18 +75,13 @@
       return (val >= 0 ? `+${val}${letter}` : `${val}${letter}`);
     });
 
-    // Join terms, remove leading + if any
     const combined = [...expandedVarTerms, ...expandedConstTerms].join('');
     return combined.replace(/^\+/, '');
   }
 
-  // Normalize expression for comparison: remove spaces, lowercase, order terms by power desc, combine like terms
   function normalizeExpression(expr, letter) {
     expr = expr.toLowerCase().replace(/\s+/g, '');
-
-    // Split into terms
     const terms = expr.match(/[+-]?[^+-]+/g);
-
     if (!terms) return '';
 
     let var2 = 0;
@@ -131,7 +110,6 @@
         result += `${var1}${letter}`;
       }
     }
-
     return result;
   }
 
@@ -152,7 +130,7 @@
   }
 
   function checkAnswer6() {
-    const letter = currentAnswerSimplified.match(/[xyz]/)[0]; // get variable letter from answer
+    const letter = currentAnswerSimplified.match(/[xyz]/)[0];
     const userAnswerRaw = document.getElementById("userAnswer6").value.trim();
     const userAnswer = normalizeExpression(userAnswerRaw, letter);
 
