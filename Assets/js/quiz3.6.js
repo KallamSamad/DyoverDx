@@ -60,8 +60,8 @@
     const { varTerms, constTerms } = parseTerms(bracket, letter);
 
     // Calculate sum of variable terms and constants
-    const varSum = varTerms.reduce((a,b) => a+b, 0);
-    const constSum = constTerms.reduce((a,b) => a+b, 0);
+    const varSum = varTerms.reduce((a, b) => a + b, 0);
+    const constSum = constTerms.reduce((a, b) => a + b, 0);
 
     // Formula based on problem: 2 * frontCoeff * varSum * letter^2 + 2 * frontCoeff * constSum * letter
     const linearCoeff = 2 * frontCoeff * varSum;
@@ -78,6 +78,11 @@
   function fullyExpand(letter, bracket, frontCoeff) {
     const { varTerms, constTerms } = parseTerms(bracket, letter);
 
+    // Each term in bracket multiplied by 2 * frontCoeff * letter
+    // So:
+    // var terms: coeff * letter * 2 * frontCoeff * letter = coeff * 2 * frontCoeff * letter^2
+    // const terms: const * 2 * frontCoeff * letter = const * 2 * frontCoeff * letter
+
     const factor = 2 * frontCoeff;
 
     const expandedVarTerms = varTerms.map(c => `${c * factor}${letter}^2`);
@@ -86,6 +91,7 @@
       return (val >= 0 ? `+${val}${letter}` : `${val}${letter}`);
     });
 
+    // Join terms, remove leading + if any
     const combined = [...expandedVarTerms, ...expandedConstTerms].join('');
     return combined.replace(/^\+/, '');
   }
