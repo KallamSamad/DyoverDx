@@ -6,26 +6,37 @@
   let currentIndex6 = 0;
   let currentData6 = {};
 
+  // Helper: generate random integer from min to max inclusive
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   function generateBracket(letter) {
     let terms = [];
-    let totalTerms = Math.floor(Math.random() * 2) + 2; // 2 or 3 terms
+    let totalTerms = randInt(2, 3); // 2 or 3 terms
 
     for (let i = 0; i < totalTerms; i++) {
       let type = Math.random() < 0.5 ? "var" : "num";
       let sign = symbols[Math.floor(Math.random() * symbols.length)];
+      let coeff = randInt(1, 9);
 
       if (type === "var") {
-        terms.push(`${sign}6${letter}`);
+        // e.g. +3x or -1x (omit 1)
+        let coeffStr = (coeff === 1) ? "" : coeff;
+        terms.push(`${sign}${coeffStr}${letter}`);
       } else {
-        terms.push(`${sign}6`);
+        // e.g. +5 or -2
+        terms.push(`${sign}${coeff}`);
       }
     }
 
-    let cleanTerms = terms.map((t, i) => i === 0 ? t.replace(/^[+]/, '') : t);
+    // Remove leading + from first term
+    let cleanTerms = terms.map((t, i) => i === 0 ? t.replace(/^\+/, '') : t);
     return cleanTerms.join(' ');
   }
 
-  function simplifyAndExpand(letter, bracket) {
+  function simplifyAndExpand(letter, bracket, frontCoeff) {
+    // Parse terms in bracket
     let terms = bracket.split(/(?=[+-])/).map(t => t.trim());
 
     let varCoeff = 0;
@@ -33,19 +44,25 @@
 
     terms.forEach(term => {
       if (term.includes(letter)) {
-        varCoeff += parseInt(term.replace(letter, '').replace(/\s+/g, '')) || 6;
+        // Extract coefficient before letter
+        let coeffStr = term.replace(letter, '').replace(/\s+/g, '');
+        if (coeffStr === '+' || coeffStr === '') coeffStr = '1';
+        else if (coeffStr === '-') coeffStr = '-1';
+        varCoeff += parseInt(coeffStr);
       } else {
-        numTotal += parseInt(term) || 0;
+        numTotal += parseInt(term);
       }
     });
 
-    let a = 6;
-    let linearCoeff = 2 * a * varCoeff;
-    let constantCoeff = 2 * a * numTotal;
+    // Expression:  a*letter * ( ... ) + a*letter * ( ... )
+    // = 2 * a * varCoeff * letter^2 + 2 * a * numTotal * letter
+
+    let linearCoeff = 2 * frontCoeff * varCoeff;
+    let constantCoeff = 2 * frontCoeff * numTotal;
 
     let result = `${linearCoeff}${letter}^2`;
     if (constantCoeff !== 0) {
-      result += constantCoeff > 0 ? `+${constantCoeff}${letter}` : `${constantCoeff}${letter}`;
+      result += (constantCoeff > 0 ? `+${constantCoeff}${letter}` : `${constantCoeff}${letter}`);
     }
 
     return result;
@@ -54,10 +71,13 @@
   function showQuestion6() {
     let letter = letters[Math.floor(Math.random() * letters.length)];
 
+    // Random coefficient in front: a
+    let frontCoeff = randInt(1, 9);
+    let frontStr = (frontCoeff === 1) ? `${letter}` : `${frontCoeff}${letter}`;
+
     let bracket = generateBracket(letter);
-    let front = `6${letter}`;
-    let expression = `${front}(${bracket}) + ${front}(${bracket})`;
-    let answer = simplifyAndExpand(letter, bracket);
+    let expression = `${frontStr}(${bracket}) + ${frontStr}(${bracket})`;
+    let answer = simplifyAndExpand(letter, bracket, frontCoeff);
 
     currentData6 = { ans: answer.replace(/\s+/g, '') };
 
