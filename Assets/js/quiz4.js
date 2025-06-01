@@ -1,8 +1,8 @@
 let score=0
 let symbol=["+","-"]
 let question=[]
-let CurrentQuestion=[]
-
+let Currentquestion=[]
+let currentIndex=[]
 for (let i=0;i<21;i++){
   question.push(i)
          }
@@ -31,17 +31,17 @@ function showQuestion(){
     document.getElementById("output").innerHTML="Incorrect"
   document.getElementById("score").innerHTML=`score: ${score}`
   Currentquestion++;
-    document.getElementById("score1").innerText = `Score: ${score1}`;
-    currentIndex1++;
+    document.getElementById("score").innerText = `Score: ${score}`;
+    currentIndex++;
 
     if (Currentquestion< question.length) {
       showQuestion();
     } else {
       let percent = (score / question.length) * 100;
-      document.getElementById("score1").innerText =
+      document.getElementById("score").innerText =
         `Final Score: ${score} / ${question.length} (${percent.toFixed(1)}%)`;
 
-      document.getElementById("question1").innerText =
+      document.getElementById("question").innerText =
         percent >= 70 ? "Aced it!" : percent > 50 ? "You're getting there!" : "Try again";
 
       document.getElementById("output").innerText = "Quiz complete! Well done.";
