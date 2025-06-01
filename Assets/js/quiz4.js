@@ -1,4 +1,4 @@
-let score = 0;
+ let score = 0;
 let currentQuestion = 0;
 const totalQuestions = 20;
 const symbols = ["+", "-"];
@@ -10,11 +10,18 @@ function gcd(a, b) {
 }
 
 function getCorrectAnswer(x, y, opp) {
-  const g = gcd(x, y);
-  const a = x / g;
-  const b = y / g;
+  const z = gcd(x, y);
   const sign = (opp === "+") ? "+" : "-";
-  return `${g}(x${sign}${b})`;
+
+  if (z === 1) {
+    // gcd is 1, no factorisation
+    return `${x}x${sign}${y}`;
+  } else {
+    const a = x / z;
+    const b = y / z;
+    const insideX = (a === 1) ? "x" : `${a}x`;
+    return `${z}(${insideX}${sign}${b})`;
+  }
 }
 
 function showQuestion() {
@@ -27,7 +34,11 @@ function showQuestion() {
   currentY = Math.floor(Math.random() * 10) + 1;
   currentOpp = symbols[Math.floor(Math.random() * symbols.length)];
 
-  let ask = `Factorise \\(${currentX}x ${currentOpp} ${currentY}\\)`;
+  // If gcd=1, show "Simplify" instead of "Factorise"
+  const z = gcd(currentX, currentY);
+  const prefix = (z === 1) ? "Simplify" : "Factorise";
+
+  const ask = `${prefix} \\(${currentX}x ${currentOpp} ${currentY}\\)`;
   document.getElementById("question").innerHTML = ask;
 
   if (window.MathJax) {
@@ -41,8 +52,14 @@ function showQuestion() {
 
 function checkAnswer() {
   let userans = document.getElementById("input").value.trim();
+  if (!userans) {
+    document.getElementById("output").innerText = "Please enter an answer.";
+    return;
+  }
+
   let trueans = getCorrectAnswer(currentX, currentY, currentOpp);
 
+  // Remove spaces for comparison
   const cleanUserAns = userans.replace(/\s+/g, "");
   const cleanTrueAns = trueans.replace(/\s+/g, "");
 
@@ -78,7 +95,11 @@ function redoQuiz() {
   showQuestion();
 }
 
-// Add Enter key submission
+document.getElementById("submitBtn").addEventListener("click", checkAnswer);
+
+document.getElementById("redoBtn").addEventListener("click", redoQuiz);
+
+// Submit on Enter key
 document.getElementById("input").addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -88,5 +109,5 @@ document.getElementById("input").addEventListener("keydown", function(event) {
   }
 });
 
-// Start quiz on page load
+// Start the quiz
 showQuestion();
