@@ -26,14 +26,13 @@
     <a href="/DyoverDx/GCSE.html">GCSE</a>
     <a href="/DyoverDx/coming-soon.html">Tutoring</a>
   </nav>
-    <div id="quiz1-container">
-    <p id="question"></p>
-    <input type="text" id="userAnswer1" autocomplete="off" placeholder="Type your answer here" />
-    <button id="submitBtn">Submit</button>
-    <button id="restartBtn">Restart</button>
-    <p id="output"></p>
-    <p id="score">Score: 0</p>
-  </div>
+<div id="question"></div>
+<input type="text" id="input" autocomplete="off" />
+<button id="submitBtn" onclick="checkAnswer()">Submit</button>
+<button id="redoBtn" onclick="redoQuiz()" style="display:none;">Redo Quiz</button>
+<div id="output"></div>
+<div id="score">Score: 0 / 20</div>
+
   <script src="/DyoverDx/Assets/js/quiz4.js"></script>
 
 </body>
