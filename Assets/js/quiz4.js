@@ -35,11 +35,11 @@ function showQuestion(){
     currentIndex1++;
 
     if (Currentquestion< question.length) {
-      showQuestion1();
+      showQuestion();
     } else {
-      let percent = (score1 / question1.length) * 100;
+      let percent = (score / question.length) * 100;
       document.getElementById("score1").innerText =
-        `Final Score: ${score1} / ${question1.length} (${percent.toFixed(1)}%)`;
+        `Final Score: ${score} / ${question.length} (${percent.toFixed(1)}%)`;
 
       document.getElementById("question1").innerText =
         percent >= 70 ? "Aced it!" : percent > 50 ? "You're getting there!" : "Try again";
