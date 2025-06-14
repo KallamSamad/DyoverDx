@@ -25,16 +25,19 @@
       return shuffled.slice(0, count);
     }
 
+    getRandomSign() {
+      return Math.random() < 0.5 ? '+' : '-';
+    }
+
     generateQuestion() {
-      const baseFactor = Math.floor(Math.random() * 9) + 2; // 2–10
-      const coeffs = Array.from({ length: 3 }, () => Math.floor(Math.random() * 10) + 1); // 1–10
-      const variables = this.getUniqueVariables(3); // ensure uniqueness
-      const signs = [ "+", Math.random() < 0.5 ? "+" : "-", Math.random() < 0.5 ? "+" : "-" ];
+      const baseFactor = Math.floor(Math.random() * 9) + 2;
+      const coeffs = Array.from({ length: 3 }, () => Math.floor(Math.random() * 10) + 1);
+      const variables = this.getUniqueVariables(3);
+      const signs = [ '+', this.getRandomSign(), this.getRandomSign() ];
 
       const terms = coeffs.map((c, i) => `${c * baseFactor}${variables[i]}`);
-
       const signedTerms = [
-        `${terms[0]}`,
+        terms[0],
         `${signs[1]} ${terms[1]}`,
         `${signs[2]} ${terms[2]}`
       ];
@@ -98,15 +101,16 @@
       const percentage = (this.score / this.totalQuestions) * 100;
       let feedback = '';
 
-      if (percentage>70) {
-      } else if (percentage >= 70) {
-        feedback = "Excellent job!;
+      if (percentage === 100) {
+        feedback = "Perfect score! You’re an algebra wizard 🧠✨";
+      } else if (percentage >= 80) {
+        feedback = "Excellent job! You're nearly perfect 💯";
       } else if (percentage >= 60) {
         feedback = "Great effort! A little more practice and you'll ace it.";
       } else if (percentage >= 40) {
         feedback = "Not bad! Review the topic and try again.";
       } else {
-        feedback = "Keep going! Algebra takes practice—you’ll get there. ";
+        feedback = "Keep going! Algebra takes practice—you’ll get there. 📘";
       }
 
       this.questionEl.innerHTML = `
@@ -122,3 +126,4 @@
 
   new ThreeTermFactorisationQuiz();
 })();
+ 
