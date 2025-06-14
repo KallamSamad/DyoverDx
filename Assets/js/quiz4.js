@@ -1,4 +1,4 @@
- let score = 0;
+let score = 0;
 let currentQuestion = 0;
 const totalQuestions = 20;
 const symbols = ["+", "-"];
@@ -24,21 +24,38 @@ function getCorrectAnswer(x, y, opp) {
   }
 }
 
+function generateFactorisableNumbers() {
+  const commonFactor = Math.floor(Math.random() * 5) + 2; // Common factor between 2 and 6
+  const a = (Math.floor(Math.random() * 5) + 1) * commonFactor;
+  const b = (Math.floor(Math.random() * 5) + 1) * commonFactor;
+  return [a, b];
+}
+
+function generateQuestion() {
+  // 70% chance of generating factorisable question
+  const isFactorisable = Math.random() < 0.7;
+
+  if (isFactorisable) {
+    [currentX, currentY] = generateFactorisableNumbers();
+  } else {
+    currentX = Math.floor(Math.random() * 10) + 1;
+    currentY = Math.floor(Math.random() * 10) + 1;
+  }
+
+  currentOpp = symbols[Math.floor(Math.random() * symbols.length)];
+}
+
 function showQuestion() {
   if (currentQuestion >= totalQuestions) {
     endQuiz();
     return;
   }
 
-  currentX = Math.floor(Math.random() * 10) + 1;
-  currentY = Math.floor(Math.random() * 10) + 1;
-  currentOpp = symbols[Math.floor(Math.random() * symbols.length)];
-
-  // If gcd=1, show "Simplify" instead of "Factorise"
+  generateQuestion();
   const z = gcd(currentX, currentY);
   const prefix = (z === 1) ? "Simplify" : "Factorise";
-
   const ask = `${prefix} \\(${currentX}x ${currentOpp} ${currentY}\\)`;
+
   document.getElementById("question").innerHTML = ask;
 
   if (window.MathJax) {
@@ -59,7 +76,6 @@ function checkAnswer() {
 
   let trueans = getCorrectAnswer(currentX, currentY, currentOpp);
 
-  // Remove spaces for comparison
   const cleanUserAns = userans.replace(/\s+/g, "");
   const cleanTrueAns = trueans.replace(/\s+/g, "");
 
@@ -96,10 +112,8 @@ function redoQuiz() {
 }
 
 document.getElementById("submitBtn").addEventListener("click", checkAnswer);
-
 document.getElementById("redoBtn").addEventListener("click", redoQuiz);
 
-// Submit on Enter key
 document.getElementById("input").addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
