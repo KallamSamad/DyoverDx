@@ -2,135 +2,98 @@
   class ThreeTermFactorisationQuiz {
     constructor() {
       this.score = 0;
-      this.currentQuestion = 0;
       this.totalQuestions = 10;
-      this.elements = {
-        question: document.getElementById("question"),
-        input: document.getElementById("input"),
-        submitBtn: document.getElementById("submitBtn"),
-        redoBtn: document.getElementById("redoBtn"),
-        output: document.getElementById("output"),
-        score: document.getElementById("score"),
-      };
+      this.currentQuestion = 0;
+      this.input = document.getElementById('answer');
+      this.submitBtn = document.getElementById('submitBtn');
+      this.questionEl = document.getElementById('question');
+      this.scoreEl = document.getElementById('score');
+      this.resultEl = document.getElementById('result');
 
-      this.elements.submitBtn.addEventListener("click", () => this.checkAnswer());
-      this.elements.redoBtn.addEventListener("click", () => this.redoQuiz());
-      this.elements.input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          if (!this.elements.submitBtn.disabled) this.checkAnswer();
-        }
+      this.submitBtn.addEventListener('click', () => this.checkAnswer());
+      this.input.addEventListener('keypress', e => {
+        if (e.key === 'Enter') this.checkAnswer();
       });
 
-      this.symbols = ["+", "-"];
-      this.showQuestion();
+      this.nextQuestion();
     }
 
-    gcd(a, b) {
-      if (b === 0) return a;
-      return this.gcd(b, a % b);
-    }
-
-    gcd3(a, b, c) {
-      return this.gcd(this.gcd(a, b), c);
-    }
-
+    // Generate a question with three terms and a common factor
     generateQuestion() {
-      // Generate common factor between 2 and 6
-      this.commonFactor = Math.floor(Math.random() * 5) + 2;
+      // Random base factor between 2 and 10
+      const baseFactor = Math.floor(Math.random() * 9) + 2;
 
-      // Generate three random numbers multiplied by common factor
-      this.a = (Math.floor(Math.random() * 5) + 1) * this.commonFactor;
-      this.b = (Math.floor(Math.random() * 5) + 1) * this.commonFactor;
-      this.c = (Math.floor(Math.random() * 5) + 1) * this.commonFactor;
+      // Generate three random coefficients between 1 and 10
+      const coeffs = Array.from({ length: 3 }, () => Math.floor(Math.random() * 10) + 1);
 
-      // Random signs for second and third terms
-      this.signs = [this.symbols[Math.floor(Math.random() * this.symbols.length)],
-                    this.symbols[Math.floor(Math.random() * this.symbols.length)]];
+      // Terms after multiplication by the baseFactor
+      const terms = coeffs.map(c => c * baseFactor);
 
-      // Build expression string
-      this.expression = `${this.a}x ${this.signs[0]} ${this.b}x ${this.signs[1]} ${this.c}`;
+      // Construct question string: e.g. "12x + 18x - 24x"
+      // Randomly decide signs of 2nd and 3rd terms (to add variety)
+      const signs = [ "+", Math.random() < 0.5 ? "+" : "-", Math.random() < 0.5 ? "+" : "-" ];
 
-      // Calculate simplified inside bracket after factorisation
-      this.aSimple = this.a / this.commonFactor;
-      this.bSimple = this.b / this.commonFactor;
-      this.cSimple = this.c / this.commonFactor;
-    }
+      // Apply signs to terms after the first term
+      const formattedTerms = [
+        `${terms[0]}x`,
+        `${signs[1]} ${Math.abs(terms[1])}x`,
+        `${signs[2]} ${Math.abs(terms[2])}x`
+      ];
 
-    getCorrectAnswer() {
-      // Format inside bracket string, handle sign display
+      const questionStr = formattedTerms.join(' ');
 
-      const formatTerm = (coeff, variable = "x") => {
-        if (coeff === 1) return variable;
-        else return `${coeff}${variable}`;
+      return {
+        baseFactor,
+        coeffs,
+        questionStr,
+        correctAnswer: `${baseFactor}x(${coeffs.join(' + ')})`
       };
-
-      const signToSymbol = (sign) => sign === "+" ? "+" : "-";
-
-      const bTerm = formatTerm(this.bSimple, "x");
-      const cTerm = this.cSimple;
-
-      // Compose inside bracket with signs
-      let inside = formatTerm(this.aSimple, "x");
-      inside += ` ${signToSymbol(this.signs[0])} ${bTerm}`;
-      inside += ` ${signToSymbol(this.signs[1])} ${cTerm}`;
-
-      return `${this.commonFactor}(${inside})`;
     }
 
-    showQuestion() {
+    nextQuestion() {
       if (this.currentQuestion >= this.totalQuestions) {
-        this.endQuiz();
+        this.showFinalScore();
         return;
       }
-      this.generateQuestion();
-      this.elements.question.innerText = `Factorise: ${this.expression}`;
-      this.elements.input.value = "";
-      this.elements.output.innerText = "";
-      this.elements.input.focus();
+      this.currentQuestion++;
+      this.resultEl.textContent = '';
+      this.input.value = '';
+      this.input.focus();
+
+      this.currentQ = this.generateQuestion();
+      this.questionEl.textContent = `Factorise: ${this.currentQ.questionStr}`;
+      this.scoreEl.textContent = `Score: ${this.score}`;
     }
 
     checkAnswer() {
-      const userAns = this.elements.input.value.trim().replace(/\s+/g, "");
-      if (!userAns) {
-        this.elements.output.innerText = "Please enter an answer.";
+      const userAnswer = this.input.value.trim().replace(/\s+/g, '');
+      const correctAnswer = this.currentQ.correctAnswer.replace(/\s+/g, '');
+
+      if (!userAnswer) {
+        alert("Please enter an answer.");
         return;
       }
 
-      const correctAns = this.getCorrectAnswer().replace(/\s+/g, "");
-
-      if (userAns === correctAns) {
-        this.elements.output.innerText = "Correct!";
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        this.resultEl.style.color = 'green';
+        this.resultEl.textContent = 'Correct!';
         this.score++;
       } else {
-        this.elements.output.innerText = `Incorrect! Correct answer: ${this.getCorrectAnswer()}`;
+        this.resultEl.style.color = 'red';
+        this.resultEl.textContent = `Wrong! Correct answer: ${this.currentQ.correctAnswer}`;
       }
 
-      this.currentQuestion++;
-      this.elements.score.innerText = `Score: ${this.score} / ${this.totalQuestions}`;
+      this.scoreEl.textContent = `Score: ${this.score}`;
 
-      setTimeout(() => this.showQuestion(), 1500);
+      setTimeout(() => this.nextQuestion(), 1500);
     }
 
-    endQuiz() {
-      const percent = (this.score / this.totalQuestions) * 100;
-      this.elements.question.innerText =
-        percent >= 70 ? "Aced it!" : percent > 50 ? "You're getting there!" : "Try again";
-      this.elements.output.innerText = "Quiz complete! Well done.";
-      this.elements.submitBtn.disabled = true;
-      this.elements.redoBtn.style.display = "inline-block";
-    }
-
-    redoQuiz() {
-      this.score = 0;
-      this.currentQuestion = 0;
-      this.elements.submitBtn.disabled = false;
-      this.elements.redoBtn.style.display = "none";
-      this.elements.score.innerText = `Score: 0 / ${this.totalQuestions}`;
-      this.elements.output.innerText = "";
-      this.showQuestion();
+    showFinalScore() {
+      this.questionEl.textContent = `Quiz complete! Your final score: ${this.score} / ${this.totalQuestions}`;
+      this.input.style.display = 'none';
+      this.submitBtn.style.display = 'none';
+      this.resultEl.textContent = '';
     }
   }
 
   new ThreeTermFactorisationQuiz();
-})();
