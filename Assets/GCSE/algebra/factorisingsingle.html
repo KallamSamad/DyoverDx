@@ -26,35 +26,38 @@
     <a href="/DyoverDx/GCSE.html">GCSE</a>
     <a href="/DyoverDx/coming-soon.html">Tutoring</a>
   </nav>
+
   <h1>Definitions</h1>
   <ul>
-    <li><b>Factorising</b>b: the opposite of expanding, means "putting into brackets"</li>
-    <li><b>Factors</b>: part of a number, x, that fully divides into this number. For example, 5 divides into 10.</li>
-    <li><b>Prime number: a number that has a factor of 1 and itself</b></li>
-    <li><b>Prime factors</b>: factors of a number that have are prime.</li>
+    <li><b>Factorising</b>: the opposite of expanding; it means "putting into brackets".</li>
+    <li><b>Factors</b>: parts of a number that divide exactly into it. For example, 5 divides into 10.</li>
+    <li><b>Prime number</b>: a number that has exactly two factors — 1 and itself.</li>
+    <li><b>Prime factors</b>: factors of a number that are prime.</li>
   </ul>
-<h2>Factorising single brackets</h2>
-<p>Suppose you have a linear expression, \(2x+2\):</p>
-<p>To fully factorise this expression, just list out all the prime numbers:</p>
-<img src="DyoverDx/Assets/Images/prime-numbers.webp" alt="prime numbers">
-<p>Now simply find the largest prime number that divides all the numbers in the expression from this list.</p>
-<p>In the example the largest prime number is 2.</p>
-<p>Next you place this prime factor outisde the bracket and divide the rest of the numbers by the prime factor. Note that if you expand again, you will get the same expression.</p>
-<p>So the factorised expression is 2(x+1). Remember that there is an invisible 1 near x. </p>
-<p>So follow LION</p>
-<ol>  
-  <li>List the prime numbers and choose the biggest prime number that divides all the numbers</li>
-  <li>Add all the divided numbers INSIDE the bracket</li>
-  <li>Add the largest prime number OUTSIDE the bracket</li>
-  <li>NEXT you expand bracket to check, if you have time.</li>
-</ol>
-<p>Remember that sometimes, the factor can be a variable. In 4x+8xy, the highest common factor is 4x. So 4x(1+2y)./p>
-<div id="question"></div>
-<input type="text" id="input" autocomplete="off" />
-<button id="submitBtn" onclick="checkAnswer()">Submit</button>
-<button id="redoBtn" onclick="redoQuiz()" style="display:none;">Redo Quiz</button>
-<div id="output"></div>
-<div id="score">Score: 0 / 20</div>
+
+  <h2>Factorising single brackets</h2>
+  <p>Suppose you have a linear expression, \(2x + 2\):</p>
+  <p>To fully factorise this expression, list all the prime numbers:</p>
+  <img src="/DyoverDx/Assets/Images/prime-numbers.webp" alt="prime numbers">
+  <p>Now simply find the largest prime number that divides all the numbers in the expression from this list.</p>
+  <p>In this example, the largest prime number is 2.</p>
+  <p>Next, place this prime factor outside the bracket and divide the rest of the numbers by it. Note that if you expand again, you'll get the same expression.</p>
+  <p>So, the factorised expression is \(2(x + 1)\). Remember that there is an invisible 1 next to x.</p>
+  <p>So follow LION:</p>
+  <ol>  
+    <li>List the prime numbers and choose the biggest one that divides all terms.</li>
+    <li>Insert the divided terms INSIDE the brackets.</li>
+    <li>Place the biggest prime number OUTSIDE the brackets.</li>
+    <li>NEXT, expand the brackets to check — if you have time.</li>
+  </ol>
+  <p>Remember, sometimes the factor can be a variable. In \(4x + 8xy\), the highest common factor is \(4x\), so it becomes \(4x(1 + 2y)\).</p>
+
+  <div id="question"></div>
+  <input type="text" id="input" autocomplete="off" />
+  <button id="submitBtn" onclick="checkAnswer()">Submit</button>
+  <button id="redoBtn" onclick="redoQuiz()" style="display:none;">Redo Quiz</button>
+  <div id="output"></div>
+  <div id="score">Score: 0 / 20</div>
 
   <script src="/DyoverDx/Assets/js/quiz4.js"></script>
 
