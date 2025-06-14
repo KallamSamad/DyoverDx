@@ -97,3 +97,4 @@
   }
 
   new ThreeTermFactorisationQuiz();
+  })();
