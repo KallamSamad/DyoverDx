@@ -4,11 +4,11 @@
       this.score = 0;
       this.totalQuestions = 10;
       this.currentQuestion = 0;
-      this.input = document.getElementById('answer');
-      this.submitBtn = document.getElementById('submitBtn');
-      this.questionEl = document.getElementById('question');
-      this.scoreEl = document.getElementById('score');
-      this.resultEl = document.getElementById('result');
+      this.input = document.getElementById('answer2');
+      this.submitBtn = document.getElementById('submitBtn2');
+      this.questionEl = document.getElementById('question2');
+      this.scoreEl = document.getElementById('score2');
+      this.resultEl = document.getElementById('result2');
 
       this.submitBtn.addEventListener('click', () => this.checkAnswer());
       this.input.addEventListener('keypress', e => {
@@ -97,4 +97,4 @@
   }
 
   new ThreeTermFactorisationQuiz();
-  })();
+})();
