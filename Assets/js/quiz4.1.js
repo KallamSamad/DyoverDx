@@ -25,14 +25,14 @@ function getCorrectAnswer(x, y, opp) {
 }
 
 function generateFactorisableNumbers() {
-  const commonFactor = Math.floor(Math.random() * 5) + 2; // Common factor between 2 and 6
+  const commonFactor = Math.floor(Math.random() * 5) + 2; // between 2 and 6
   const a = (Math.floor(Math.random() * 5) + 1) * commonFactor;
   const b = (Math.floor(Math.random() * 5) + 1) * commonFactor;
   return [a, b];
 }
 
 function generateQuestion() {
-  // 70% chance of generating factorisable question
+  // 70% chance factorisable
   const isFactorisable = Math.random() < 0.7;
 
   if (isFactorisable) {
@@ -64,7 +64,9 @@ function showQuestion() {
 
   document.getElementById("input").value = "";
   document.getElementById("output").innerText = "";
-  document.getElementById("input").focus();
+
+  // Delay focus to prevent scrolling jump
+  setTimeout(() => document.getElementById("input").focus(), 100);
 }
 
 function checkAnswer() {
