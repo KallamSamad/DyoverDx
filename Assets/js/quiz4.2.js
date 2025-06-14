@@ -18,28 +18,35 @@
       this.nextQuestion();
     }
 
+    getRandomVariable() {
+      const vars = ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz'];
+      return vars[Math.floor(Math.random() * vars.length)];
+    }
+
     generateQuestion() {
       const baseFactor = Math.floor(Math.random() * 9) + 2;
       const coeffs = Array.from({ length: 3 }, () => Math.floor(Math.random() * 10) + 1);
-      const terms = coeffs.map(c => c * baseFactor);
+      const variables = [this.getRandomVariable(), this.getRandomVariable(), this.getRandomVariable()];
       const signs = [ "+", Math.random() < 0.5 ? "+" : "-", Math.random() < 0.5 ? "+" : "-" ];
 
+      const terms = coeffs.map((c, i) => `${c * baseFactor}${variables[i]}`);
+
       const signedTerms = [
-        `${terms[0]}x`,
-        `${signs[1]} ${Math.abs(terms[1])}x`,
-        `${signs[2]} ${Math.abs(terms[2])}x`
+        `${terms[0]}`,
+        `${signs[1]} ${terms[1]}`,
+        `${signs[2]} ${terms[2]}`
       ];
 
       const signedCoeffs = [
-        `${coeffs[0]}`,
-        `${signs[1]} ${Math.abs(coeffs[1])}`,
-        `${signs[2]} ${Math.abs(coeffs[2])}`
+        `${coeffs[0]}${variables[0]}`,
+        `${signs[1]} ${coeffs[1]}${variables[1]}`,
+        `${signs[2]} ${coeffs[2]}${variables[2]}`
       ];
 
       return {
         baseFactor,
         questionStr: signedTerms.join(' '),
-        correctAnswer: `${baseFactor}x(${signedCoeffs.join(' ')})`
+        correctAnswer: `${baseFactor}(${signedCoeffs.join(' ')})`
       };
     }
 
@@ -86,7 +93,18 @@
     }
 
     showFinalScore() {
-      this.questionEl.innerHTML = `Quiz complete! Your final score: ${this.score} / ${this.totalQuestions}`;
+      const percentage = (this.score / this.totalQuestions) * 100;
+      let feedback = '';
+
+      if (percentage >= 70) {
+        feedback = "Outstanding! You’ve nailed this topic 💪";
+      } else if (percentage >= 40) {
+        feedback = "Nice effort! Review and retry";
+      } else {
+        feedback = "Keep practicing! You’re getting there";
+      }
+
+      this.questionEl.innerHTML = `Quiz complete!<br>Your final score: ${this.score} / ${this.totalQuestions}<br><strong>${feedback}</strong>`;
       this.input.style.display = 'none';
       this.submitBtn.style.display = 'none';
       this.resultEl.textContent = '';
