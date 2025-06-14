@@ -4,7 +4,7 @@
       this.score = 0;
       this.totalQuestions = 10;
       this.currentQuestion = 0;
-      this.input = document.getElementById('UserAnswer2');
+      this.input = document.getElementById('userAnswer2');
       this.submitBtn = document.getElementById('submitBtn2');
       this.questionEl = document.getElementById('question2');
       this.scoreEl = document.getElementById('score2');
