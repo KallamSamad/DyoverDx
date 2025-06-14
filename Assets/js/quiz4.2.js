@@ -18,35 +18,28 @@
       this.nextQuestion();
     }
 
-    // Generate a question with three terms and a common factor
     generateQuestion() {
-      // Random base factor between 2 and 10
       const baseFactor = Math.floor(Math.random() * 9) + 2;
-
-      // Generate three random coefficients between 1 and 10
       const coeffs = Array.from({ length: 3 }, () => Math.floor(Math.random() * 10) + 1);
-
-      // Terms after multiplication by the baseFactor
       const terms = coeffs.map(c => c * baseFactor);
-
-      // Construct question string: e.g. "12x + 18x - 24x"
-      // Randomly decide signs of 2nd and 3rd terms (to add variety)
       const signs = [ "+", Math.random() < 0.5 ? "+" : "-", Math.random() < 0.5 ? "+" : "-" ];
 
-      // Apply signs to terms after the first term
-      const formattedTerms = [
+      const signedTerms = [
         `${terms[0]}x`,
         `${signs[1]} ${Math.abs(terms[1])}x`,
         `${signs[2]} ${Math.abs(terms[2])}x`
       ];
 
-      const questionStr = formattedTerms.join(' ');
+      const signedCoeffs = [
+        `${coeffs[0]}`,
+        `${signs[1]} ${Math.abs(coeffs[1])}`,
+        `${signs[2]} ${Math.abs(coeffs[2])}`
+      ];
 
       return {
         baseFactor,
-        coeffs,
-        questionStr,
-        correctAnswer: `${baseFactor}x(${coeffs.join(' + ')})`
+        questionStr: signedTerms.join(' '),
+        correctAnswer: `${baseFactor}x(${signedCoeffs.join(' ')})`
       };
     }
 
@@ -55,14 +48,18 @@
         this.showFinalScore();
         return;
       }
+
       this.currentQuestion++;
       this.resultEl.textContent = '';
       this.input.value = '';
+      this.input.style.display = 'inline';
+      this.submitBtn.style.display = 'inline';
       this.input.focus();
 
       this.currentQ = this.generateQuestion();
-      this.questionEl.textContent = `Factorise: ${this.currentQ.questionStr}`;
+      this.questionEl.innerHTML = `Factorise: $${this.currentQ.questionStr}$`;
       this.scoreEl.textContent = `Score: ${this.score}`;
+      MathJax.typesetPromise();
     }
 
     checkAnswer() {
@@ -80,16 +77,16 @@
         this.score++;
       } else {
         this.resultEl.style.color = 'red';
-        this.resultEl.textContent = `Wrong! Correct answer: ${this.currentQ.correctAnswer}`;
+        this.resultEl.innerHTML = `Wrong! Correct answer: $${this.currentQ.correctAnswer}$`;
+        MathJax.typesetPromise();
       }
 
       this.scoreEl.textContent = `Score: ${this.score}`;
-
       setTimeout(() => this.nextQuestion(), 1500);
     }
 
     showFinalScore() {
-      this.questionEl.textContent = `Quiz complete! Your final score: ${this.score} / ${this.totalQuestions}`;
+      this.questionEl.innerHTML = `Quiz complete! Your final score: ${this.score} / ${this.totalQuestions}`;
       this.input.style.display = 'none';
       this.submitBtn.style.display = 'none';
       this.resultEl.textContent = '';
