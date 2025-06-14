@@ -101,16 +101,14 @@
       const percentage = (this.score / this.totalQuestions) * 100;
       let feedback = '';
 
-      if (percentage === 100) {
-        feedback = "Perfect score! You’re an algebra wizard 🧠✨";
-      } else if (percentage >= 80) {
-        feedback = "Excellent job! You're nearly perfect 💯";
+      if (percentage >70) {
+        feedback = "Excellent job!";
       } else if (percentage >= 60) {
         feedback = "Great effort! A little more practice and you'll ace it.";
       } else if (percentage >= 40) {
         feedback = "Not bad! Review the topic and try again.";
       } else {
-        feedback = "Keep going! Algebra takes practice—you’ll get there. 📘";
+        feedback = "Keep going! Algebra takes practice—you’ll get there.";
       }
 
       this.questionEl.innerHTML = `
