@@ -4,6 +4,7 @@
       this.score = 0;
       this.totalQuestions = 10;
       this.currentQuestion = 0;
+
       this.input = document.getElementById('userAnswer2');
       this.submitBtn = document.getElementById('submitBtn2');
       this.questionEl = document.getElementById('question2');
@@ -18,15 +19,16 @@
       this.nextQuestion();
     }
 
-    getRandomVariable() {
+    getUniqueVariables(count = 3) {
       const vars = ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz'];
-      return vars[Math.floor(Math.random() * vars.length)];
+      const shuffled = vars.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
     }
 
     generateQuestion() {
-      const baseFactor = Math.floor(Math.random() * 9) + 2;
-      const coeffs = Array.from({ length: 3 }, () => Math.floor(Math.random() * 10) + 1);
-      const variables = [this.getRandomVariable(), this.getRandomVariable(), this.getRandomVariable()];
+      const baseFactor = Math.floor(Math.random() * 9) + 2; // 2–10
+      const coeffs = Array.from({ length: 3 }, () => Math.floor(Math.random() * 10) + 1); // 1–10
+      const variables = this.getUniqueVariables(3); // ensure uniqueness
       const signs = [ "+", Math.random() < 0.5 ? "+" : "-", Math.random() < 0.5 ? "+" : "-" ];
 
       const terms = coeffs.map((c, i) => `${c * baseFactor}${variables[i]}`);
@@ -96,15 +98,22 @@
       const percentage = (this.score / this.totalQuestions) * 100;
       let feedback = '';
 
-      if (percentage >= 70) {
-        feedback = "Outstanding! You’ve nailed this topic 💪";
+      if (percentage>70) {
+      } else if (percentage >= 70) {
+        feedback = "Excellent job!;
+      } else if (percentage >= 60) {
+        feedback = "Great effort! A little more practice and you'll ace it.";
       } else if (percentage >= 40) {
-        feedback = "Nice effort! Review and retry";
+        feedback = "Not bad! Review the topic and try again.";
       } else {
-        feedback = "Keep practicing! You’re getting there";
+        feedback = "Keep going! Algebra takes practice—you’ll get there. ";
       }
 
-      this.questionEl.innerHTML = `Quiz complete!<br>Your final score: ${this.score} / ${this.totalQuestions}<br><strong>${feedback}</strong>`;
+      this.questionEl.innerHTML = `
+        Quiz complete!<br>
+        Your final score: <strong>${this.score} / ${this.totalQuestions}</strong><br>
+        <strong>${feedback}</strong>
+      `;
       this.input.style.display = 'none';
       this.submitBtn.style.display = 'none';
       this.resultEl.textContent = '';
