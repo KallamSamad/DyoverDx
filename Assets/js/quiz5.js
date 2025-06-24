@@ -79,18 +79,19 @@ function checkAnswer() {
         score++;
         feedbackDiv.textContent = "Correct!";
         feedbackDiv.style.color = "green";
-        questionIndex++;
-        if (questionIndex >= questionNumber) {
-            document.getElementById("question").textContent = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
-            document.getElementById("input").style.display = 'none';
-            document.getElementById("submitBtn").style.display = 'none';
-            feedbackDiv.textContent = "";
-        } else {
-            generateQuestion();
-        }
     } else {
-        feedbackDiv.textContent = "Try again!";
-        feedbackDiv.style.color = "red";
+        feedbackDiv.textContent = "";  // No "Try again" message
+    }
+
+    questionIndex++;
+
+    if (questionIndex >= questionNumber) {
+        document.getElementById("question").textContent = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
+        document.getElementById("input").style.display = 'none';
+        document.getElementById("submitBtn").style.display = 'none';
+        feedbackDiv.textContent = "";
+    } else {
+        generateQuestion();
     }
 
     document.getElementById("score").textContent = `Score: ${score} / ${questionNumber}`;
