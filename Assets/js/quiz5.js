@@ -58,32 +58,40 @@ function checkAnswer() {
         return; // Quiz is over
     }
 
-    const userAnswer = document.getElementById("input").value.trim().replace(/\s+/g, '');
+    const userAnswer = document.getElementById("input").value.trim();
+    const feedbackDiv = document.getElementById("feedback");
 
-    // Prepare all acceptable answer formats (handle both orderings and plus/minus signs)
-    const [x, y] = factorPair;
+    const factors = factor();
+    let x = factors[0] || 1;
+    let y = factors[1] || 1;
 
-    const possibleAnswers = [
-        `(x+${x})(x+${y})`,
-        `(x+${y})(x+${x})`
+    const correctAnswers = [
+        `(x + ${x})(x + ${y})`,
+        `(x + ${y})(x + ${x})`
     ];
 
-    if (possibleAnswers.includes(userAnswer)) {
+    if (correctAnswers.includes(userAnswer)) {
         score++;
-        alert("Correct!");
-    } else {
-        alert(`Try again! The correct answer was: (x${x >= 0 ? '+' : ''}${x})(x${y >= 0 ? '+' : ''}${y})`);
-    }
-    questionIndex++;
+        feedbackDiv.textContent = "Correct!";
+        feedbackDiv.style.color = "green";
+        questionIndex++;
 
-    if (questionIndex >= questionNumber) {
-        document.getElementById("question").innerHTML = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
-        document.getElementById("input").style.display = 'none';
-        document.getElementById("submitBtn").style.display = 'none';
+        if (questionIndex >= questionNumber) {
+            document.getElementById("question").textContent = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
+            document.getElementById("input").style.display = 'none';
+            document.getElementById("submitBtn").style.display = 'none';
+            feedbackDiv.textContent = "";
+        } else {
+            generateQuestion();
+        }
     } else {
-        generateQuestion();
+        feedbackDiv.textContent = "Try again!";
+        feedbackDiv.style.color = "red";
     }
+
+    document.getElementById("score").textContent = `Score: ${score} / ${questionNumber}`;
 }
+
 
 // Start quiz on button click
 document.getElementById("startBtn").addEventListener('click', () => {
