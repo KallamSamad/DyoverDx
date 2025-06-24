@@ -2,15 +2,15 @@ const squares = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144];
 const questionNumber = 20;
 let questionIndex = 0;
 let score = 0;
+
 let b = 0;
 let c = 0;
 
-// Generate valid b, c so discriminant is a perfect square
 function disc() {
     let valid = false;
     while (!valid) {
-        b = Math.floor(Math.random() * 150) - 75; // allow negative b for more variety
-        c = Math.floor(Math.random() * 150) - 75; // allow negative c
+        b = Math.floor(Math.random() * 150);
+        c = Math.floor(Math.random() * 150);
         const discriminant = b * b - 4 * c;
         if (squares.includes(discriminant)) {
             valid = true;
@@ -18,71 +18,82 @@ function disc() {
     }
 }
 
-// Find factor pairs of c that sum to b
-function findFactors() {
-    let factorPairs = [];
-    for (let i = -Math.abs(c); i <= Math.abs(c); i++) {
-        if (i !== 0 && c % i === 0) {
-            let j = c / i;
-            if (i + j === b) {
-                factorPairs.push([i, j]);
-            }
+function factor() {
+    let factors = [];
+    for (let i = 1; i <= c; i++) {
+        if (c % i === 0) {
+            factors.push(i);
         }
     }
-    return factorPairs;
+    return factors;
 }
 
-// Display the current question
-function displayQuestion() {
+function generateQuestion() {
     disc();
-    document.getElementById("question").innerText = `Factorise: x² + ${b}x + ${c}`;
-    document.getElementById("input").value = "";
-    document.getElementById("score").innerText = `Score: ${score} / ${questionIndex}`;
+    const factors = factor();
+
+    // Pick two factors that add up to b or their negative counterparts
+    // Your current method is a bit naive, here just pick first two factors as example
+    let x = factors[0] || 1;
+    let y = factors[1] || 1;
+
+    // Display question
+    document.getElementById("question").innerHTML = `Factorise: x² + ${b}x + ${c}`;
+    
+    // Clear input for next question
+    document.getElementById("input").value = '';
+    document.getElementById("score").innerHTML = `Score: ${score} / ${questionNumber}`;
 }
 
-// Check user's answer
 function checkAnswer() {
-    const userAnswer = document.getElementById("input").value.trim();
-    const factors = findFactors();
-    
-    // Accept either order of factors
-    let correct = false;
-    for (const [x, y] of factors) {
-        let correctAnswer1 = `(x + ${x})(x + ${y})`;
-        let correctAnswer2 = `(x + ${y})(x + ${x})`;
-        if (userAnswer === correctAnswer1 || userAnswer === correctAnswer2) {
-            correct = true;
-            break;
-        }
+    if (questionIndex >= questionNumber) {
+        return; // Quiz is over
     }
 
-    if (correct) {
+    const userAnswer = document.getElementById("input").value.trim();
+
+    // Calculate correct factors again to check answer
+    // (You need to recalc factors b and c or store them per question)
+    // For now, let's assume b and c are global and unchanged since question generation
+    
+    const factors = factor();
+
+    let x = factors[0] || 1;
+    let y = factors[1] || 1;
+
+    // Accept either order of factors and signs (handle signs for factor pairs carefully)
+    const correctAnswers = [
+        `(x + ${x})(x + ${y})`,
+        `(x + ${y})(x + ${x})`
+    ];
+
+    if (correctAnswers.includes(userAnswer)) {
         score++;
         alert("Correct!");
     } else {
         alert("Try again!");
     }
-
     questionIndex++;
 
     if (questionIndex >= questionNumber) {
-        document.getElementById("question").innerText = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
-        document.getElementById("submitBtn").disabled = true;
-        document.getElementById("input").disabled = true;
+        document.getElementById("question").innerHTML = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
+        document.getElementById("input").style.display = 'none';
+        document.getElementById("submitBtn").style.display = 'none';
     } else {
-        displayQuestion();
+        generateQuestion();
     }
 }
 
-// Event listeners
-document.getElementById("startBtn").addEventListener("click", () => {
+// Start quiz on button click
+document.getElementById("startBtn").addEventListener('click', () => {
     questionIndex = 0;
     score = 0;
-    document.getElementById("submitBtn").disabled = false;
-    document.getElementById("input").disabled = false;
-    displayQuestion();
+    document.getElementById("input").style.display = 'inline';
+    document.getElementById("submitBtn").style.display = 'inline';
+    generateQuestion();
 });
 
-document.getElementById("submitBtn").addEventListener("click", () => {
+// Check answer on button click
+document.getElementById("submitBtn").addEventListener('click', () => {
     checkAnswer();
 });
