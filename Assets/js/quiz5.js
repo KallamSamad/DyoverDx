@@ -1,81 +1,85 @@
-const squares = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144];
+const squares = [1,4,9,16,25,36,49,64,81,100,121,144];
 const questionNumber = 20;
 let questionIndex = 0;
 let score = 0;
 
 let b = 0;
 let c = 0;
-let factorPair = []; // store correct factors for current question
 
-// Generate valid b and c such that discriminant is a perfect square
 function disc() {
     let valid = false;
     while (!valid) {
-        b = Math.floor(Math.random() * 21) - 10; // allow negative b between -10 and 10
-        c = Math.floor(Math.random() * 50) + 1;  // positive c between 1 and 50
-
+        b = Math.floor(Math.random() * 20) - 10;
+        c = Math.floor(Math.random() * 50) + 1;
         const discriminant = b * b - 4 * c;
-        if (squares.includes(discriminant)) {
-            // Now check if there are two integer factors of c whose sum is b
-            const factors = getFactorPairs(c);
-            for (const [f1, f2] of factors) {
-                if (f1 + f2 === b) {
-                    factorPair = [f1, f2];
-                    valid = true;
-                    break;
-                }
-            }
-        }
+        if (squares.includes(discriminant)) valid = true;
     }
 }
 
-// Get all factor pairs of c (including negative pairs) that multiply to c
-function getFactorPairs(n) {
-    let pairs = [];
-    for (let i = 1; i <= Math.abs(n); i++) {
-        if (n % i === 0) {
-            let j = n / i;
-            pairs.push([i, j]);
-            pairs.push([-i, -j]); // include negative factor pairs too
-        }
+function factor() {
+    let factors = [];
+    for (let i = 1; i <= Math.abs(c); i++) {
+        if (c % i === 0) factors.push(i);
     }
-    return pairs;
+    return factors;
 }
 
 function generateQuestion() {
     disc();
+    const factors = factor();
 
-    // Display question
-    document.getElementById("question").innerHTML = `Factorise: x² + ${b}x + ${c}`;
-    
-    // Clear input for next question
+    let x = 1, y = c;
+
+    outerLoop:
+    for (let i = 0; i < factors.length; i++) {
+        for (let j = i; j < factors.length; j++) {
+            const a = factors[i], d = factors[j];
+            if (a + d === b) {
+                x = a; y = d;
+                break outerLoop;
+            }
+            if (-a + -d === b) {
+                x = -a; y = -d;
+                break outerLoop;
+            }
+            if (a + -d === b) {
+                x = a; y = -d;
+                break outerLoop;
+            }
+            if (-a + d === b) {
+                x = -a; y = d;
+                break outerLoop;
+            }
+        }
+    }
+
+    window.currentFactors = [x, y];
+
+    document.getElementById("question").textContent = `Factorise: x² + ${b}x + ${c}`;
     document.getElementById("input").value = '';
-    document.getElementById("score").innerHTML = `Score: ${score} / ${questionNumber}`;
+    document.getElementById("feedback").textContent = '';
+    document.getElementById("score").textContent = `Score: ${score} / ${questionNumber}`;
 }
 
 function checkAnswer() {
-    if (questionIndex >= questionNumber) {
-        return; // Quiz is over
-    }
+    if (questionIndex >= questionNumber) return;
 
-    const userAnswer = document.getElementById("input").value.trim();
-    const feedbackDiv = document.getElementById("feedback");
+    const userAnswer = document.getElementById("input").value.trim().replace(/\s+/g, '');
 
-    const factors = factor();
-    let x = factors[0] || 1;
-    let y = factors[1] || 1;
+    const [x, y] = window.currentFactors;
 
     const correctAnswers = [
-        `(x + ${x})(x + ${y})`,
-        `(x + ${y})(x + ${x})`
+        `(x+${x})(x+${y})`,
+        `(x+${y})(x+${x})`
     ];
+
+    const feedbackDiv = document.getElementById("feedback");
 
     if (correctAnswers.includes(userAnswer)) {
         score++;
         feedbackDiv.textContent = "Correct!";
         feedbackDiv.style.color = "green";
         questionIndex++;
-
         if (questionIndex >= questionNumber) {
             document.getElementById("question").textContent = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
             document.getElementById("input").style.display = 'none';
@@ -92,8 +96,6 @@ function checkAnswer() {
     document.getElementById("score").textContent = `Score: ${score} / ${questionNumber}`;
 }
 
-
-// Start quiz on button click
 document.getElementById("startBtn").addEventListener('click', () => {
     questionIndex = 0;
     score = 0;
@@ -102,7 +104,6 @@ document.getElementById("startBtn").addEventListener('click', () => {
     generateQuestion();
 });
 
-// Check answer on button click
 document.getElementById("submitBtn").addEventListener('click', () => {
     checkAnswer();
 });
