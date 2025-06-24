@@ -78,12 +78,16 @@
 <p>This is the solution. You can expand to check but I'll leave that as homeweork for you once you cover expanding double brackets.</p>
   </ol>
 
-  <p id="question"></p>
-  <p id="answer"></p>
-  <input type="text" id="input" placeholder="Type your answer here" />
-  <button id="submitBtn">Submit Answer</button>
-  <button id="startBtn">Start Quiz</button>
-  <p id="score"></p>
+  <div id="question">Click "Start Quiz" to begin!</div>
+
+  <input type="text" id="input" placeholder="Enter your answer here (e.g. (x+2)(x+3))" style="display:none" />
+
+  <div>
+    <button id="startBtn">Start Quiz</button>
+    <button id="submitBtn" style="display:none">Submit Answer</button>
+  </div>
+
+  <div id="score"></div>
   <script src="/DyoverDx/Assets/js/quiz5.js"></script>
 </body>
 </html>
