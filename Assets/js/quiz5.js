@@ -5,37 +5,45 @@ let score = 0;
 
 let b = 0;
 let c = 0;
+let factorPair = []; // store correct factors for current question
 
+// Generate valid b and c such that discriminant is a perfect square
 function disc() {
     let valid = false;
     while (!valid) {
-        b = Math.floor(Math.random() * 150);
-        c = Math.floor(Math.random() * 150);
+        b = Math.floor(Math.random() * 21) - 10; // allow negative b between -10 and 10
+        c = Math.floor(Math.random() * 50) + 1;  // positive c between 1 and 50
+
         const discriminant = b * b - 4 * c;
         if (squares.includes(discriminant)) {
-            valid = true;
+            // Now check if there are two integer factors of c whose sum is b
+            const factors = getFactorPairs(c);
+            for (const [f1, f2] of factors) {
+                if (f1 + f2 === b) {
+                    factorPair = [f1, f2];
+                    valid = true;
+                    break;
+                }
+            }
         }
     }
 }
 
-function factor() {
-    let factors = [];
-    for (let i = 1; i <= c; i++) {
-        if (c % i === 0) {
-            factors.push(i);
+// Get all factor pairs of c (including negative pairs) that multiply to c
+function getFactorPairs(n) {
+    let pairs = [];
+    for (let i = 1; i <= Math.abs(n); i++) {
+        if (n % i === 0) {
+            let j = n / i;
+            pairs.push([i, j]);
+            pairs.push([-i, -j]); // include negative factor pairs too
         }
     }
-    return factors;
+    return pairs;
 }
 
 function generateQuestion() {
     disc();
-    const factors = factor();
-
-    // Pick two factors that add up to b or their negative counterparts
-    // Your current method is a bit naive, here just pick first two factors as example
-    let x = factors[0] || 1;
-    let y = factors[1] || 1;
 
     // Display question
     document.getElementById("question").innerHTML = `Factorise: x² + ${b}x + ${c}`;
@@ -50,28 +58,21 @@ function checkAnswer() {
         return; // Quiz is over
     }
 
-    const userAnswer = document.getElementById("input").value.trim();
+    const userAnswer = document.getElementById("input").value.trim().replace(/\s+/g, '');
 
-    // Calculate correct factors again to check answer
-    // (You need to recalc factors b and c or store them per question)
-    // For now, let's assume b and c are global and unchanged since question generation
-    
-    const factors = factor();
+    // Prepare all acceptable answer formats (handle both orderings and plus/minus signs)
+    const [x, y] = factorPair;
 
-    let x = factors[0] || 1;
-    let y = factors[1] || 1;
-
-    // Accept either order of factors and signs (handle signs for factor pairs carefully)
-    const correctAnswers = [
-        `(x + ${x})(x + ${y})`,
-        `(x + ${y})(x + ${x})`
+    const possibleAnswers = [
+        `(x+${x})(x+${y})`,
+        `(x+${y})(x+${x})`
     ];
 
-    if (correctAnswers.includes(userAnswer)) {
+    if (possibleAnswers.includes(userAnswer)) {
         score++;
         alert("Correct!");
     } else {
-        alert("Try again!");
+        alert(`Try again! The correct answer was: (x${x >= 0 ? '+' : ''}${x})(x${y >= 0 ? '+' : ''}${y})`);
     }
     questionIndex++;
 
