@@ -1,4 +1,6 @@
-let square = [1,   4,   9,  16,  25,36,  49,  64,  81, 100,121, 144, ]
+let square = [1,   4,   9,  16,  25,36,  49,  64,  81, 100,121, 144,]
+let questionNumber=20
+let questionIndex=0
 
 function disc(){
     let state=false
@@ -14,4 +16,5 @@ function disc(){
     }
 }
 
-console.log(disc())
+function questions(){
+    
