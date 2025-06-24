@@ -2,15 +2,15 @@ const squares = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144];
 const questionNumber = 20;
 let questionIndex = 0;
 let score = 0;
-
 let b = 0;
 let c = 0;
 
- function disc() {
+// Generate valid b, c so discriminant is a perfect square
+function disc() {
     let valid = false;
     while (!valid) {
-        b = Math.floor(Math.random() * 150);
-        c = Math.floor(Math.random() * 150);
+        b = Math.floor(Math.random() * 150) - 75; // allow negative b for more variety
+        c = Math.floor(Math.random() * 150) - 75; // allow negative c
         const discriminant = b * b - 4 * c;
         if (squares.includes(discriminant)) {
             valid = true;
@@ -18,43 +18,71 @@ let c = 0;
     }
 }
 
- function factor() {
-    let factors = [];
-    for (let i = 1; i <= c; i++) {
-        if (c % i === 0) {
-            factors.push(i);
+// Find factor pairs of c that sum to b
+function findFactors() {
+    let factorPairs = [];
+    for (let i = -Math.abs(c); i <= Math.abs(c); i++) {
+        if (i !== 0 && c % i === 0) {
+            let j = c / i;
+            if (i + j === b) {
+                factorPairs.push([i, j]);
+            }
         }
     }
-    return factors;
+    return factorPairs;
 }
 
- 
-function main() {
+// Display the current question
+function displayQuestion() {
     disc();
-    let factors = factor();
+    document.getElementById("question").innerText = `Factorise: x² + ${b}x + ${c}`;
+    document.getElementById("input").value = "";
+    document.getElementById("score").innerText = `Score: ${score} / ${questionIndex}`;
+}
 
- 
-    let x = factors[0] || 1;
-    let y = factors[1] || 1;
-
- 
-    document.getElementById("question").innerHTML = `Factorise: x² + ${b}x + ${c}`;
- 
+// Check user's answer
+function checkAnswer() {
     const userAnswer = document.getElementById("input").value.trim();
+    const factors = findFactors();
+    
+    // Accept either order of factors
+    let correct = false;
+    for (const [x, y] of factors) {
+        let correctAnswer1 = `(x + ${x})(x + ${y})`;
+        let correctAnswer2 = `(x + ${y})(x + ${x})`;
+        if (userAnswer === correctAnswer1 || userAnswer === correctAnswer2) {
+            correct = true;
+            break;
+        }
+    }
 
- 
-    if (userAnswer === `(x + ${x})(x + ${y})` || userAnswer === `(x + ${y})(x + ${x})`) {
+    if (correct) {
         score++;
-        questionIndex++;
         alert("Correct!");
     } else {
-        questionIndex++;
         alert("Try again!");
     }
 
+    questionIndex++;
+
     if (questionIndex >= questionNumber) {
-        document.getElementById("question").innerHTML = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
+        document.getElementById("question").innerText = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
+        document.getElementById("submitBtn").disabled = true;
+        document.getElementById("input").disabled = true;
+    } else {
+        displayQuestion();
     }
 }
- 
-main();
+
+// Event listeners
+document.getElementById("startBtn").addEventListener("click", () => {
+    questionIndex = 0;
+    score = 0;
+    document.getElementById("submitBtn").disabled = false;
+    document.getElementById("input").disabled = false;
+    displayQuestion();
+});
+
+document.getElementById("submitBtn").addEventListener("click", () => {
+    checkAnswer();
+});
