@@ -39,6 +39,56 @@ function gcd(a, b) {
     return gcd(b, a % b);
 }
 
+// Parse user input with optional outside factor and two binomials like "9(2x+1)(2x+1)"
+function parseUserInput(input) {
+    input = input.replace(/\s+/g, '');
+
+    // Regex:
+    // Optional outside coefficient (like "9")
+    // Two binomials: (Ax+B)(Cx+D)
+    const regex = /^([+-]?\d+)?\(([-+]?[\d\/]*?)x([-+][\d\/]+)\)\(([-+]?[\d\/]*?)x([-+][\d\/]+)\)$/;
+    const match = input.match(regex);
+    if (!match) return null;
+
+    const outsideCoefStr = match[1];
+    const A1Str = match[2];
+    const B1Str = match[3];
+    const A2Str = match[4];
+    const B2Str = match[5];
+
+    const outsideCoef = outsideCoefStr ? parseInt(outsideCoefStr, 10) : 1;
+    if (isNaN(outsideCoef)) return null;
+
+    function parseFraction(str) {
+        if (str.includes('/')) {
+            const [num, den] = str.split('/');
+            const numerator = parseFloat(num);
+            const denominator = parseFloat(den);
+            if (isNaN(numerator) || isNaN(denominator) || denominator === 0) return NaN;
+            return numerator / denominator;
+        } else {
+            return parseFloat(str);
+        }
+    }
+
+    const A1 = (A1Str === '' || A1Str === '+') ? 1 : A1Str === '-' ? -1 : parseFraction(A1Str);
+    const B1 = parseFraction(B1Str);
+    const A2 = (A2Str === '' || A2Str === '+') ? 1 : A2Str === '-' ? -1 : parseFraction(A2Str);
+    const B2 = parseFraction(B2Str);
+
+    if ([A1, B1, A2, B2].some(x => isNaN(x))) return null;
+
+    return { outsideCoef, A1, B1, A2, B2 };
+}
+
+// Expand k*(A1 x + B1)(A2 x + B2)
+function expandFactored(outsideCoef, A1, B1, A2, B2) {
+    const a = outsideCoef * A1 * A2;
+    const b = outsideCoef * (A1 * B2 + B1 * A2);
+    const c = outsideCoef * B1 * B2;
+    return { a, b, c };
+}
+
 function generateQuestion() {
     disc();
 
@@ -50,7 +100,6 @@ function generateQuestion() {
         allFactors.push(-f);
     });
 
-    // Find pairs (m,n) such that m*n=ac and m+n=b
     let mnPairs = [];
     for (let i = 0; i < allFactors.length; i++) {
         for (let j = 0; j < allFactors.length; j++) {
@@ -61,27 +110,20 @@ function generateQuestion() {
     }
 
     if (mnPairs.length === 0) {
-        // No valid pairs, regenerate question
         generateQuestion();
         return;
     }
 
-    const [m, n] = mnPairs[0]; // pick first valid pair
-
-    // Factor a into pairs (p, r)
+    const [m, n] = mnPairs[0];
     const aFactors = getFactors(a);
     const factorPairs = [];
     aFactors.forEach(p => {
         factorPairs.push([p, a / p]);
     });
 
-    // Find p, q, r, s such that (px + q)(rx + s) = ax^2 + bx + c
-    // Using m and n to find q and s
     let finalFactors = null;
-
     outerLoop:
     for (const [p, r] of factorPairs) {
-        // Try q = m/p, s = n/r
         if (Number.isInteger(m / p) && Number.isInteger(n / r)) {
             let q = m / p;
             let s = n / r;
@@ -90,7 +132,6 @@ function generateQuestion() {
                 break outerLoop;
             }
         }
-        // Try q = n/p, s = m/r
         if (Number.isInteger(n / p) && Number.isInteger(m / r)) {
             let q = n / p;
             let s = m / r;
@@ -102,7 +143,6 @@ function generateQuestion() {
     }
 
     if (!finalFactors) {
-        // No suitable factorization, regenerate question
         generateQuestion();
         return;
     }
@@ -119,63 +159,40 @@ function checkAnswer() {
     if (questionIndex >= questionNumber) return;
 
     let userAnswer = document.getElementById("input").value.trim();
-    // Remove spaces for easier matching
-    userAnswer = userAnswer.replace(/\s+/g, '');
+    if (!userAnswer) return;
 
-    const [p, q, r, s] = window.currentFactors;
-
-    const formatTerm = (coef, variable) => {
-        if (coef === 0) return '';
-        if (coef === 1) return variable;
-        if (coef === -1) return '-' + variable;
-        return coef + variable;
-    };
-
-    // Construct binomials
-    const binomial1 = `(${formatTerm(p, 'x')}${q >= 0 ? '+' : ''}${q})`;
-    const binomial2 = `(${formatTerm(r, 'x')}${s >= 0 ? '+' : ''}${s})`;
-
-    // Compute gcd of p and r to find outside constant factor if any
-    const outsideFactor = gcd(Math.abs(p), Math.abs(r));
-
-    // Prepare correct answers with and without outside factor
-    const correctAnswers = [
-        `${outsideFactor > 1 ? outsideFactor : ''}${binomial1}${binomial2}`,
-        `${outsideFactor > 1 ? outsideFactor : ''}${binomial2}${binomial1}`,
-        `${binomial1}${binomial2}`,
-        `${binomial2}${binomial1}`
-    ];
-
-    // Also consider a more relaxed check ignoring parentheses (for flexibility)
-    const simpleUserAnswer = userAnswer.replace(/[()]/g, '');
-    const simpleCorrectAnswers = correctAnswers.map(ans => ans.replace(/[()]/g, ''));
-
-    const isCorrect = correctAnswers.includes(userAnswer) || simpleCorrectAnswers.includes(simpleUserAnswer);
-
+    const parsed = parseUserInput(userAnswer);
     const feedbackDiv = document.getElementById("feedback");
 
-    if (isCorrect) {
+    if (!parsed) {
+        feedbackDiv.textContent = "Invalid format! Please enter like (2x+3)(x-1) or 3(2x+1)(2x+1)";
+        feedbackDiv.style.color = "red";
+        return;
+    }
+
+    const { outsideCoef, A1, B1, A2, B2 } = parsed;
+
+    // Expand user's input and compare with generated quadratic
+    const expanded = expandFactored(outsideCoef, A1, B1, A2, B2);
+
+    if (expanded.a === a && expanded.b === b && expanded.c === c) {
         score++;
         feedbackDiv.textContent = "Correct!";
         feedbackDiv.style.color = "green";
+        questionIndex++;
+        document.getElementById("score").textContent = `Score: ${score} / ${questionNumber}`;
+        if (questionIndex >= questionNumber) {
+            document.getElementById("question").textContent = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
+            document.getElementById("input").style.display = 'none';
+            document.getElementById("submitBtn").style.display = 'none';
+            feedbackDiv.textContent = "";
+        } else {
+            generateQuestion();
+        }
     } else {
-        feedbackDiv.textContent = "Try again!";
+        feedbackDiv.textContent = "Incorrect, try again!";
         feedbackDiv.style.color = "red";
-        return; // let user retry same question
     }
-
-    questionIndex++;
-
-    if (questionIndex >= questionNumber) {
-        document.getElementById("question").textContent = `Quiz finished! Your score is: ${score} out of ${questionNumber}`;
-        document.getElementById("input").style.display = 'none';
-        document.getElementById("submitBtn").style.display = 'none';
-        feedbackDiv.textContent = "";
-    } else {
-        generateQuestion();
-    }
-
-    document.getElementById("score").textContent = `Score: ${score} / ${questionNumber}`;
 }
 
 document.getElementById("startBtn").addEventListener('click', () => {
