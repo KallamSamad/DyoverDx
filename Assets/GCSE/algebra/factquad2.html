@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="/DyoverDx/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GCSE Topics</title>
+  
+  <link rel="stylesheet" href="/DyoverDx/style.css" />
+  <link rel="icon" href="/DyoverDx/Assets/Images/favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap" rel="stylesheet" />
+  
   <script>
-  window.MathJax = {
-    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-    svg: { fontCache: 'global' }
-  };
-</script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
-  <link rel="icon" href="/DyoverDx/Assets/Images/favicon.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
   <div class="top-bar">
@@ -23,7 +26,7 @@
   </div>
 
   <header>
-    <img src="/DyoverDx/Assets/Images/be-limitless.webp" alt="logo" id="logo" width="70%">
+    <img src="/DyoverDx/Assets/Images/be-limitless.webp" alt="logo" id="logo" width="70%" />
   </header>
 
   <nav class="black-banner" id="black-banner">
@@ -32,58 +35,74 @@
     <a href="/DyoverDx/GCSE.html">GCSE</a>
     <a href="/DyoverDx/coming-soon.html">Tutoring</a>
   </nav>
+
   <a href="/DyoverDx/index.html">Back</a>
 
   <h1>Definitions</h1>
   <ul>
     <li><b>Factorising</b>: the opposite of expanding; it means "putting into brackets".</li>
     <li><b>Factors</b>: parts of a number that divide exactly into it. For example, 5 divides into 10.</li>
-    <li><b>Quadratic</b> - an expression which has a degree of 2</li>
-    <li>Degree- the highest power of a variable in an expression</li>
+    <li><b>Quadratic</b>: an expression with degree 2.</li>
+    <li><b>Degree</b>: the highest power of a variable in an expression.</li>
   </ul>
-  <p style= "color:red">Note that this is only for "higher" students.</p>
-  <h2>Factorising \(ax^2+bx+c\)</h2>
-<p>Now, here comes a big issue. You cannot factorise these quadratics like how you do when a=1, on its own.</p>
-<p>Have no fear! You've come too far now to give up. These quadratics require you to apply everything you've learned about expressions.</p>
-<h2>AC method</h2>
-<ol>
-  <li>Check if you can divide the whole expression to simplify</li>
-  <li>Multiply a by c</li>
-  <li>Find the factors of ac</li>
-  <li>Rewrite in the form \(ax^2+px+qx+c\) where \(p+q=c\)</li>
-  <li>Factorise in parts</li>
-</ol>
-<h2>Example</h2>
-<p>Factorise \(4x² + 25x + 36\)</p>
-<ol>
-  <li>Can't simplify any further by dividing</li>
-  <li>A x C = 144</li>
-  <li>Factors of 144 - (1, 144), (2, 72), (3, 48), (4, 36), (6, 24), (8, 18), (9, 16) and (12, 12). Find a pair that sums to give b (25).</li>
-  <li>(9,16) is the pair. Now write as \(4x^2+16x+9x+36\). Make sure you put the correct numbers next to each other. For example you could do \(4x^2+9x+16x+36\) but you know that you can't 4 and 9 doesn't have a common factor greater than 1.</li>
-  <li>Factorise in parts by finding the highest common factor. You do this by factorising in pairs. So the HCF of  \(4x^2+16x\) is \((4x(x+4)\) and \((9x+36\)) is \(9(x+4)\)</li>
-  <li>Rewrite as \(4x(x+4)\)+\(9(x+4)\). Finally you but the numbers on the outisde in their own brackets. So the final answer is \((4x + 9)(x + 4)\)</li>
-</ol>
-<div id="score">Score: 0 / 20</div>
-<h2>Example 2</h2>
-<p>Factorise: \(36x² + 36x + 9\)</p>
-  <li>Can divide by 9 to get \(4x² + 4x + 1\) - this has saved so much time because numbers are smaller and easier</li>
-  <li>A x C = 4</li>
-  <li>Factors of 4 - (1, 4), (2, 2) Find a pair that sums to give the <b>new</b> c (4).</li>
-  <li>(2,2 is the pair. Now write as \(4x^2+2x+2x+1\).</li>
-  <li>Factorise in parts. \(4x^2+2x\)=\(2x(2x+1)\) and \(2x+1\) = \(2x+1\)</li>
-  <li>Rewrite as \(2x(2x+1)\)+\(2x+1\) = \((2x+1)(2x+1)\)</li></p>
-  <li>Finally add the 9 you factored out into the answer = \9((2x+1)(2x+1)\) because remember this rule: <b>whenver you divide an expression it doesn't disappear - it always becomes factorised</b></li>
-  
-  
-<div id="question">Click Start to begin the quiz.</div>
 
-<input type="text" id="input" style="display:none;" placeholder="\(Enter factorised form"\) />
-<br />
-<button id="submitBtn" style="display:none;">Submit Answer</button>
-<br />
-<button id="startBtn">Start Quiz</button>
+  <p style="color:red;">Note that this is only for "higher" students.</p>
 
-<div id="feedback"></div>
+  <h2>Factorising \(ax^2 + bx + c\)</h2>
+  <p>Now, here comes a big issue. You cannot factorise these quadratics like you do when \(a=1\).</p>
+  <p>Have no fear! You've come too far now to give up. These quadratics require you to apply everything you've learned about expressions.</p>
+
+  <h2>AC Method</h2>
+  <ol>
+    <li>Check if you can divide the whole expression to simplify.</li>
+    <li>Multiply \(a\) by \(c\).</li>
+    <li>Find the factors of \(ac\).</li>
+    <li>Rewrite the expression as \(ax^2 + px + qx + c\) where \(p + q = b\).</li>
+    <li>Factorise in parts.</li>
+  </ol>
+
+  <h2>Example 1</h2>
+  <p>Factorise \(4x^2 + 25x + 36\)</p>
+  <ol>
+    <li>Can't simplify any further by dividing.</li>
+    <li>Calculate \(a \times c = 4 \times 36 = 144\).</li>
+    <li>Factors of 144: (1, 144), (2, 72), (3, 48), (4, 36), (6, 24), (8, 18), (9, 16), and (12, 12). Find a pair that sums to \(b = 25\).</li>
+    <li>\((9,16)\) is the pair. Now write as \(4x^2 + 16x + 9x + 36\). Make sure you put the correct numbers next to each other. For example, you could write \(4x^2 + 9x + 16x + 36\), but that won't work because 4 and 9 do not have a common factor greater than 1.</li>
+    <li>Factorise in parts by finding the highest common factor (HCF). Factorise in pairs:  
+      - \(4x^2 + 16x = 4x(x + 4)\)  
+      - \(9x + 36 = 9(x + 4)\)</li>
+    <li>Rewrite as \(4x(x + 4) + 9(x + 4)\). Finally, factor out the common binomial: \((4x + 9)(x + 4)\).</li>
+  </ol>
+
+  <h2>Example 2</h2>
+  <p>Factorise \(36x^2 + 36x + 9\)</p>
+  <ol>
+    <li>Can divide by 9 to get \(4x^2 + 4x + 1\) — this saves time because the numbers are smaller and easier.</li>
+    <li>Calculate \(a \times c = 4 \times 1 = 4\).</li>
+    <li>Factors of 4: (1, 4), (2, 2). Find a pair that sums to the new \(b = 4\).</li>
+    <li>\((2, 2)\) is the pair. Now write as \(4x^2 + 2x + 2x + 1\).</li>
+    <li>Factorise in parts:  
+      - \(4x^2 + 2x = 2x(2x + 1)\)  
+      - \(2x + 1 = 1(2x + 1)\)</li>
+    <li>Rewrite as \(2x(2x + 1) + 1(2x + 1) = (2x + 1)(2x + 1) = (2x + 1)^2\).</li>
+    <li>Finally, add back the 9 you factored out at the start:  
+      \[
+      9(2x + 1)^2
+      \]  
+      Remember this rule: <b>whenever you divide an expression, it doesn't disappear — it becomes a factor outside the brackets.</b></li>
+  </ol>
+
+  <div id="score">Score: 0 / 20</div>
+  <div id="question">Click Start to begin the quiz.</div>
+
+  <input type="text" id="input" style="display:none;" placeholder="Enter factorised form" />
+  <br />
+  <button id="submitBtn" style="display:none;">Submit Answer</button>
+  <br />
+  <button id="startBtn">Start Quiz</button>
+
+  <div id="feedback"></div>
+
   <script src="/DyoverDx/Assets/js/quiz6.js"></script>
 </body>
 </html>
