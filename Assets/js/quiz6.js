@@ -34,6 +34,11 @@ function getFactors(n) {
     return factors;
 }
 
+function gcd(a, b) {
+    if (b === 0) return a;
+    return gcd(b, a % b);
+}
+
 function generateQuestion() {
     disc();
 
@@ -113,11 +118,12 @@ function generateQuestion() {
 function checkAnswer() {
     if (questionIndex >= questionNumber) return;
 
-    const userAnswer = document.getElementById("input").value.trim().replace(/\s+/g, '');
+    let userAnswer = document.getElementById("input").value.trim();
+    // Remove spaces for easier matching
+    userAnswer = userAnswer.replace(/\s+/g, '');
 
     const [p, q, r, s] = window.currentFactors;
 
-    // Normalize signs in display:
     const formatTerm = (coef, variable) => {
         if (coef === 0) return '';
         if (coef === 1) return variable;
@@ -125,24 +131,37 @@ function checkAnswer() {
         return coef + variable;
     };
 
-    const formatConstant = (num) => {
-        return (num >= 0 ? `+${num}` : `${num}`);
-    };
+    // Construct binomials
+    const binomial1 = `(${formatTerm(p, 'x')}${q >= 0 ? '+' : ''}${q})`;
+    const binomial2 = `(${formatTerm(r, 'x')}${s >= 0 ? '+' : ''}${s})`;
 
-    // Two possible correct answers:
+    // Compute gcd of p and r to find outside constant factor if any
+    const outsideFactor = gcd(Math.abs(p), Math.abs(r));
+
+    // Prepare correct answers with and without outside factor
     const correctAnswers = [
-        `(${formatTerm(p, 'x')}${q >= 0 ? '+' : ''}${q})(${formatTerm(r, 'x')}${s >= 0 ? '+' : ''}${s})`,
-        `(${formatTerm(r, 'x')}${s >= 0 ? '+' : ''}${s})(${formatTerm(p, 'x')}${q >= 0 ? '+' : ''}${q})`
+        `${outsideFactor > 1 ? outsideFactor : ''}${binomial1}${binomial2}`,
+        `${outsideFactor > 1 ? outsideFactor : ''}${binomial2}${binomial1}`,
+        `${binomial1}${binomial2}`,
+        `${binomial2}${binomial1}`
     ];
+
+    // Also consider a more relaxed check ignoring parentheses (for flexibility)
+    const simpleUserAnswer = userAnswer.replace(/[()]/g, '');
+    const simpleCorrectAnswers = correctAnswers.map(ans => ans.replace(/[()]/g, ''));
+
+    const isCorrect = correctAnswers.includes(userAnswer) || simpleCorrectAnswers.includes(simpleUserAnswer);
 
     const feedbackDiv = document.getElementById("feedback");
 
-    if (correctAnswers.includes(userAnswer)) {
+    if (isCorrect) {
         score++;
         feedbackDiv.textContent = "Correct!";
         feedbackDiv.style.color = "green";
     } else {
-        feedbackDiv.textContent = "";  // no try again message
+        feedbackDiv.textContent = "Try again!";
+        feedbackDiv.style.color = "red";
+        return; // let user retry same question
     }
 
     questionIndex++;
