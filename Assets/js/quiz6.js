@@ -1,4 +1,4 @@
-const smallSquares = [1, 4, 9, 16, 25, 36, 49];
+const smallSquares =  [4, 9, 16, 25, 36, 49];
 const mediumSquares = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100];
 const fullSquares = [
   0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100,
