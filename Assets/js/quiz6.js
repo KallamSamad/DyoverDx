@@ -4,7 +4,6 @@ const fullSquares = [
   0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100,
   121, 144, 169, 196, 225, 256, 289, 324, 361, 400
 ];
-                      
 
 const questionNumber = 20;
 let questionIndex = 0;
@@ -27,44 +26,83 @@ function disc() {
     }
 }
 
-function factor() {
+function getFactors(n) {
     let factors = [];
-    for (let i = 1; i <= Math.abs(c); i++) {
-        if (c % i === 0) factors.push(i);
+    for (let i = 1; i <= Math.abs(n); i++) {
+        if (n % i === 0) factors.push(i);
     }
     return factors;
 }
 
 function generateQuestion() {
     disc();
-    const factors = factor();
 
-    let x = 1, y = c;
+    const ac = a * c;
+    const acFactors = getFactors(ac);
+    const allFactors = [];
+    acFactors.forEach(f => {
+        allFactors.push(f);
+        allFactors.push(-f);
+    });
+
+    // Find pairs (m,n) such that m*n=ac and m+n=b
+    let mnPairs = [];
+    for (let i = 0; i < allFactors.length; i++) {
+        for (let j = 0; j < allFactors.length; j++) {
+            if (allFactors[i] * allFactors[j] === ac && allFactors[i] + allFactors[j] === b) {
+                mnPairs.push([allFactors[i], allFactors[j]]);
+            }
+        }
+    }
+
+    if (mnPairs.length === 0) {
+        // No valid pairs, regenerate question
+        generateQuestion();
+        return;
+    }
+
+    const [m, n] = mnPairs[0]; // pick first valid pair
+
+    // Factor a into pairs (p, r)
+    const aFactors = getFactors(a);
+    const factorPairs = [];
+    aFactors.forEach(p => {
+        factorPairs.push([p, a / p]);
+    });
+
+    // Find p, q, r, s such that (px + q)(rx + s) = ax^2 + bx + c
+    // Using m and n to find q and s
+    let finalFactors = null;
 
     outerLoop:
-    for (let i = 0; i < factors.length; i++) {
-        for (let j = i; j < factors.length; j++) {
-            const a = factors[i], d = factors[j];
-            if (a + d === b) {
-                x = a; y = d;
+    for (const [p, r] of factorPairs) {
+        // Try q = m/p, s = n/r
+        if (Number.isInteger(m / p) && Number.isInteger(n / r)) {
+            let q = m / p;
+            let s = n / r;
+            if (q * s === c) {
+                finalFactors = [p, q, r, s];
                 break outerLoop;
             }
-            if (-a + -d === b) {
-                x = -a; y = -d;
-                break outerLoop;
-            }
-            if (a + -d === b) {
-                x = a; y = -d;
-                break outerLoop;
-            }
-            if (-a + d === b) {
-                x = -a; y = d;
+        }
+        // Try q = n/p, s = m/r
+        if (Number.isInteger(n / p) && Number.isInteger(m / r)) {
+            let q = n / p;
+            let s = m / r;
+            if (q * s === c) {
+                finalFactors = [p, q, r, s];
                 break outerLoop;
             }
         }
     }
 
-    window.currentFactors = [x, y];
+    if (!finalFactors) {
+        // No suitable factorization, regenerate question
+        generateQuestion();
+        return;
+    }
+
+    window.currentFactors = finalFactors;
 
     document.getElementById("question").textContent = `Factorise: ${a}x² + ${b}x + ${c}`;
     document.getElementById("input").value = '';
@@ -77,11 +115,24 @@ function checkAnswer() {
 
     const userAnswer = document.getElementById("input").value.trim().replace(/\s+/g, '');
 
-    const [x, y] = window.currentFactors;
+    const [p, q, r, s] = window.currentFactors;
 
+    // Normalize signs in display:
+    const formatTerm = (coef, variable) => {
+        if (coef === 0) return '';
+        if (coef === 1) return variable;
+        if (coef === -1) return '-' + variable;
+        return coef + variable;
+    };
+
+    const formatConstant = (num) => {
+        return (num >= 0 ? `+${num}` : `${num}`);
+    };
+
+    // Two possible correct answers:
     const correctAnswers = [
-        `(x+${x})(x+${y})`,
-        `(x+${y})(x+${x})`
+        `(${formatTerm(p, 'x')}${q >= 0 ? '+' : ''}${q})(${formatTerm(r, 'x')}${s >= 0 ? '+' : ''}${s})`,
+        `(${formatTerm(r, 'x')}${s >= 0 ? '+' : ''}${s})(${formatTerm(p, 'x')}${q >= 0 ? '+' : ''}${q})`
     ];
 
     const feedbackDiv = document.getElementById("feedback");
@@ -91,7 +142,7 @@ function checkAnswer() {
         feedbackDiv.textContent = "Correct!";
         feedbackDiv.style.color = "green";
     } else {
-        feedbackDiv.textContent = "";  // No "Try again" message
+        feedbackDiv.textContent = "";  // no try again message
     }
 
     questionIndex++;
