@@ -34,6 +34,4 @@ function checkAnswer() {
 }
 
 document.getElementById("submitBtn").addEventListener("click", checkAnswer);
-
-// Start the quiz
 showQuestion();
