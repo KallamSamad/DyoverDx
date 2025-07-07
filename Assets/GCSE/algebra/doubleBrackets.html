@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  
+  <meta charset="UTF-8">
+  <title>Factorising Quiz</title>
+  <!-- MathJax CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="style.css">
 </head>
- 
+
 <body>
-<h1>Hello</h1>
-<div id="score"></div>
-<div id="question"></div>
-<div id="output"></div>
-<input id="input" type="text"></input>
- <button id="submitBtn">Submit Answer</button>
-<script src="/DyoverDx/Assets/js/quiz7.js"></script>
+  <h1>Factorising Quiz</h1>
+
+  <div id="score">Score: 0</div>
+  <div id="question"></div>
+  <div id="output" style="margin-top: 10px;"></div>
+
+  <input id="input" type="text" placeholder="Enter your answer here">
+  <button id="submitBtn">Submit Answer</button>
+
+  <!-- External JavaScript file -->
+  <script src="/DyoverDx/Assets/js/quiz7.js"></script>
 </body>
 </html>
