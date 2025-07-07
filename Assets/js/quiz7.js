@@ -21,8 +21,6 @@ function algorithm (){
     questionIndex++
 }
 
-algorithm()
-
 document.getElementById("submitBtn").addEventListener('click', () => {
     algorithm();
 }
