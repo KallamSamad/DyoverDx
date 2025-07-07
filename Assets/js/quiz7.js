@@ -17,7 +17,7 @@ function algorithm (){
     else{
         let corAns=document.getElementById("output").innerHTML=`Incorrect - the answer is ${ans} out of ${questionLength}`
     }
-    score =document.getElementById("score").innerHTML
+    document.getElementById("score").innerHTML=score
     questionIndex++
 }
 
@@ -25,6 +25,7 @@ algorithm()
 
 document.getElementById("submitBtn").addEventListener('click', () => {
     algorithm();
+}
 if (questionLength==questionIndex){
     let final=document.getElementById("output").innerHTML=`This is the end of the quiz, your score is ${score}/20`
 }
