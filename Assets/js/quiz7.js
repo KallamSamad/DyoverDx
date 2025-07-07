@@ -17,7 +17,7 @@ function algorithm() {
         score++;
         document.getElementById("output").textContent = "Correct!";
     } else {
-        document.getElementById("output").textContent = `Incorrect - the answer is ${ans};
+        document.getElementById("output").textContent = `Incorrect - the answer is ${ans};`
     }
 
     document.getElementById("score").textContent = `Score: ${score}`;
