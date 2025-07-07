@@ -18,7 +18,6 @@ function algorithm (){
     let score =getElementById("score").innerHtml 
 }
 algorithm()
-if (question=questionIndex){
-    
+
 
 
