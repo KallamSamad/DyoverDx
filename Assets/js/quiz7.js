@@ -9,14 +9,16 @@ function showQuestion() {
     let y = Math.floor(Math.random() * 2) + 2;
     let z = Math.floor(Math.random() * 2) + 2;
     document.getElementById("question").textContent = `(${a}x+${y})(${b}x+${z})`;
-    currentAns = `${a * b}x^2+${a * z + b * y}x+${y * z}`;
-    document.getElementById("input").value = "";  // clear input for new question
-    document.getElementById("output").textContent = "";  // clear previous output
+    currentAns = `${a * b}x^2+${(a * z) + (b * y)}x+${y * z}`;
+    document.getElementById("input").value = "";  // clear input
+    document.getElementById("output").textContent = "";
 }
 
 function checkAnswer() {
     let input = document.getElementById("input").value.trim().replace(/\s+/g, "");
-    if (input === currentAns) {
+    let correct = currentAns.replace(/\s+/g, "");
+
+    if (input === correct) {
         score++;
         document.getElementById("output").textContent = "Correct!";
     } else {
@@ -34,4 +36,5 @@ function checkAnswer() {
 }
 
 document.getElementById("submitBtn").addEventListener("click", checkAnswer);
-showQuestion();
+
+showQuestion();  // show first question immediately
