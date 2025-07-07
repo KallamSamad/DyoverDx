@@ -28,3 +28,4 @@ document.getElementById("submitBtn").addEventListener('click', () => {
         document.getElementById("submitBtn").disabled = true;
     }
     })
+algorithm()
