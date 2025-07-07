@@ -4,10 +4,11 @@ let score = 0;
 let currentAns = "";
 
 function showQuestion() {
-    let a = Math.floor(Math.random() * 2) + 2;
-    let b = Math.floor(Math.random() * 2) + 2;
-    let y = Math.floor(Math.random() * 2) + 2;
-    let z = Math.floor(Math.random() * 2) + 2;
+let a = Math.floor(Math.random() * 4) + 2;
+let b = Math.floor(Math.random() * 4) + 2;
+let y = Math.floor(Math.random() * 9) + 1;
+let z = Math.floor(Math.random() * 9) + 1;
+
     document.getElementById("question").textContent = `(${a}x+${y})(${b}x+${z})`;
     currentAns = `${a * b}x^2+${(a * z) + (b * y)}x+${y * z}`;
     document.getElementById("input").value = "";  // clear input
