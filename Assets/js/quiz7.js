@@ -16,7 +16,7 @@ function algorithm (){
         let corAns=getElementById("output").innerHtml=`Incorrect - the answer is ${ans}`
     }
     let score =getElementById("score").innerHtml 
-}
+    {
 algorithm()
 
 
