@@ -1,5 +1,5 @@
 let question=[]
-let questIndex=0
+let questionIndex=0
 let questionLength=20
 let score =0
 
