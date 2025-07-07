@@ -11,6 +11,7 @@ function showQuestion() {
 
     // Generate question expression
     document.getElementById("question").innerHTML = `\\((${a}x + ${y})(${b}x + ${z})\\)`;
+
     currentAns = `\\(${a * b}x^2 + ${(a * z) + (b * y)}x + ${y * z}\\)`;
 
     document.getElementById("input").value = "";
