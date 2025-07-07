@@ -25,5 +25,6 @@ algorithm()
 
 document.getElementById("submitBtn").addEventListener('click', () => {
     algorithm();
-if questionLength==questionIndex{
+if (questionLength==questionIndex){
     let final=document.getElementById("output").innerHTML=`This is the end of the quiz, your score is ${score}/20`
+}
