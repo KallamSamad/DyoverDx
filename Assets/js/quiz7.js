@@ -1,36 +1,39 @@
 let questionIndex = 0;
 let questionLength = 20;
 let score = 0;
+let currentAns = "";
 
-function algorithm() {
-    let a = Math.floor((Math.random() * 2) + 2);
-    let b = Math.floor((Math.random() * 2) + 2);
-    let y = Math.floor((Math.random() * 2) + 2);
-    let z = Math.floor((Math.random() * 2) + 2);
-
+function showQuestion() {
+    let a = Math.floor(Math.random() * 2) + 2;
+    let b = Math.floor(Math.random() * 2) + 2;
+    let y = Math.floor(Math.random() * 2) + 2;
+    let z = Math.floor(Math.random() * 2) + 2;
     document.getElementById("question").textContent = `(${a}x+${y})(${b}x+${z})`;
-    let ans = `${a * b}x^2+${(a * z) + (b * y)}x+${y * z}`;
-    
-    let input = document.getElementById("input").value.trim();
+    currentAns = `${a * b}x^2+${a * z + b * y}x+${y * z}`;
+    document.getElementById("input").value = "";  // clear input for new question
+    document.getElementById("output").textContent = "";  // clear previous output
+}
 
-    if (input === ans) {
+function checkAnswer() {
+    let input = document.getElementById("input").value.trim().replace(/\s+/g, "");
+    if (input === currentAns) {
         score++;
         document.getElementById("output").textContent = "Correct!";
     } else {
-        document.getElementById("output").textContent = `Incorrect - the answer is ${ans};`
+        document.getElementById("output").textContent = `Incorrect - the answer is ${currentAns}`;
     }
-
     document.getElementById("score").textContent = `Score: ${score}`;
+
     questionIndex++;
-    document.getElementById("input").value = ""; 
+    if (questionIndex >= questionLength) {
+        document.getElementById("output").textContent += `\nThis is the end of the quiz, your score is ${score}/${questionLength}`;
+        document.getElementById("submitBtn").disabled = true;
+    } else {
+        showQuestion();
+    }
 }
 
-document.getElementById("submitBtn").addEventListener('click', () => {
-    algorithm();
-    if (questionIndex === questionLength) {
-        document.getElementById("output").textContent = `This is the end of the quiz, your score is ${score}/${questionLength}`;
-        document.getElementById("submitBtn").disabled = true;
-    }
-});
+document.getElementById("submitBtn").addEventListener("click", checkAnswer);
 
-algorithm();
+// Start the quiz
+showQuestion();
