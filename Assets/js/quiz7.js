@@ -1,5 +1,6 @@
 let question=[]
 let questIndex=0
+let questionLength=20
 let score =0
 
 function algorithm (){
@@ -17,8 +18,11 @@ function algorithm (){
         let corAns=document.getElementById("output").innerHTML=`Incorrect - the answer is ${ans}`
     }
     score =document.getElementById("score").innerHTML
+    questionIndex++
 }
+
 algorithm()
 
 
-
+if questionLength==questionIndex{
+    let final=document.getElementById("output").innerHTML=`This is the end of the quiz, your score is ${score}/20`
