@@ -7,7 +7,7 @@ function algorithm (){
     let b = Math.floor((Math.random()*2)+2)
     let y = Math.floor((Math.random()*2)+2)
     let z = Math.floor((Math.random()*2)+2)
-    let quest=document.getElementById("question")=`(${a}x+${y})(${b}x+${z})`
+    let quest=document.getElementById("question").innerHTML=`(${a}x+${y})(${b}x+${z})`
     let ans = `${a*b}x^2+${(a*z)+(b*y)}x+${y*z}`
     let input=document.getElementById("input").value
     if (input ==ans){
