@@ -15,11 +15,11 @@ A quiz on factorising expressions:
 
 # Disclaimer
 I made this website after my foundation year with minimal knowledge on CSS and JS respectively. I knew Python really well and I designed and implemented the algorithms in Python and used AI to translate the code to JS and design the UI. I learned
-a lot from this project as I learned bh "doing" familiarising myself with how things work. For example I now know that to generate a random number I use Math.floor(Math.Random() *x) and you can see me using this being apploed in <link href="https://github.com/KallamSamad/Rock-Paper-Scissors/blob/main/RPS.js">here in the quiz logic</link>. As of 08/08/25 I have a very good grasp on JS and now know how to use JS, CSS and HTML and git. If you see my commit logs now they are more detailed and less generic, I am not soley relying on AI anymore to write my code.
+a lot from this project as I learned bh "doing" familiarising myself with how things work. For example I now know that to generate a random number I use Math.floor(Math.Random() *x) and you can see me using this being apploed in[here in the quiz logic](https://github.com/KallamSamad/Rock-Paper-Scissors/blob/main/RPS.js). As of 08/08/25 I have a very good grasp on JS and now know how to use JS, CSS and HTML and git. If you see my commit logs now they are more detailed and less generic, I am not soley relying on AI anymore to write my code.
 
 I used AI to translate the python code 
-For example, in <link href="https://github.com/KallamSamad/DyoverDx/blob/main/Assets/js/quiz4.1.js">facorising single brackets</link> I used a recursive function 
-called gcd so the expression is fully factorised by and gives the correct answer. This works because it is how the Euclidian Algorithm works which I read up on in <link href="https://mrce.in/ebooks/Maths-Discrete%20Mathematics%20&%20its%20Applications%208th%20Ed.pdf">Discrete mathematics and its applications</link>
+For example, in [facorising single brackets](https://github.com/KallamSamad/DyoverDx/blob/main/Assets/js/quiz4.1.js) I used a recursive function 
+called gcd so the expression is fully factorised by and gives the correct answer. This works because it is how the Euclidian Algorithm works which I read up on in [Discrete mathematics and its applications](https://mrce.in/ebooks/Maths-Discrete%20Mathematics%20&%20its%20Applications%208th%20Ed.pdf)
 
 # How to install
 
