@@ -21,7 +21,7 @@ I used AI to translate the python code
 For example, in <link href="https://github.com/KallamSamad/DyoverDx/blob/main/Assets/js/quiz4.1.js">facorising single brackets</link> I used a recursive function 
 called gcd so the expression is fully factorised by and gives the correct answer. This works because it is how the Euclidian Algorithm works which I read up on in <link href="https://mrce.in/ebooks/Maths-Discrete%20Mathematics%20&%20its%20Applications%208th%20Ed.pdf">Discrete mathematics and its applications</link>
 
-#How to install
+# How to install
 
 1. Fork and clone the repo
 2. Run index.html in browser
