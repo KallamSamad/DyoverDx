@@ -7,8 +7,10 @@ Contains many useful pages for GCSE students on mathematics. It also has interac
 # images
 index.html:
 <img width="1213" height="902" alt="image" src="https://github.com/user-attachments/assets/a8c973c5-2932-4cb7-9d88-b00916212f89" />
-A quiz on factorising quadratics:
-<img width="570" height="274" alt="image" src="https://github.com/user-attachments/assets/a24f01ef-9395-4a41-bf0c-e80ed7076989" />
+A quiz on factorising expressions:
+<img width="1282" height="299" alt="image" src="https://github.com/user-attachments/assets/3217b651-e405-4e50-b921-0be3e1f3dedb" />
+
+
 
 
 #Disclaimer
