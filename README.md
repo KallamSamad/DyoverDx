@@ -4,14 +4,22 @@
 
 Contains many useful pages for GCSE students on mathematics. It also has interactive JavaScript quizzes at the end of the topic. 
 
+# images
+index.html:
+<img width="1213" height="902" alt="image" src="https://github.com/user-attachments/assets/a8c973c5-2932-4cb7-9d88-b00916212f89" />
+A quiz on factorising quadratics:
+<img width="570" height="274" alt="image" src="https://github.com/user-attachments/assets/a24f01ef-9395-4a41-bf0c-e80ed7076989" />
 
 
-<p style ="color:red;">#Disclaimer</p>
+#Disclaimer
 I made this website after my foundation year with minimal knowledge on CSS and JS respectively. I knew Python really well and I designed and implemented the algorithms in Python and used AI to translate the code to JS and design the UI. I learned
-a lot from this project as I learned bh "doin" familiarising myself with how things work. For example I now know that to generate a random number I use Math.floor(Math.Random() *x) and you can see me using this 
-
+a lot from this project as I learned bh "doing" familiarising myself with how things work. For example I now know that to generate a random number I use Math.floor(Math.Random() *x) and you can see me using this being apploed in <link href="https://github.com/KallamSamad/Rock-Paper-Scissors/blob/main/RPS.js">here in the quiz logic</link>. As of 08/08/25 I have a very good grasp on JS and now know how to use JS, CSS and HTML and git. If you see my commit logs now they are more detailed and less generic, I am not soley relying on AI anymore to write my code.
 
 I used AI to translate the python code 
 For example, in <link href="https://github.com/KallamSamad/DyoverDx/blob/main/Assets/js/quiz4.1.js">facorising single brackets</link> I used a recursive function 
 called gcd so the expression is fully factorised by and gives the correct answer. This works because it is how the Euclidian Algorithm works which I read up on in <link href="https://mrce.in/ebooks/Maths-Discrete%20Mathematics%20&%20its%20Applications%208th%20Ed.pdf">Discrete mathematics and its applications</link>
-I applied my theory into making these algorithms with python and in the early stages of this website I used AI to translate Python code to JS code since my knowledge on JS was minimal. As of 08/08/25 I have a very good grasp on JS and now know
+
+#How to install
+
+1. Fork and clone the repo
+2. Run index.html in browser
